@@ -1,5 +1,5 @@
 <template>
-  <nav :class="{ 'navbar-transparent': isHomePage(), 'navbar-blue': !isHomePage() }">
+  <nav :class="{ 'navbar-transparent': isTransparent, 'navbar-blue': !isTransparent }">
     <!-- Barra de navegación para móviles -->
     <div class="mobile-nav" v-if="isMobile">
       <span class="logo">
@@ -50,10 +50,10 @@
           v-if="latamMenuOpen" 
           class="latam-popup"
         >
-          <router-link :to="{ name: 'FilialPage', params: { nombre: 'centroamerica' } }" class="latam-link">Centroamérica</router-link>
-          <router-link :to="{ name: 'FilialPage', params: { nombre: 'colombia' } }" class="latam-link">Colombia</router-link>
-          <router-link :to="{ name: 'FilialPage', params: { nombre: 'mexico' } }" class="latam-link">México</router-link>
-          <router-link :to="{ name: 'FilialPage', params: { nombre: 'peru' } }" class="latam-link">Perú</router-link>
+          <router-link :to="{ name: 'FilialPage', params: { nombre: 'centroamerica' } }" class="latam-link" @click="closeMenu">Centroamérica</router-link>
+          <router-link :to="{ name: 'FilialPage', params: { nombre: 'colombia' } }" class="latam-link" @click="closeMenu">Colombia</router-link>
+          <router-link :to="{ name: 'FilialPage', params: { nombre: 'mexico' } }" class="latam-link" @click="closeMenu">México</router-link>
+          <router-link :to="{ name: 'FilialPage', params: { nombre: 'peru' } }" class="latam-link" @click="closeMenu">Perú</router-link>
         </div>
         <button class="login-button" @click="openLoginModal">LOGIN</button>
       </span>
@@ -63,7 +63,6 @@
 
 <script>
 import { isLoginModalOpen } from "@/composables/useLoginModal";
-import { useRoute } from "vue-router";
 export default {
   name: 'MainNavbar',
   data() {
@@ -72,6 +71,7 @@ export default {
       menuOpen: false, // Controla si el menú está abierto o cerrado en móviles
       isMobile: window.innerWidth <= 1150, // Determina si es un dispositivo móvil
       latamMenuOpen: false,
+      isTransparent: true,
     };
   },
   methods: {
@@ -87,13 +87,20 @@ export default {
     openLoginModal() {
       isLoginModalOpen.value = true;
     },
-    isHomePage() {
-      const route = useRoute(); // Usamos useRoute para obtener la información de la ruta activa
-      return route.name === "HomePage"; // Comparamos si la ruta es la página principal
+    handleScroll() {
+      // Aquí defines el punto en el que deja de ser transparente
+      this.isTransparent = window.scrollY < 200; // ajusta este valor según el tamaño del video
+    },
+    closeMenu() {
+      this.latamMenuOpen = false;
     },
   },
   mounted() {
     window.addEventListener('resize', this.handleResize); // Escucha el cambio de tamaño de la pantalla
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   unmounted() {
   window.removeEventListener('resize', this.handleResize);

@@ -3,22 +3,23 @@
       <article class="article-contact">
         <p class="title-articles blue">CONTÁCTANOS</p>
         <p class="title-article-2">Mándanos un <span class="blue">Mensaje</span></p>
-        <div class="text-contact">
-            <p class="transparent">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque voluptas molestiae magnam ut tempora cupiditate optio? Nostrum distinctio quia quo?
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque aspernatur dignissimos sit ratione neque laboriosam asperiores tempore consectetur pariatur minima!
+        <div v-for="(contacto, index) in contactos" :key="index" class="text-contact">
+            <p class="red">{{ contacto.nombre }}:</p>
+            <p class="info-contacto">
+                <span v-if="contacto.direccion">Dirección: {{ contacto.direccion }}<br></span>
+                <span v-if="contacto.correo">
+                    Correo:
+                    <a :href="`mailto:${contacto.correo}`" class='blue'>{{ contacto.correo }}</a>
+                    <br>
+                </span>
+                <span v-if="contacto.telefono">
+                    Número Telefónico:
+                    <a :href="`tel:${contacto.telefono}`" class='blue'>{{ contacto.telefono }}</a>
+                </span>
+
             </p>
         </div>
-        <div class="info-contact">    
-            <p>OFFICE ADDRESS</p>
-            <p><i class="bi bi-geo-alt-fill"></i>  Gallo de oro 74</p>
-            <p>EMAIL ADDRESS</p>
-            <p><i class="bi bi-envelope-fill"></i>  sdelarosa47@gmail.com</p>
-            <p> PHONE NUMBER</p>
-            <p><i class="bi bi-telephone-fill"></i> 5633715948</p>
-        </div>
+
       </article>
       <article class="article-form">
         <form class="form-contact">
@@ -38,7 +39,7 @@
             <label for="email">Email</label><br>
             <input type="email" id="email" required />
             <p class="text-help">Example: mail@piplatam.com</p>
-            <label for="comentario">Comentarios/Preguntas</label><br>
+            <label for="comentario">Mensaje</label><br>
             <textarea></textarea>
             <p class="text-help">¿Cómo podemos ayudarte?</p>
             <div class="button-container">
@@ -54,6 +55,48 @@
  <script>
   export default {
     name: 'ContactPage',
+    data() {
+  return {
+    contactos: [
+      {
+        nombre: 'PiP México',
+        direccion: 'Torre Esmeralda II, Boulevard Manuel Ávila Camacho N° 36, Piso 22, Lomas de Chapultepec, CP 11000, Ciudad de México',
+        correo: 'comercial@piplatam.mx',
+        telefono: '+52(55)94483000'
+      },
+      {
+        nombre: 'PiP Colombia',
+        direccion: 'Carera 9, N°77-67, Oficina 902, Bogotá',
+        correo: 'comercial@piplatam.co',
+        telefono: '+57(60)17448480'
+      },
+      {
+        nombre: 'PiP Perú',
+        direccion: 'Av. República de Panamá N°3418, Oficina 2101 San Isidro, Edificio Barlovento',
+        correo: 'comercialpe@piplatam.pe',
+        telefono: '+51(1)6156161'
+      },
+      {
+        nombre: 'PiP Costa Rica',
+        direccion: null,
+        correo: 'dvarela@piplatam.cr',
+        telefono: '+50622047005'
+      },
+      {
+        nombre: 'PiP Panamá',
+        direccion: null,
+        correo: 'rcervantes@piplatam.com.pa',
+        telefono: null
+      },
+      {
+        nombre: 'PiP Honduras',
+        direccion: null,
+        correo: 'fgonzalezq@piplatam.hn',
+        telefono: null
+      }
+    ]
+  }
+}
   };
  </script>
 
@@ -77,12 +120,14 @@
     box-sizing: border-box;
     }
 
-    .text-contact{
-        width: 85%;
+    .red{
+        color: #d83127;
+        margin: 0 !important;
     }
-
-    .info-contact{
-        margin: 2.5em 0 0 1em;
+    
+    .info-contacto{
+        width: 85%;
+        margin-top: 0;
     }
 
     .info-contact i{
@@ -141,6 +186,10 @@
         font-size: 0.7em;
         color: rgba(255, 255, 255, 0.6);
         margin: 0.4em 0 3em 0;
+    }
+
+    a {
+        text-decoration: none !important;
     }
 
 

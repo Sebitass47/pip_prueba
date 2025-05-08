@@ -4,98 +4,89 @@
       <img :src="require('@/assets/img/about.png')" alt="Logo">
       <div class="text-nosotros">
         <h1 class="title-articles blue">NOSOTROS</h1>
-        <h1  class="title-article-2">LOREM IPSUM DOLOR SIT AMET, <span class="blue">CONSECTETUR</span></h1>
-        <p class="transparent">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam quis, voluptatem voluptas atque architecto ipsum debitis?</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde ullam dolorem aut mollitia in, soluta necessitatibus tempore voluptatem voluptas atque architecto ipsum debitis?</p>
-        <div class="valores-container">
-          <ul class="transparent">
-            <li>Lorem ipsum </li>
-            <li>Lorem ipsum</li>
-            <li>Lorem ipsum</li>
-          </ul>
-          <ul class="transparent">
-            <li>Lorem ipsum</li>
-            <li>Lorem ipsum</li>
-            <li>Lorem ipsum</li>
-          </ul>
-        </div>
+        <h1  class="title-article-2">PROVEEDOR Y SOCIO <span class="blue">ESTRATÉGICO</span></h1>
+        <p class="transparent">Somos un proveedor de precios aprobado y regulado por las principales comisiones en los mercados donde operamos. Desde nuestros inicios hemos sido líderes en el servicio de cálculo, determinación y proveeduría o suministro de precios actualizados para valuación de valores, documentos e instrumentos financieros.</p>
+        <p>Proveemos soluciones financieras completas, consistentes y oportunas con alta tecnología e ingeniería creativa e innovadora en materia de valuación de activos y pasivos, valuación de derivados, modelado, creación de índices, asesoría financiera y administración de riesgos.</p>
       </div>
     </article>
+    <DatosComponent/>
     <article class="article-nosotros margin-menus">
       <div class="text-valores">
-        <h1 class="title-articles blue">VALORES</h1>
-        <h1 class="title-article-2">LOREM IPSUM DOLOR SIT AMET, <span class="blue">CONSECTETUR</span></h1>
-        <p class="transparent">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam quis, fuga odio voluptate reprehenderit eos?</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam quis, fuga odio voluptate reprehenderit eos? Unde ullam dolorem aut mollitia in, soluta necessitatibus tempore voluptatem voluptas atque architecto ipsum debitis?</p>
+        <h1 class="title-articles blue">OBJETIVO</h1>
+        <h1 class="title-article-2">DESARROLLO Y  <span class="blue">TRANSPARENCIA</span></h1>
+        <p>Nuestro objetivo es contribuir al desarrollo y transparencia de los sistemas financieros Latinoamericanos, a través de la generación de precios, valuaciones, índices, herramientas de análisis, servicios de consultoría y capacitación de la más alta calidad en una manera consistente, transparente, confiable y oportuna.</p>
       </div>
       <div class="vision-mision-container">
         <div class="vision">
-          <h1>VISIÓN</h1>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui asperiores, accusantium fugiat eveniet dignissimos doloribus inventore modi veniam perspiciatis, in, iste nulla at. Magnam eum error, voluptates assumenda expedita voluptas?</p>
+          <h1>MISIÓN</h1>
+          <p>Contribuir al fortalecimiento de un sistema financiero más informado y transparente, ofreciendo soluciones integrales y herramientas de vanguardia que, bajo un estricto cumplimiento regulatorio, les permita a nuestros clientes tomar decisiones estratégicas y bien fundamentadas.</p>
         </div>
         <div class="mision">
-          <h1>MISIÓN</h1>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui asperiores, accusantium fugiat eveniet dignissimos doloribus inventore modi veniam perspiciatis, in, iste nulla at. Magnam eum error, voluptates assumenda expedita voluptas?</p>
+          <h1>VISIÓN</h1>
+          <p>Convertirnos en el socio estratégico de nuestros clientes, fusionando talento y liderazgo para establecer nuevos estándares de calidad y atención, garantizando transparencia y valor en cada servicio que ofrecemos.</p>
         </div>
       </div>
     </article>
     <article class="expertos-valores">
-      <h1 class="title-articles blue">EXPERTOS</h1>
-      <h1 class="title-article-2">CONOCE A NUESTRO <span class="blue">EQUIPO</span></h1>
-      <p class="transparent">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam quis, fuga odio voluptate reprehenderit eos? Unde ullam dolorem aut mollitia in, soluta necessitatibus tempore voluptatem voluptas atque architecto ipsum debitis?</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam quis, fuga odio voluptate reprehenderit eos? Unde ullam dolorem aut mollitia in, soluta necessitatibus tempore voluptatem voluptas atque architecto ipsum debitis?</p>
-      <div class="expertos-imagenes-container">
-        <div class="card">
-          <img :src="require('@/assets/img/expert.png')" alt="Experto">
-          <h1 class="nombre-experto">LOREM IPSUM</h1>
-          <p class="cargo-experto transparent">Lorem ipsum</p>
-          <hr/>
-          <span class="redes-experto">
-            <i class="bi bi-linkedin"></i>
-            <i class="bi bi-twitter"></i>
-            <i class="bi bi-twitter"></i>
-          </span>
+      <h1 class="title-articles blue">NUETRA HISTORIA</h1>
+      <h1 class="title-article-2">BUSCANDO LA <span class="blue">PRÓXIMA FRONTERA</span></h1>
+      <p class="transparent">Nuestros logros son el resultado de la dedicación, el trabajo en equipo y la innovación constante.</p>
+      <p>Somos una empresa mexicana con más de 25 años de experiencia en la proveeduría de precios, y que nace para satisfacer la necesidad del mercado financiero de contar con valuaciones justas, precisas y confiables, consolidándonos como líderes en el sector. Como la primera empresa privada autorizada como proveedor de precios en México, hemos marcado la diferencia a través de nuestro compromiso con la calidad y la transparencia. Nuestra visión nos ha llevado a expandirnosa mercados clave en Latinoamérica, incluyendo Perú, Colombia, Costa Rica, Panamá y Honduras, fortaleciendo nuestro impacto regional.</p>
+      <div class="timeline-container">
+        <div class="timeline-item left">
+          <p>Como parte de nuestra experiencia, PiP cuenta con diversos logros que respaldan nuestra trayectoria y compromiso.</p>
         </div>
-        <div class="card">
-          <img :src="require('@/assets/img/expert.png')" alt="Experto">
-          <h1 class="nombre-experto">LOREM IPSUM</h1>
-          <p class="cargo-experto transparent">Lorem ipsum</p>
-          <hr/>
-          <span class="redes-experto">
-            <i class="bi bi-linkedin"></i>
-            <i class="bi bi-twitter"></i>
-            <i class="bi bi-twitter"></i>
-          </span>
+        <div class="timeline-line">
+          <span class="circle"></span>
         </div>
-        <div class="card">
-          <img :src="require('@/assets/img/expert.png')" alt="Experto">
-          <h1 class="nombre-experto">LOREM IPSUM</h1>
-          <p class="cargo-experto transparent">Lorem ipsum</p>
-          <hr/>
-          <span class="redes-experto">
-            <i class="bi bi-linkedin"></i>
-            <i class="bi bi-twitter"></i>
-            <i class="bi bi-twitter"></i>
-          </span>
+        <div class="timeline-item right">
+          <p>El desarrollo e implementación de una Inteligencia Artificial que potencializa la operativa de PiP, optimizando tiempos de respuesta a procesos operativos, así como minimizando errores humanos.</p>
         </div>
-        <div class="card">
-          <img :src="require('@/assets/img/expert.png')" alt="Experto">
-          <h1 class="nombre-experto">LOREM IPSUM</h1>
-          <p class="cargo-experto transparent">Lorem ipsum</p>
-          <hr/>
-          <span class="redes-experto">
-            <i class="bi bi-linkedin"></i>
-            <i class="bi bi-twitter"></i>
-            <i class="bi bi-twitter"></i>
-          </span>
+
+        <div class="timeline-item left">
+          <p>PiP Centroamérica obtiene la aprobación por la Comisión Nacional de Bancos y Seguros como la primera empresa proveedora de precios en Honduras.</p>
+        </div>
+        <div class="timeline-line">
+          <span class="circle"></span>
+        </div>
+        <div class="timeline-item right">
+          <p>PiP Colombia junto con nuestra empresa hermana Quantit, logran ser parte de los valuadores oficiales del fondo inmobiliaria más grande de Colombia.</p>
+        </div>
+
+        <div class="timeline-item left">
+          <p>La creación de una API para la entrega de información, facilitando la integración, conectividad y automatización de procesos para los clientes.</p>
+        </div>
+        <div class="timeline-line">
+          <span class="circle"></span>
+        </div>
+        <div class="timeline-item right">
+          <p>PiP México es la primera empresa en generar índices de deuda en el mercado Latinoamericano.</p>
+        </div>
+
+        <div class="timeline-item left">
+          <p>PiP Centroamérica actúa como el agente calculador de la Tasa de Referencia Interbancaria (TRI) en Costa Rica.</p>
+        </div>
+        <div class="timeline-line">
+          <span class="circle"></span>
+        </div>
+        <div class="timeline-item right">
+          <p>PiP Perú es el único proveedor de precios en el mercado financiero peruano.</p>
         </div>
       </div>
     </article>
+    <PaisesComponent/>
   </section>
 </template>
 <script>
+import DatosComponent from '../components/DatosNumericos.vue';
+import PaisesComponent from '../components/Paises.vue';
 export default {
+  
   name: 'NosotrosPage',
+  components: {
+      DatosComponent,
+      PaisesComponent
+    },
 };
 </script>
 
@@ -111,7 +102,7 @@ section{
 
 .article-nosotros{
   width: 90%;
-  min-height: 85vh;
+  min-height: 50vh;
   display: flex;
   margin-top: 70px; 
   flex-direction: row;
@@ -148,10 +139,6 @@ section{
   width: 95%;
 }
 
-.margin-menus{
-  margin-top: -10em !important;
-}
-
 .vision-mision-container{
   width: 40%;
   display: flex;
@@ -163,6 +150,7 @@ section{
 
 .vision, .mision {
   max-width: 300px;
+  min-height: 300px;
   background-color: #151b4d;
   border: #009ed8 1px solid;
   margin: 1em;
@@ -183,53 +171,64 @@ section{
 .expertos-valores > p{
   width: 80%
 }
-.expertos-imagenes-container{
-  width: 100%;
-  margin: 2em 0 4em 0;
-  display: flex;
+
+.timeline-container {
   display: grid;
-  gap: 2em; /* Espacio entre las tarjetas */
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-.card{
-  padding: 0.5em;
-  background-color: #21244d;
-  border-radius: 8px;
-}
-
-.card img{
-  border-radius: 5px;
-  width: 100%;
-  object-fit: cover;
+  width: 70%;
+  grid-template-columns: 1fr 40px 1fr;
+  padding: 40px;
+  background-color: #07071A; /* fondo oscuro */
+  color: white;
+  font-family: sans-serif;
 }
 
-.nombre-experto{
-  font-weight: 500;
-  margin: 0.5em 0 0 0;
-}
-
-.cargo-experto{
-  font-weight: 200;
-  margin-bottom: 1em;
-  margin: 0
-}
-
-hr{
-  border: none;
-  height: 1px; /* Grosor del `<hr>` */
-  background-color: #24456c;
-  width: 90px;
-  margin-bottom: 1em;
-}
-
-.redes-experto{
-  margin: 0 20%;
+.timeline-item {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-around;
-  color: #8cd3ff;
 }
+
+.timeline-item.left {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.timeline-item.right {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+
+.timeline-item p {
+  background-color: transparent;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px;
+  line-height: 1.5;
+}
+
+.timeline-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.timeline-line::before {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 100%;
+  background-color: #00B1FF; /* azul de la línea */
+  z-index: 0;
+}
+
+.circle {
+  width: 16px;
+  height: 16px;
+  background-color: #00B1FF;
+  border-radius: 50%;
+  z-index: 1;
+}
+
 @media (max-width: 1200px) {
   .article-nosotros img{
     width: 70%;
