@@ -12,6 +12,7 @@
             <li>Curvas Oficiales</li>
             <li>Matrices de Riesgo</li>
           </ul>
+          <router-link to="/contacto" class="button-contact dark-blue">Contáctanos</router-link>
         </div>
         <div class="card blue-card">
           <h1 class="title-card">SOLUCIONES</h1>
@@ -26,15 +27,17 @@
             <li>Superficies</li>
             <li>Valuaciones Especiales</li>
           </ul>
+          <router-link to="/contacto" class="button-contact white">Contáctanos</router-link>
         </div>
         <div class="card grey">
           <h1 class="title-card">PERSONALIZADOS</h1>
           <p class="text-card">Productos hechos a la medida del cliente cuyo insumo principal es un producto o servicio ya generado previamente por PiP</p>
           <ul>
-            <li>Vectores Oficiales</li>
-            <li>Curvas Oficiales</li>
-            <li>Matrices de Riesgo</li>
+            <li>Complejo</li>
+            <li>Medio</li>
+            <li>Simple</li>
           </ul>
+          <router-link to="/contacto" class="button-contact  dark-blue">Contáctanos</router-link>
         </div>
       </div>
     </article>
@@ -68,6 +71,9 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 .card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   padding: 1em ;
   background-color: #21244d;
   border-radius: 20px;  
@@ -80,10 +86,11 @@
 
 .text-card{
   text-align: left;
-  margin-bottom: 3em;
+  margin-bottom: 1em;
 }
 
 .card ul{
+  min-height: 200px;
   text-align: left;
 }
 
@@ -96,4 +103,25 @@
   background-color: #009ed9;
   color:white;
 }
+
+.button-contact{
+    padding: 1em 2.5em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1em;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 15px;
+    text-decoration: none;
+  }
+
+  .dark-blue{
+    background-color: #161b4e;
+    color: white;
+  }
+
+  .white{
+    background-color: white;
+    color: #161b4e;
+  }
 </style>

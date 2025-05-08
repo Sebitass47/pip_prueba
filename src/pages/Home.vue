@@ -20,8 +20,8 @@
         <h1 class="title-articles blue">LÍDER EN VALUACIONES</h1>
         <h1  class="title-article-2">SOLUCIONES FINANCIERAS <span class="blue">CONSISTENTES Y OPORTUNAS</span></h1>
         <p class="transparent">PiP produce más de 100,000 precios diarios de valuación de instrumentos financieros, para los cinco países en los que tiene presencia.</p>
-        <p>Somos la corporación multinacional líder en valuaciones a precios razonables (fair value) oficiales e independientes de activos financieros en Latinoamérica, siendo la fuente uniforme y completa de información oportuna y auditable de mercados financieros latinoamericanos que distribuye cierres oficiales.</p>
-        <button class="button-blue">Saber más</button>
+        <p>Somos la corporación multinacional líder en valuaciones a precios razonables (fair value) oficiales e independientes de activos financieros en Latinoamérica, siendo la fuente uniforme y completa de información oportuna y auditable de mercados financieros latinoamericanos que distribuye cierres oficiales.</p><br/>
+        <router-link to="/servicios" class="button-blue">Saber más</router-link>
       </div>
     </article>
     <article class="article-lider-valuaciones heigh-reduce">

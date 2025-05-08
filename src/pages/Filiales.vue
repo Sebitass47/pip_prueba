@@ -4,12 +4,23 @@
         <div class="background-filiales">
           <img src="@/assets/img/filiales/background.jpg" alt="Imagen de fondo" class="background-image">
         </div>
-        <h1 class="title-article-2">LOREM IPSUM DOLOR SIT AMET, <span class="blue">CONSECTETUR</span></h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam quis, fuga odio voluptate reprehenderit eos? Unde ullam dolorem aut mollitia in, soluta necessitatibus tempore voluptatem voluptas atque architecto ipsum debitis?</p>
+        <h1 class="title-article-2">SOLUCIONES FINANCIEROS CON <span class="blue">ALTA TECNOLOGÍA</span></h1>
+        <p>Somos la empresa autorizada para el cumplimiento de las obligaciones locales de
+          valuación por las entidades regulatorias financieras de México, Costa Rica, Perú,
+          Panamá y Colombia.
+        </p>
         <div class="menu-filiales">
-          <span class="opcion-menu"><i class="bi bi-clock-fill"></i><br/>HORARIOS DE<br/>LIBERACIÓN</span>
-          <span class="opcion-menu"><i class="bi bi-folder-plus"></i><br/>MANUALES</span>
-          <span class="opcion-menu"><i class="bi bi-bank2"></i><br/>GOBIERNO<br/>CORPORATIVO</span>
+          <span class="opcion-menu tabla-horarios"><TablaHorarios /></span>
+          <span class="opcion-menu">
+            <p>
+              <i class="bi bi-folder-plus"></i><br/>MANUALES
+            </p>
+          </span>
+          <span class="opcion-menu">
+            <p>
+              <i class="bi bi-bank2"></i><br/>GOBIERNO<br/>CORPORATIVO
+            </p>
+          </span>
         </div>
       </article>
       <article class="indicadores">
@@ -70,9 +81,10 @@
   
   <script>
   import LineaChart from "@/components/LineaChart.vue";
+  import TablaHorarios from '@/components/TablaHorarios.vue'
   export default {
     name: 'FilialPage',
-    components: { LineaChart },
+    components: { LineaChart, TablaHorarios },
     data() {
       return {
         lugar: this.$route.params.nombre,
@@ -207,7 +219,6 @@
   <style scoped>
   section{
     background-color: #03010f;
-    overflow: scroll;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -219,7 +230,7 @@
     position: absolute;
     width: 100%;
     margin-top: -10px;
-    height: 85vh;
+    height: 100vh;
     overflow: hidden;
     z-index: 2;
   }
@@ -243,29 +254,37 @@
   }
 
   .article-filiales h1{
-    margin-top: 10em;
-    margin-left: 15rem;
+    margin-top: 7em;
+    margin-left: 10rem;
     width: 50%;
     z-index: 3;
   }
   .article-filiales p {
     width: 45%;
-    margin-left: 15rem;
+    margin-left: 10rem;
     margin-bottom: 5em;
     z-index: 3;
   }
 
   .menu-filiales{
     display: grid;
-    margin-left: 15rem;
+    margin-left: 10rem;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    width: 55%;
+    width: 80%;
     gap: 3em;
     z-index: 3;
     /* margin-top: 3em; */
   }
 
+  .tabla-horarios{
+    grid-column: span 2;
+    padding: 0.5em 0 0 0 !important;
+  }
+
   .opcion-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 1em;
     border-radius: 10px;
     border: 3px solid #009ed8;
@@ -286,7 +305,14 @@
     color: #009ed8;
   }
 
+  .opcion-menu p{
+    margin: 0 !important;
+    text-align: center;
+    width: 100%;
+  }
+
   .indicadores{
+    margin-top: 3em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -426,7 +452,7 @@
     margin-bottom: 5em;
   }
   .menu-filiales{
-   width: 80%;
+   width: 90%;
    margin-left: 5em;
   }
 
@@ -451,9 +477,23 @@
     margin-bottom: 3em;
   }
   .menu-filiales{
-   width: 80%;
-   margin-left: 2.5em;
-   margin-bottom: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-left: 0em;
+    margin-bottom: 0em;
+  }
+
+  .opcion-menu{
+    width: 90%;
+    padding: 0;
+  }
+
+  .tabla-horarios{
+    grid-column: span 2;
+    padding: 0.5em 0 0 0 !important;
   }
 
   .indicadores{

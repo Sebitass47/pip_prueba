@@ -16,6 +16,7 @@
       >
         <div class="modal">
           <router-link to="/nosotros" class="link">NOSOTROS</router-link>
+          <router-link to="/servicios" class="link">SERVICIOS</router-link>
           <router-link to="/contacto" class="link">CONTACTO</router-link>
           <span class="link" @click.prevent="toggleLatamMenu">
             FILIALES
@@ -40,6 +41,7 @@
       </span>
       <span class="links">
         <router-link to="/nosotros" class="link">NOSOTROS</router-link>
+        <router-link to="/servicios" class="link">SERVICIOS</router-link>
         <router-link to="/contacto" class="link">CONTACTO</router-link>
         <span class="link" @click.prevent="toggleLatamMenu">
           FILIALES 

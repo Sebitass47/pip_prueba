@@ -10,9 +10,12 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
 import MainNavbar from './components/Navbar.vue';
 import LoginComponent from './components/Login.vue';
 import MainFooter from './components/Footer.vue';
+import { useGeo } from './composables/useGeo';
+
 export default {
   name: 'App',
   components: {
@@ -20,6 +23,13 @@ export default {
     LoginComponent,
     MainFooter
   },
+  setup() {
+    const { loadGeoData } = useGeo();
+
+    onMounted(() => {
+      loadGeoData(); // Se ejecuta una vez al montar la app
+    });
+  }
 };
 </script>
 
@@ -61,6 +71,7 @@ main{
   border: none;
   border-radius: 5px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  text-decoration: none;
 }
 
 .transparent{
