@@ -252,6 +252,10 @@ section{
       width: 50%;
     }
 
+    .timeline-container {
+      width: 100%;
+    }
+
   }
 
   @media (max-width: 860px) {

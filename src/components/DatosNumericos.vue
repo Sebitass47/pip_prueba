@@ -29,5 +29,13 @@ export default {
   justify-content: space-between;
   text-align: center;
 }
-
+@media (max-width: 768px) {
+    .datos-numericos{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: center;
+        }
+  }
 </style>

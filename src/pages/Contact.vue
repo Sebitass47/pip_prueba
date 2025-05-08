@@ -39,6 +39,16 @@
             <label for="email">Email</label><br>
             <input type="email" id="email" required />
             <p class="text-help">Example: mail@piplatam.com</p>
+            <label for="filial">Filial</label><br>
+            <select id="filial" required class="input">
+                <option value="México" selected>México</option>
+                <option value="Perú">Perú</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Costa Rica">Costa Rica</option>
+                <option value="Panamá">Panamá</option>
+                <option value="Honduras">Honduras</option>
+            </select>
+            <p class="text-help">Selecciona la filial correspondiente</p>
             <label for="comentario">Mensaje</label><br>
             <textarea></textarea>
             <p class="text-help">¿Cómo podemos ayudarte?</p>
@@ -107,7 +117,7 @@
         background: -webkit-linear-gradient(90deg, rgba(1,1,36,1) 0%, rgba(16,21,77,1) 100%);
         background: linear-gradient(90deg, rgba(1,1,36,1) 0%, rgba(16,21,77,1) 100%);
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#010124",endColorstr="#10154d",GradientType=1);
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -165,7 +175,7 @@
         margin-right: auto;
     }
 
-    input, textarea{
+    input, textarea, .input{
         width: 100%;
         border: none;
         border-radius: 8px;
@@ -210,6 +220,32 @@
 
         .info-contact{
             margin: 1em 0 0 1em;
+        }
+    }
+
+    @media (max-width: 1200px) {
+        .article-contact {
+            width: 40%;
+            margin-top: 2.8em;
+        }
+        
+        .article-form{
+            margin-top: 3em;
+            margin-left: 2em;
+            width: 45%;
+        }
+
+        .text-contact{
+            width: 100%;
+        }
+
+        .info-contact{
+            margin: 1em 0 0 1em;
+        }
+
+        .info-contacto{
+            width: 100%;
+            margin-top: 0;
         }
     }
 

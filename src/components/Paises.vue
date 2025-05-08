@@ -55,5 +55,18 @@
     .valores-container ul{
       width: 40%;
     }
+
+    @media (max-width: 768px) {
+        .valores-container ul{
+            width: 100%;
+        }
+
+        .text-nosotros{
+            width: 100%;
+            padding: 3em;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }   
+    }
 }
 </style>

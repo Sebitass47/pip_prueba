@@ -11,7 +11,7 @@
     </video>
     <h1 class="title">PRECIOS QUE INFORMAN,</h1>
     <h1 class="subtitle">SOLUCIONES QUE TRANSFORMAN</h1>
-    <button class="button-blue fixed">CONÓCENOS</button>
+    <router-link to="/nosotros" class="button-blue fixed ">CONÓCENOS</router-link>
    </section>
    <section class="home-2">
     <article class="article-lider-valuaciones">
@@ -65,6 +65,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
   }
 
   .home{
@@ -111,7 +112,8 @@
   .fixed{
     position: fixed;
     top: 65%;
-    z-index: -1;
+    z-index: 2;
+    text-decoration: none;
   }
 
   .heigh-reduce{
@@ -126,6 +128,7 @@
     justify-content: center;
     align-items: center;
     scroll-padding-top: 80px;
+    z-index: 3;
   }
 
   .article-lider-valuaciones{
@@ -188,6 +191,10 @@
       z-index: -1; /* Coloca el video detrás del contenido */
     }
 
+    .indice-carga{
+      width: 93%;
+    }
+
     .title{
       z-index: 2;
     }
@@ -213,6 +220,10 @@
         padding: 0;
         display: flex;
         flex-direction: column;
+      }
+
+      .text-nosotros{
+        width: 80%;
       }
   }
   @media (max-width: 768px) {
