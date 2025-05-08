@@ -54,5 +54,68 @@
   .text-nosotros{
     width: 40%;
   }
+
+  @media (max-width: 1200px) {
+  .article-nosotros img{
+    width: 70%;
+  }
+
+  .text-nosotros{
+    width: 100%;
+    margin-left: 3em;
+  }
+
+  .text-valores h1{
+    width: 90%;
+  }
+
+  .text-valores p{
+    width: 90%;
+  }
+
+  .vision-mision-container{
+      flex-direction: row;
+      width: 50%;
+    }
+
+    .timeline-container {
+      width: 100%;
+    }
+
+  }
+
+  @media (max-width: 860px) {
+    .article-nosotros{
+      width: 100%;
+      margin-top: 70px;
+      min-height: 90vh;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .text-nosotros{
+      width: 90%;
+      margin-left: 0;
+    }
+
+    .article-nosotros img{
+      width: 90%;
+    }
+
+    .text-valores{
+      margin-left: 0;
+    }
+
+    .text-valores h1{
+      width: 100%;
+    }
+
+    .text-valores p{
+      width: 100%;
+    }
+
+  }
+
 </style>
   
