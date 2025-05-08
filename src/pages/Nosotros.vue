@@ -331,10 +331,16 @@ section{
     
     .expertos-valores{
       margin-top: 1em;
+      width: 90%;
     }
 
     .expertos-valores > p{
       width: 100%
+    }
+
+    .timeline-container {
+      width: 100%;
+      padding: 0;
     }
   }
 </style>

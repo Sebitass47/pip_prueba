@@ -90,7 +90,7 @@ main{
 
   @media (max-width: 768px) {
     .title-article-2{
-      font-size: 2.6em;
+      font-size: 2.4em;
     }
   }
 </style>
