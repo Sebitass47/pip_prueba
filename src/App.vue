@@ -87,4 +87,10 @@ main{
       font-size: 2.8em;
     }
   }
+
+  @media (max-width: 768px) {
+    .title-article-2{
+      font-size: 2.6em;
+    }
+  }
 </style>
