@@ -4,7 +4,7 @@
       <h1 class="title-article-2">LÍNEAS DE <span class="blue">NEGOCIO</span></h1>
       <p class="transparent">Sabemos de las necesidades de nuestros clientes, por eso es importante elegir lo que se requiere para cada uno de ellos.</p>
       <div class="cards-container">
-        <div class="card grey">
+        <div class="card grey" v-intersect>
           <h1 class="title-card">REGULADOS</h1>
           <p class="text-card">Productos que son exigidos a un proveedor de precios por regulación, sea propia o del cliente</p>
           <ul>
@@ -14,7 +14,7 @@
           </ul>
           <router-link to="/contacto" class="button-contact dark-blue">Contáctanos</router-link>
         </div>
-        <div class="card blue-card">
+        <div class="card blue-card" v-intersect>
           <h1 class="title-card">SOLUCIONES</h1>
           <p class="text-card">Productos complementarios a la proveeduría tradicional y que buscan satisfacer una necesidad particular del cliente. Implican la generación de contenido por parte de PiP.</p>
           <ul>
@@ -29,7 +29,7 @@
           </ul>
           <router-link to="/contacto" class="button-contact white">Contáctanos</router-link>
         </div>
-        <div class="card grey">
+        <div class="card grey" v-intersect>
           <h1 class="title-card">PERSONALIZADOS</h1>
           <p class="text-card">Productos hechos a la medida del cliente cuyo insumo principal es un producto o servicio ya generado previamente por PiP</p>
           <ul>

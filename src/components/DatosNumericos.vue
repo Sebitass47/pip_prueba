@@ -1,25 +1,61 @@
 <template>
     <article class="datos-numericos">
-        <div class="dato-numerico">
-            <h1 class="title"><span class="blue">+</span>100,000</h1>
-        <p class="transparent">Precios diarios de valuación</p>
-        </div>
-        <div class="dato-numerico">
-            <h1 class="title"><span class="blue">+</span>5</h1>
-        <p class="transparent">Paises en los que tenemos presencia</p>
-        </div>
-        <div class="dato-numerico">
-            <h1 class="title"><span class="blue">+</span>25</h1>
-            <p class="transparent">Precios diarios de valuación</p>
-        </div>
+      <div
+        class="dato-numerico"
+        v-for="(dato, index) in datos"
+        :key="index"
+        v-intersect="() => iniciarContador(index)"
+      >
+        <h1 class="title">
+          <span class="blue">+</span>{{ contadores[index] }}
+        </h1>
+        <p class="transparent">{{ dato.descripcion }}</p>
+      </div>
     </article>
-</template>
-
-<script>
-export default {
+  </template>
+  
+  <script>
+  export default {
     name: 'DatosComponent',
+    data() {
+      return {
+        datos: [
+          { final: 100000, descripcion: 'Precios diarios de valuación' },
+          { final: 5, descripcion: 'Paises en los que tenemos presencia' },
+          { final: 25, descripcion: 'Precios diarios de valuación' },
+        ],
+        contadores: [0, 0, 0],
+        yaAnimado: [false, false, false],
+      };
+    },
+    methods: {
+  iniciarContador(index) {
+    if (this.yaAnimado[index]) return;
+    this.yaAnimado[index] = true;
+
+    setTimeout(() => {
+        const total = this.datos[index].final;
+        const duration = 1500; // 1.5s
+        const steps = 30;
+        const incremento = total / steps;
+        let actual = 0;
+
+        const intervalo = setInterval(() => {
+            actual += incremento;
+            if (actual >= total) {
+            this.contadores[index] = total.toLocaleString();
+            clearInterval(intervalo);
+            } else {
+            this.contadores[index] = Math.floor(actual).toLocaleString();
+            }
+        }, duration / steps);
+        }, 500); // 2 segundos de espera antes de iniciar
+    }
+}
+
   };
-</script>
+  </script>
+  
 
 
 <style scoped>

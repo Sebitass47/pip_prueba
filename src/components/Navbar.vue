@@ -15,19 +15,19 @@
         @click.self="menuOpen = false"
       >
         <div class="modal">
-          <router-link to="/nosotros" class="link">NOSOTROS</router-link>
-          <router-link to="/servicios" class="link">SERVICIOS</router-link>
-          <router-link to="/contacto" class="link">CONTACTO</router-link>
+          <router-link to="/nosotros" class="link" @click="closeModal">NOSOTROS</router-link>
+          <router-link to="/servicios" class="link" @click="closeModal">SERVICIOS</router-link>
+          <router-link to="/contacto" class="link" @click="closeModal">CONTACTO</router-link>
           <span class="link" @click.prevent="toggleLatamMenu">
             FILIALES
             <i class="bi bi-caret-up-fill" v-if="latamMenuOpen"></i>
             <i class="bi bi-caret-down-fill" v-else></i>
           </span>
           <div v-if="latamMenuOpen" class="latam-mobile-submenu">
-            <router-link :to="{ name: 'FilialPage', params: { nombre: 'centroamerica' } }" class="latam-link">Centroamérica</router-link>
-            <router-link :to="{ name: 'FilialPage', params: { nombre: 'colombia' } }" class="latam-link">Colombia</router-link>
-            <router-link :to="{ name: 'FilialPage', params: { nombre: 'mexico' } }" class="latam-link">México</router-link>
-            <router-link :to="{ name: 'FilialPage', params: { nombre: 'peru' } }" class="latam-link">Perú</router-link>
+            <router-link :to="{ name: 'FilialPage', params: { nombre: 'centroamerica' } }" class="latam-link" @click="closeModal">Centroamérica</router-link>
+            <router-link :to="{ name: 'FilialPage', params: { nombre: 'colombia' } }" class="latam-link" @click="closeModal">Colombia</router-link>
+            <router-link :to="{ name: 'FilialPage', params: { nombre: 'mexico' } }" class="latam-link" @click="closeModal">México</router-link>
+            <router-link :to="{ name: 'FilialPage', params: { nombre: 'peru' } }" class="latam-link" @click="closeModal">Perú</router-link>
           </div>
           <button class="login-button" @click="openLoginModal">LOGIN</button>
         </div>
@@ -96,6 +96,9 @@ export default {
     closeMenu() {
       this.latamMenuOpen = false;
     },
+    closeModal(){
+      this.menuOpen = false;
+    }
   },
   mounted() {
     window.addEventListener('resize', this.handleResize); // Escucha el cambio de tamaño de la pantalla

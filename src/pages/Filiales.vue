@@ -4,19 +4,19 @@
         <div class="background-filiales">
           <img src="@/assets/img/filiales/background.jpg" alt="Imagen de fondo" class="background-image">
         </div>
-        <h1 class="title-article-2">SOLUCIONES FINANCIEROS CON <span class="blue">ALTA TECNOLOGÍA</span></h1>
-        <p>Somos la empresa autorizada para el cumplimiento de las obligaciones locales de
+        <h1 class="title-article-2 animated slide-in-left">SOLUCIONES FINANCIEROS CON <span class="blue">ALTA TECNOLOGÍA</span></h1>
+        <p class="animated slide-in-left"> Somos la empresa autorizada para el cumplimiento de las obligaciones locales de
           valuación por las entidades regulatorias financieras de México, Costa Rica, Perú,
           Panamá y Colombia.
         </p>
         <div class="menu-filiales">
-          <span class="opcion-menu tabla-horarios"><TablaHorarios /></span>
-          <span class="opcion-menu">
+          <span class="opcion-menu tabla-horarios" v-intersect><TablaHorarios/></span>
+          <span class="opcion-menu" v-intersect>
             <p>
               <i class="bi bi-folder-plus"></i><br/>MANUALES
             </p>
           </span>
-          <span class="opcion-menu">
+          <span class="opcion-menu" v-intersect>
             <p>
               <i class="bi bi-bank2"></i><br/>GOBIERNO<br/>CORPORATIVO
             </p>

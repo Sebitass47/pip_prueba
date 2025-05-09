@@ -1,6 +1,6 @@
 <template>
     <section>
-      <article class="article-contact">
+      <article class="article-contact animated slide-in-left" >
         <p class="title-articles blue">CONTÁCTANOS</p>
         <p class="title-article-2">Mándanos un <span class="blue">Mensaje</span></p>
         <div v-for="(contacto, index) in contactos" :key="index" class="text-contact">
@@ -22,7 +22,7 @@
 
       </article>
       <article class="article-form">
-        <form class="form-contact">
+        <form class="form-contact animated slide-in-right" >
             <h1>PODEMOS AYUDARTE</h1>
             <div class="name-lastname">
                 <label for="name">Nombre</label>

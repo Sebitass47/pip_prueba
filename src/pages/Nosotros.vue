@@ -1,8 +1,8 @@
 <template>
   <section>
     <article class="article-nosotros">
-      <img :src="require('@/assets/img/about.png')" alt="Logo">
-      <div class="text-nosotros">
+      <img :src="require('@/assets/img/about.png')" alt="Logo" class="animated slide-in-left">
+      <div class="text-nosotros animated slide-in-right">
         <h1 class="title-articles blue">NOSOTROS</h1>
         <h1  class="title-article-2">PROVEEDOR Y SOCIO <span class="blue">ESTRATÉGICO</span></h1>
         <p class="transparent">Somos un proveedor de precios aprobado y regulado por las principales comisiones en los mercados donde operamos. Desde nuestros inicios hemos sido líderes en el servicio de cálculo, determinación y proveeduría o suministro de precios actualizados para valuación de valores, documentos e instrumentos financieros.</p>
@@ -17,11 +17,11 @@
         <p>Nuestro objetivo es contribuir al desarrollo y transparencia de los sistemas financieros Latinoamericanos, a través de la generación de precios, valuaciones, índices, herramientas de análisis, servicios de consultoría y capacitación de la más alta calidad en una manera consistente, transparente, confiable y oportuna.</p>
       </div>
       <div class="vision-mision-container">
-        <div class="vision">
+        <div class="vision" v-intersect>
           <h1>MISIÓN</h1>
           <p>Contribuir al fortalecimiento de un sistema financiero más informado y transparente, ofreciendo soluciones integrales y herramientas de vanguardia que, bajo un estricto cumplimiento regulatorio, les permita a nuestros clientes tomar decisiones estratégicas y bien fundamentadas.</p>
         </div>
-        <div class="mision">
+        <div class="mision" v-intersect>
           <h1>VISIÓN</h1>
           <p>Convertirnos en el socio estratégico de nuestros clientes, fusionando talento y liderazgo para establecer nuevos estándares de calidad y atención, garantizando transparencia y valor en cada servicio que ofrecemos.</p>
         </div>
@@ -74,18 +74,21 @@
         </div>
       </div>
     </article>
+    <AlianzasComponent/>
     <PaisesComponent/>
   </section>
 </template>
 <script>
 import DatosComponent from '../components/DatosNumericos.vue';
 import PaisesComponent from '../components/Paises.vue';
+import AlianzasComponent from '../components/Alianzas.vue';
 export default {
   
   name: 'NosotrosPage',
   components: {
       DatosComponent,
-      PaisesComponent
+      PaisesComponent,
+      AlianzasComponent
     },
 };
 </script>

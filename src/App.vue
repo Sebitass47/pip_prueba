@@ -104,4 +104,82 @@ main{
       font-size: 2.4em;
     }
   }
+
+  /* Requiere: `animated` como clase base */
+.animated {
+  opacity: 0;
+  transition: all 2s ease;
+  will-change: transform, opacity;
+}
+
+.delay-2s {
+  animation-delay: 2s;
+}
+
+/* Rebote desde arriba */
+.bounce-in-top {
+  animation: bounceInTop 1s ease forwards;
+}
+@keyframes bounceInTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-200px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(30px);
+  }
+  80% {
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* De izquierda a derecha */
+.slide-in-left {
+  animation: slideInLeft 1s ease-out forwards;
+}
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-150px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* De derecha a izquierda */
+.slide-in-right {
+  animation: slideInRight 1s ease-out forwards;
+}
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(150px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Aparece poco a poco desde la derecha */
+.fade-in-right {
+  animation: fadeInRight 1.5s ease-out forwards;
+}
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 </style>
