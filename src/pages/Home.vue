@@ -31,13 +31,13 @@
         <p class="transparent">Valuaciones, índices, herramientas de análisis, servicios de consultoría y capacitación de la más alta calidad en una manera consistente, transparente, confiable y oportuna.</p>
         <p>Nos respaldan más de 25 años de experiencia en la proveeduría de precios, para satisfacer la necesidad del mercado financiero de contar con valuaciones justas, precisas y confiables, consolidándonos como líderes en el sector.</p>
       </div>
-      <div class="text-nosotros">
+      <div class="text-nosotros" v-intersect="iniciarAnimacion">
         <p>Clientes satisfechos</p>
-        <span class="indice-carga">100%</span>
+        <span class="indice-carga" :class="{ animada: mostrar }">100%</span>
         <p>Efectividad de nuestro servicio</p>
-        <span class="indice-carga">100%</span>
+        <span class="indice-carga" :class="{ animada: mostrar }">100%</span>
         <p>Implementación de la IA</p>
-        <span class="indice-carga">100%</span>
+        <span class="indice-carga" :class="{ animada: mostrar }">100%</span>
       </div>
     </article>
     <DatosComponent/>
@@ -47,18 +47,31 @@
   </main>
 </template>
 <script>
-  import ServicesComponent from '../components/Services.vue';
-  import DatosComponent from '../components/DatosNumericos.vue';
-  import PaisesComponent from '../components/Paises.vue';
-  export default {
-    name: 'HomePage',
-    components: {
-      ServicesComponent,
-      DatosComponent,
-      PaisesComponent
-    },
-  };
+import ServicesComponent from '../components/Services.vue';
+import DatosComponent from '../components/DatosNumericos.vue';
+import PaisesComponent from '../components/Paises.vue';
+
+export default {
+  name: 'HomePage',
+  components: {
+    ServicesComponent,
+    DatosComponent,
+    PaisesComponent
+  },
+  data() {
+    return {
+      mostrar: false
+    };
+  },
+  methods: {
+    iniciarAnimacion() {
+      this.mostrar = true;
+    }
+  }
+};
 </script>
+
+
 
 <style>
   .main{
@@ -112,7 +125,7 @@
   .fixed{
     position: fixed;
     top: 65%;
-    z-index: -1;
+    z-index: 0;
     text-decoration: none;
   }
 
@@ -149,14 +162,22 @@
     width: 40%;
   }
 
-  .indice-carga{
+.indice-carga {
+  width: 0%;
+  background-color: white;
+  color: transparent;
+  display: block;
+  text-align: right;
+  padding: 5px 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: width 1.5s ease, background-color 1.5s ease, color 1.5s ease;
+}
+
+  .indice-carga.animada {
     width: 80%;
     background-color: #009ed9;
-    display: block;         /* Para que ocupe todo el ancho disponible */
-    color: white;           /* Color del texto */
-    text-align: right;      /* Alinea el texto a la derecha */
-    padding: 5px 10px;      /* Opcional: espacio interno para que no quede pegado */
-    border-radius: 4px;
+    color: white;
   }
 
   @media (max-width: 1600px) {

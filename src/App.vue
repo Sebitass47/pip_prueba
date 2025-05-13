@@ -74,6 +74,12 @@ main{
   text-decoration: none;
 }
 
+.button-blue:hover{
+  background-color: white;
+  color: #009fd9;
+  cursor: pointer;
+}
+
 .transparent{
       color: rgba(255, 255, 255, 0.6);
   }

@@ -57,6 +57,7 @@
   
 <style scoped>
   footer{
+    position: relative;
     display: flex;
     padding: 0 !important;
     flex-direction: column;
@@ -66,7 +67,6 @@
     background-color: #929395;
     color: white;
     padding: 20px;
-    z-index: 3 !important;
   }
 
   .footer-one{
