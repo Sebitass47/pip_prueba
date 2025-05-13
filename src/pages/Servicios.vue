@@ -2,7 +2,7 @@
   <section>
 
     <article class="article-nosotros">
-      <img :src="require('@/assets/img/about.png')" alt="Logo" class="animated slide-in-left">
+      <img :src="require('@/assets/img/Finanzas_Pip_Latam_Servicios_Quienes_Somos_Mexico_Valuaciones.jpg')" alt="Logo" class="animated slide-in-left">
       <div class="text-nosotros animated slide-in-right">
         <h1  class="title-article-2">LA <span class="blue">SOLUCIÓN</span> ESTÁ A TU <span class="blue">ALCANCE</span></h1>
         <p class="transparent">Contamos con diferentes servicios que buscan satisfacer de manera precisa las inquietudes de nuestros clientes, acoplándonos a sus necesidades para lograr un resultado de manera positiva.</p>
@@ -10,11 +10,13 @@
       </div>
     </article>
     <ServicesComponent/>
+    <FormComponent/>
   </section>
   </template>
   
   <script>
   import ServicesComponent from '../components/Services.vue';
+  import FormComponent from '../components/Form.vue';
   export default {
     name: 'ServiciosPage',
     data() {
@@ -23,7 +25,8 @@
       };
     },
     components: {
-      ServicesComponent
+      ServicesComponent,
+      FormComponent
     },
   };
   </script>

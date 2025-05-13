@@ -2,18 +2,24 @@
     <footer>
         <div class="footer-one">
             <div class="footer-pip">
-                <h1>PiP</h1>
+                <img :src="pip" alt="Logo de PIP" class='logo-pip'>
                 <p class="footer-sections">SIGUENOS</p>
                 <div class="redes-footer">
-                    <i class="bi bi-linkedin"></i>
-                    <i class="bi bi-twitter"></i>
-                    <i class="bi bi-instagram"></i>
+                  <a href="#" target="_blank" rel="noopener noreferrer">
+                    <img :src="fb" alt="Logo de Facebook">
+                  </a>
+                  <a href="#" target="_blank" rel="noopener noreferrer">
+                    <img :src="ig" alt="Logo de Instagram">
+                  </a>
+                  <a href="#" target="_blank" rel="noopener noreferrer">
+                    <img :src="lkd" alt="Logo de Linkedin">
+                  </a>
+
                 </div>
             </div>
             <div class="empresas">
                 <h1 class="footer-sections">EMPRESAS DEL GRUPO</h1>
                 <div class="logos-empresas">
-
                     <img :src="enlace" alt="Logo de Enlace">
                     <img :src="mei" alt="Logo de Mei">
                     <img :src="biva" alt="Logo de Biva">
@@ -36,10 +42,14 @@
     name: 'MainFooter',
     data() {
       return {
-        enlace: require('@/assets/svg/enlace.svg'),
-        mei: require('@/assets/svg/mei.svg'),
-        biva: require('@/assets/svg/biva.svg'),
-        cencor: require('@/assets/svg/cencor.svg'),
+        enlace: require('@/assets/svg/Enlace_Logo.svg'),
+        mei: require('@/assets/svg/Mei_Logo.svg'),
+        biva: require('@/assets/svg/Biva_Logo.svg'),
+        cencor: require('@/assets/svg/Cencor_Logo.svg'),
+        pip: require('@/assets/svg/PIP_logo.svg'),
+        fb: require('@/assets/svg/FB_Logo.svg'),
+        ig: require('@/assets/svg/IG_Logo.svg'),
+        lkd: require('@/assets/svg/Linkedin_Logo.svg'),
       };
     }
   };
@@ -56,6 +66,7 @@
     background-color: #929395;
     color: white;
     padding: 20px;
+    z-index: 3 !important;
   }
 
   .footer-one{
@@ -74,6 +85,15 @@
   .redes-footer{
     display: flex;
     gap: 1.5em;
+  }
+  
+  .logo-pip{
+    margin-top: 2em;
+    width: 7em;
+  }
+
+  .redes-footer img{
+    width: 2em;
   }
 
   img{

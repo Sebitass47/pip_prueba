@@ -15,7 +15,7 @@
    </section>
    <section class="home-2">
     <article class="article-lider-valuaciones">
-      <img :src="require('@/assets/img/about.png')" alt="Hombre revisando una gráfica financiera">
+      <img :src="require('@/assets/img/PIP_Financia_Bursatil_Preciois_Valores.jpg')" alt="Hombre revisando una gráfica financiera">
       <div class="text-nosotros">
         <h1 class="title-articles blue">LÍDER EN VALUACIONES</h1>
         <h1  class="title-article-2">SOLUCIONES FINANCIERAS <span class="blue">CONSISTENTES Y OPORTUNAS</span></h1>
@@ -112,7 +112,7 @@
   .fixed{
     position: fixed;
     top: 65%;
-    z-index: 2;
+    z-index: -1;
     text-decoration: none;
   }
 

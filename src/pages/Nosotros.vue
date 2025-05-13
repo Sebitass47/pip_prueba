@@ -76,19 +76,31 @@
     </article>
     <AlianzasComponent/>
     <PaisesComponent/>
+    <article class="article-nosotros">
+      <div class="text-nosotros cencor animated slide-in-right">
+        <h1 class="title-articles blue">NUESTRA FAMILIA</h1>
+        <h1  class="title-article-2"><span class="blue">RESPALDADOS</span> POR UN GRUPO <span class="blue">SÓLIDO Y CONFIABLE</span></h1>
+        <p class="transparent">A su vez formamos parte de un grupo más grande.</p>
+      </div>
+      <div class="cencor-circulo">
+        <TimelineCencorComponent/>
+      </div>
+    </article>
   </section>
 </template>
 <script>
 import DatosComponent from '../components/DatosNumericos.vue';
 import PaisesComponent from '../components/Paises.vue';
 import AlianzasComponent from '../components/Alianzas.vue';
+import TimelineCencorComponent from '../components/TimelineCencor.vue';
 export default {
   
   name: 'NosotrosPage',
   components: {
       DatosComponent,
       PaisesComponent,
-      AlianzasComponent
+      AlianzasComponent,
+      TimelineCencorComponent
     },
 };
 </script>
@@ -114,7 +126,7 @@ section{
   padding: 20px;
 }
 
-.article-nosotros img{
+.article-nosotros img, .cencor-circulo{
   width: 45%;
 }
 
@@ -233,8 +245,16 @@ section{
 }
 
 @media (max-width: 1200px) {
-  .article-nosotros img{
+  .article-nosotros img {
     width: 70%;
+  }
+
+  .cencor-circulo{
+    width: 80%;
+  }
+
+  .cencor{
+    width: 60% !important;
   }
 
   .text-nosotros{
@@ -284,7 +304,7 @@ section{
       width: 40%;
     }
 
-    .article-nosotros img{
+    .article-nosotros img, .cencor-circulo{
       width: 90%;
     }
 
