@@ -20,7 +20,7 @@
     data() {
       return {
         datos: [
-          { final: 100000, descripcion: 'Precios diarios de valuación' },
+          { final: 150000, descripcion: 'Precios diarios de valuación' },
           { final: 5, descripcion: 'Paises en los que tenemos presencia' },
           { final: 25, descripcion: 'Precios diarios de valuación' },
         ],

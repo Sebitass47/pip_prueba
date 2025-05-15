@@ -32,47 +32,7 @@
       <h1 class="title-article-2">BUSCANDO LA <span class="blue">PRÓXIMA FRONTERA</span></h1>
       <p class="transparent">Nuestros logros son el resultado de la dedicación, el trabajo en equipo y la innovación constante.</p>
       <p>Somos una empresa mexicana con más de 25 años de experiencia en la proveeduría de precios, y que nace para satisfacer la necesidad del mercado financiero de contar con valuaciones justas, precisas y confiables, consolidándonos como líderes en el sector. Como la primera empresa privada autorizada como proveedor de precios en México, hemos marcado la diferencia a través de nuestro compromiso con la calidad y la transparencia. Nuestra visión nos ha llevado a expandirnosa mercados clave en Latinoamérica, incluyendo Perú, Colombia, Costa Rica, Panamá y Honduras, fortaleciendo nuestro impacto regional.</p>
-      <div class="timeline-container">
-        <div class="timeline-item left">
-          <p>Como parte de nuestra experiencia, PiP cuenta con diversos logros que respaldan nuestra trayectoria y compromiso.</p>
-        </div>
-        <div class="timeline-line">
-          <span class="circle"></span>
-        </div>
-        <div class="timeline-item right">
-          <p>El desarrollo e implementación de una Inteligencia Artificial que potencializa la operativa de PiP, optimizando tiempos de respuesta a procesos operativos, así como minimizando errores humanos.</p>
-        </div>
-
-        <div class="timeline-item left">
-          <p>PiP Centroamérica obtiene la aprobación por la Comisión Nacional de Bancos y Seguros como la primera empresa proveedora de precios en Honduras.</p>
-        </div>
-        <div class="timeline-line">
-          <span class="circle"></span>
-        </div>
-        <div class="timeline-item right">
-          <p>PiP Colombia junto con nuestra empresa hermana Quantit, logran ser parte de los valuadores oficiales del fondo inmobiliaria más grande de Colombia.</p>
-        </div>
-
-        <div class="timeline-item left">
-          <p>La creación de una API para la entrega de información, facilitando la integración, conectividad y automatización de procesos para los clientes.</p>
-        </div>
-        <div class="timeline-line">
-          <span class="circle"></span>
-        </div>
-        <div class="timeline-item right">
-          <p>PiP México es la primera empresa en generar índices de deuda en el mercado Latinoamericano.</p>
-        </div>
-
-        <div class="timeline-item left">
-          <p>PiP Centroamérica actúa como el agente calculador de la Tasa de Referencia Interbancaria (TRI) en Costa Rica.</p>
-        </div>
-        <div class="timeline-line">
-          <span class="circle"></span>
-        </div>
-        <div class="timeline-item right">
-          <p>PiP Perú es el único proveedor de precios en el mercado financiero peruano.</p>
-        </div>
-      </div>
+     <CronologiaCencorComponent/>
     </article>
     <AlianzasComponent/>
     <PaisesComponent/>
@@ -93,6 +53,7 @@ import DatosComponent from '../components/DatosNumericos.vue';
 import PaisesComponent from '../components/Paises.vue';
 import AlianzasComponent from '../components/Alianzas.vue';
 import TimelineCencorComponent from '../components/TimelineCencor.vue';
+import CronologiaCencorComponent from '../components/Cronologia.vue';
 export default {
   
   name: 'NosotrosPage',
@@ -100,7 +61,8 @@ export default {
       DatosComponent,
       PaisesComponent,
       AlianzasComponent,
-      TimelineCencorComponent
+      TimelineCencorComponent,
+      CronologiaCencorComponent,
     },
 };
 </script>
@@ -185,55 +147,6 @@ section{
 
 .expertos-valores > p{
   width: 80%
-}
-
-.timeline-container {
-  display: grid;
-  width: 70%;
-  grid-template-columns: 1fr 40px 1fr;
-  padding: 40px;
-  background-color: #07071A; /* fondo oscuro */
-  color: white;
-  font-family: sans-serif;
-}
-
-.timeline-item {
-  display: flex;
-  align-items: center;
-}
-
-.timeline-item.left {
-  justify-content: flex-end;
-  text-align: right;
-}
-
-.timeline-item.right {
-  justify-content: flex-start;
-  text-align: left;
-}
-
-
-.timeline-item p {
-  background-color: transparent;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px;
-  line-height: 1.5;
-}
-
-.timeline-line {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.timeline-line::before {
-  content: "";
-  position: absolute;
-  width: 4px;
-  height: 100%;
-  background-color: #00B1FF; /* azul de la línea */
-  z-index: 0;
 }
 
 .circle {
@@ -347,6 +260,11 @@ section{
       width: 90%;
       margin-top: 0em;
     }
+
+    .cencor{
+      width: 90% !important;
+    }
+
 
     .margin-menus{
         margin-top: 0 !important;

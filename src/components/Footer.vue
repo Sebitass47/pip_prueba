@@ -6,12 +6,6 @@
                 <p class="footer-sections">SIGUENOS</p>
                 <div class="redes-footer">
                   <a href="#" target="_blank" rel="noopener noreferrer">
-                    <img :src="fb" alt="Logo de Facebook">
-                  </a>
-                  <a href="#" target="_blank" rel="noopener noreferrer">
-                    <img :src="ig" alt="Logo de Instagram">
-                  </a>
-                  <a href="#" target="_blank" rel="noopener noreferrer">
                     <img :src="lkd" alt="Logo de Linkedin">
                   </a>
 
@@ -83,8 +77,7 @@
   }
 
   .redes-footer{
-    display: flex;
-    gap: 1.5em;
+    width: 100%;
   }
   
   .logo-pip{

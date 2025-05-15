@@ -7,7 +7,7 @@
       </video>
       <video autoplay muted loop playsinline class="video-mobile"
       >
-      <source src="@/assets/videos/background-mobile.mp4" type="video/mp4" />
+      <source src="@/assets/videos/background_mobile.mp4" type="video/mp4" />
     </video>
     <h1 class="title">PRECIOS QUE INFORMAN,</h1>
     <h1 class="subtitle">SOLUCIONES QUE TRANSFORMAN</h1>
