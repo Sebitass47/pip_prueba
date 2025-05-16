@@ -14,10 +14,10 @@
             <div class="empresas">
                 <h1 class="footer-sections">EMPRESAS DEL GRUPO</h1>
                 <div class="logos-empresas">
-                    <img :src="enlace" alt="Logo de Enlace">
-                    <img :src="mei" alt="Logo de Mei">
-                    <img :src="biva" alt="Logo de Biva">
-                    <img :src="cencor" alt="Logo de Cencor">
+                  <img :src="enlace" alt="Logo de Enlace" class="logo enlace-logo">
+                  <img :src="mei" alt="Logo de Mei" class="logo mei-logo">
+                  <img :src="biva" alt="Logo de Biva" class="logo biva-logo">
+                  <img :src="cencor" alt="Logo de Cencor" class="logo cencor-logo">
                 </div>
             </div>
         </div>
@@ -103,6 +103,35 @@
     display: flex;
     gap: 2em;
   }
+
+  .logo {
+    height: 80px; /* o el tamaño que tú necesites */
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Ajustes individuales */
+  .enlace-logo {
+    padding-top: 20px;
+  }
+
+  .mei-logo {
+    padding-bottom: 15px;
+  }
+
+  .biva-logo {
+    padding-top: 17px;
+    transform: scale(0.9); 
+    /* transform: translateY(4px); */
+  }
+
+  .cencor-logo {
+    padding-top: 10px;
+    padding-left: 15px;
+    transform: scale(1.3); 
+  }
+
 
   .footer-two{
     width: 100%;
