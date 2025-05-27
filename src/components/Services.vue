@@ -106,7 +106,7 @@
 
 .button-contact{
     padding: 1em 2.5em;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     font-size: 1em;
     letter-spacing: 1px;

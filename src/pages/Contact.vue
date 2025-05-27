@@ -3,20 +3,18 @@
       <article class="article-contact animated slide-in-left" >
         <p class="title-articles blue">CONTÁCTANOS</p>
         <p class="title-article-2">Mándanos un <span class="blue">Mensaje</span></p>
-        <div v-for="(contacto, index) in contactos" :key="index" class="text-contact">
-            <p class="red">{{ contacto.nombre }}:</p>
+        <div v-if="contactoDelPais" class="text-contact">
+            <p class="red">{{ contactoDelPais.nombre }}:</p>
             <p class="info-contacto">
-                <span v-if="contacto.direccion">Dirección: {{ contacto.direccion }}<br></span>
-                <span v-if="contacto.correo">
-                    Correo:
-                    <a :href="`mailto:${contacto.correo}`" class='blue'>{{ contacto.correo }}</a>
-                    <br>
-                </span>
-                <span v-if="contacto.telefono">
-                    Número Telefónico:
-                    <a :href="`tel:${contacto.telefono}`" class='blue'>{{ contacto.telefono }}</a>
-                </span>
-
+            <span v-if="contactoDelPais.direccion">Dirección: {{ contactoDelPais.direccion }}<br></span>
+            <span v-if="contactoDelPais.correo">
+                Correo:
+                <a :href="`mailto:${contactoDelPais.correo}`" class="blue">{{ contactoDelPais.correo }}</a><br>
+            </span>
+            <span v-if="contactoDelPais.telefono">
+                Número Telefónico:
+                <a :href="`tel:${contactoDelPais.telefono}`" class="blue">{{ contactoDelPais.telefono }}</a>
+            </span>
             </p>
         </div>
 
@@ -62,53 +60,67 @@
  </template>
 
 
- <script>
-  export default {
-    name: 'ContactPage',
-    data() {
-  return {
-    contactos: [
-      {
-        nombre: 'PiP México',
-        direccion: 'Torre Esmeralda II, Boulevard Manuel Ávila Camacho N° 36, Piso 22, Lomas de Chapultepec, CP 11000, Ciudad de México',
-        correo: 'comercial@piplatam.mx',
-        telefono: '+52(55)94483000'
+<script>
+import { useGeo } from '@/composables/useGeo';
+
+export default {
+  name: 'ContactPage',
+  data() {
+    return {
+      contactos: {
+        'Mexico': {
+          nombre: 'PiP México',
+          direccion: 'Torre Esmeralda II, Boulevard Manuel Ávila Camacho N° 36, Piso 22, Lomas de Chapultepec, CP 11000, Ciudad de México',
+          correo: 'comercial@piplatam.mx',
+          telefono: '+52(55)94483000'
+        },
+        'Colombia': {
+          nombre: 'PiP Colombia',
+          direccion: 'Carera 9, N°77-67, Oficina 902, Bogotá',
+          correo: 'comercial@piplatam.co',
+          telefono: '+57(60)17448480'
+        },
+        'Peru': {
+          nombre: 'PiP Perú',
+          direccion: 'Av. República de Panamá N°3418, Oficina 2101 San Isidro, Edificio Barlovento',
+          correo: 'comercialpe@piplatam.pe',
+          telefono: '+51(1)6156161'
+        },
+        'Costa Rica': {
+          nombre: 'PiP Costa Rica',
+          direccion: null,
+          correo: 'dvarela@piplatam.cr',
+          telefono: '+50622047005'
+        },
+        'Panama': {
+          nombre: 'PiP Panamá',
+          direccion: null,
+          correo: 'rcervantes@piplatam.com.pa',
+          telefono: null
+        },
+        'Honduras': {
+          nombre: 'PiP Honduras',
+          direccion: null,
+          correo: 'fgonzalezq@piplatam.hn',
+          telefono: null
+        }
       },
-      {
-        nombre: 'PiP Colombia',
-        direccion: 'Carera 9, N°77-67, Oficina 902, Bogotá',
-        correo: 'comercial@piplatam.co',
-        telefono: '+57(60)17448480'
-      },
-      {
-        nombre: 'PiP Perú',
-        direccion: 'Av. República de Panamá N°3418, Oficina 2101 San Isidro, Edificio Barlovento',
-        correo: 'comercialpe@piplatam.pe',
-        telefono: '+51(1)6156161'
-      },
-      {
-        nombre: 'PiP Costa Rica',
-        direccion: null,
-        correo: 'dvarela@piplatam.cr',
-        telefono: '+50622047005'
-      },
-      {
-        nombre: 'PiP Panamá',
-        direccion: null,
-        correo: 'rcervantes@piplatam.com.pa',
-        telefono: null
-      },
-      {
-        nombre: 'PiP Honduras',
-        direccion: null,
-        correo: 'fgonzalezq@piplatam.hn',
-        telefono: null
-      }
-    ]
+      pais: null // lo llenamos con el composable
+    };
+  },
+  computed: {
+    contactoDelPais() {
+      return this.contactos[this.pais] || this.contactos['Mexico'];
+    }
+  },
+  mounted() {
+    const { geoData, loadGeoData } = useGeo();
+    loadGeoData().then(() => {
+      this.pais = geoData.value.country_name;
+    });
   }
-}
-  };
- </script>
+};
+</script>
 
 <style scoped>
     section{

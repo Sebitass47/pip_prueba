@@ -178,7 +178,7 @@ nav {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 1em;
   letter-spacing: 1px;

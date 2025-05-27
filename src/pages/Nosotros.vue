@@ -1,7 +1,7 @@
 <template>
   <section>
     <article class="article-nosotros">
-      <img :src="require('@/assets/img/about.png')" alt="Logo" class="animated slide-in-left">
+      <!-- <img :src="require('@/assets/img/about.png')" alt="Logo" class="animated slide-in-left"> -->
       <div class="text-nosotros animated slide-in-right">
         <h1 class="title-articles blue">NOSOTROS</h1>
         <h1  class="title-article-2">PROVEEDOR Y SOCIO <span class="blue">ESTRATÉGICO</span></h1>

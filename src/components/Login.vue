@@ -85,7 +85,7 @@
 
   input::placeholder {
     padding-left: 1em;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
   

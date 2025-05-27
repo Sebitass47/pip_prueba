@@ -47,11 +47,12 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in datos" :key="index">
-              <td>{{ item.descripcion }}</td>
-              <td>{{ item.actual }}</td>
-              <td>{{ item.anterior }}</td>
-              <td :style="{ color: item.variacion.includes('Baja') ? 'red' : 'green' }">
-                {{ item.variacion }}
+              <td>{{ item.txtBenchmark }}</td>
+              <td>{{ item.dblValue }}</td>
+              <td>{{ item.dblChange }}</td>
+              <td>
+                <i :style="{ color: item.dblPerChange < 0 ? 'red' : 'green' }" :class="item.dblPerChange < 0 ? 'bi bi-caret-down-fill' : 'bi bi-caret-up-fill'"></i>
+                 {{ item.dblPerChange }}
               </td>
             </tr>
           </tbody>
@@ -59,10 +60,6 @@
       </div>
       </article>
       <article class="info-adicional">
-        <div class="grafica-container">
-          <h1 class="blue">MONITOR</h1>
-          <LineaChart :key="chartKey" :grafica="grafica" />
-        </div>
         <img src="@/assets/img/filiales/info-adicional.jpg" alt="Monedas" class="info-image">
         <div class="info-text">
           <h1 class="blue">PIP INFORMA</h1>
@@ -80,11 +77,10 @@
   </template>
   
   <script>
-  import LineaChart from "@/components/LineaChart.vue";
   import TablaHorarios from '@/components/TablaHorarios.vue'
   export default {
     name: 'FilialPage',
-    components: { LineaChart, TablaHorarios },
+    components: { TablaHorarios },
     data() {
       return {
         lugar: this.$route.params.nombre,
@@ -96,36 +92,36 @@
         filiales: {
           mexico: {
             botones: [
-              { texto: "Tasa Interés", tipo: "tasa-interes" },
-              { texto: "Tipo Cambio", tipo: "tipo-cambio" },
-              { texto: "Índices", tipo: "indices" }
+              { texto: "Tasa Interés", tipo: 3 },
+              { texto: "Tasa Referencia", tipo: 7 },
+              { texto: "Tipo Cambio", tipo: 1 },
+              { texto: "Índices", tipo: 2 }
             ],
-            valor_default: 'tasa-interes'
+            valor_default: 3
           },
           colombia: {
             botones: [
-              { texto: "Tasa Interés", tipo: "tasa-interes" },
-              { texto: "Tipo Cambio", tipo: "tipo-cambio" },
-              { texto: "Índices", tipo: "indices" }
+              { texto: "Tasa Interés", tipo: 3 },
+              { texto: "Tipo Cambio", tipo: 1 },
+              { texto: "Índices", tipo: 2 }
             ],
-            valor_default: 'tasa-interes'
+            valor_default: 3
           },
           centroamerica: {
             botones: [
-              { texto: "Tasa Interés", tipo: "tasa-interes" },
-              { texto: "Tipo Cambio", tipo: "tipo-cambio" },
-              { texto: "Tasa TRI", tipo: "tasa-tri" }
+              { texto: "Tasa Interés", tipo: 3 },
+              { texto: "Tipo Cambio", tipo: 1 }
             ],
-            valor_default: 'tasa-interes'
+            valor_default: 3
           },
           peru: {
             botones: [
-              { texto: "Tasas Pasivas MN", tipo: "tasa-mn" },
-              { texto: "Tasas Pasivas ME", tipo: "tasa-me" },
-              { texto: "T.C Compra", tipo: "tc-compra" },
-              { texto: "T.C Venta", tipo: "tc-venta" },
+              { texto: "Tasas Pasivas MN", tipo: 15 },
+              { texto: "Tasas Pasivas ME", tipo: 16 },
+              { texto: "T.C Compra", tipo: 13 },
+              { texto: "T.C Venta", tipo: 14 },
             ],
-            valor_default: 'tasa-mn'
+            valor_default: 15
           }
         },
         filtroActual: null,
@@ -143,71 +139,52 @@
     },
     methods: {
       async fetchLugarData(tipo) {
+        this.datos = [];
         this.filtroActual = tipo;
-        setTimeout(() => {
-          // Datos simulados
-          this.datos = [
-            {
-              descripcion: "2025/01/17 Depósitos a Plazo",
-              actual: "4.3500",
-              anterior: "4.3700",
-              variacion: "Baja -0.0200",
+
+        // Obtener país desde la ruta, convertir a código de país (ej. mexico -> MX)
+        const paisRuta = this.$route.params.nombre.toLowerCase(); // por si viene en mayúsculas
+        const mapaPaises = {
+          mexico: "MX",
+          colombia: "CO",
+          peru: "PE",
+          centroamerica: "CR"
+          // agrega más si se necesitan
+        };
+
+        const countryCode = mapaPaises[paisRuta];
+        if (!countryCode) {
+          console.error(`País no soportado: ${paisRuta}`);
+          this.datos = [];
+          return;
+        }
+
+        try {
+          const response = await fetch(process.env.VUE_APP_API_INDICADORES_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
             },
-            {
-              descripcion: "2025/01/17 Fondos de Inversión",
-              actual: "3.5000",
-              anterior: "3.4900",
-              variacion: "Sube +0.0100",
-            },
-            {
-              descripcion: "2025/01/17 Bonos Gubernamentales",
-              actual: "2.8500",
-              anterior: "2.8600",
-              variacion: "Baja -0.0100",
-            },
-            {
-              descripcion: "2025/01/17 Préstamos Hipotecarios",
-              actual: "5.0000",
-              anterior: "4.9500",
-              variacion: "Sube +0.0500",
-            },
-            {
-              descripcion: "2025/01/17 Depósitos a Plazo",
-              actual: "4.3500",
-              anterior: "4.3700",
-              variacion: "Baja -0.0200",
-            },
-            {
-              descripcion: "2025/01/17 Fondos de Inversión",
-              actual: "3.5000",
-              anterior: "3.4900",
-              variacion: "Sube +0.0100",
-            },
-            {
-              descripcion: "2025/01/17 Bonos Gubernamentales",
-              actual: "2.8500",
-              anterior: "2.8600",
-              variacion: "Baja -0.0100",
-            },
-            {
-              descripcion: "2025/01/17 Préstamos Hipotecarios",
-              actual: "5.0000",
-              anterior: "4.9500",
-              variacion: "Sube +0.0500",
-            },
-          ];
-          this.grafica = {
-            titulo: `Reporte ${tipo} (${this.lugar.toUpperCase()})`,
-            datos: [
-              { plazo: 100, valor: 0.12 },
-              { plazo: 200, valor: 0.13 },
-              { plazo: 300, valor: 0.135 },
-              { plazo: 400, valor: 0.14 },
-            ],
-          };
-          this.chartKey++;
-        }, 0); // Retraso de 1.5 segundos
-      },
+            body: JSON.stringify({
+              intCategory: tipo, // ahora tipo ya es el número correcto
+              txtCountry: countryCode
+            })
+          });
+
+          const json = await response.json();
+
+          if (json.StatusCode === 200) {
+            this.datos = json.Data || [];
+          } else {
+            console.error("Error en la API:", json.Message || "Sin mensaje");
+            this.datos = [];
+          }
+        } catch (error) {
+          console.error("Error al hacer fetch:", error);
+          this.datos = [];
+        }
+      }
+
     },
     mounted() {
       // Llama a la función cuando el componente se monta
@@ -337,7 +314,7 @@
     background-color: #f9f9f9;
     cursor: pointer;
     border-radius: 10px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
 
   .boton-indicadores:hover {
@@ -362,7 +339,7 @@
     width: 100%; /* Ocupa todo el ancho disponible */
     border-collapse: collapse; /* Elimina el espacio entre bordes */
     background-color: white; /* Fondo blanco para toda la tabla */
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     border-radius: 10px;
     overflow: hidden;
 }

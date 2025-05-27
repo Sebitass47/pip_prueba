@@ -1,7 +1,7 @@
 <template>
     <div class="contenedor-tabla">
       <div class="header">
-        <span class="opcion-menu">HORARIOS DE LIBERACIÓN</span>
+        <span class="opcion-menu">HORARIOS DE LIBERACIÓN: {{ lugar }}</span>
         <div class="leyenda">
           <p><strong>CIERRE ALEATORIO:</strong> {{ cierreAleatorio }}</p>
           <span class="contenedor-horarios">
@@ -42,105 +42,70 @@
   <script>
   export default {
     name: 'TablaHorarios',
-    data() {
-      return {
-        cierreAleatorio: '13:57',
-        inicio: '17:12',
-        fin: '19:12',
-        procesos: [
-          {
-            nombre: 'Vector Aforado Promedio',
-            operativo: '',
-            previo: '',
-            definitivo: '18:44',
-            complementos: '',
-            reproceso: '',
-            regeneracion: ''
-          },
-          {
-            nombre: 'Benchmark',
-            operativo: '',
-            previo: '',
-            definitivo: '19:02',
-            complementos: '',
-            reproceso: '',
-            regeneracion: ''
-          },
-          {
-            nombre: 'Vector Consar',
-            operativo: '',
-            previo: '',
-            definitivo: '17:12',
-            complementos: '',
-            reproceso: '',
-            regeneracion: ''
-          },
-          {
-            nombre: 'Curvas',
-            operativo: '',
-            previo: '',
-            definitivo: '16:04',
-            complementos: '',
-            reproceso: '',
-            regeneracion: ''
-          },
-          {
-            nombre: 'Vector de Derivados',
-            operativo: '',
-            previo: '',
-            definitivo: '16:25',
-            complementos: '',
-            reproceso: '',
-            regeneracion: ''
-          },
-          {
-            nombre: 'Vector de Índices',
-            operativo: '',
-            previo: '',
-            definitivo: '17:14',
-            complementos: '',
-            reproceso: '',
-            regeneracion: ''
-          },
-          {
-            nombre: 'Matriz Alfa',
-            operativo: '',
-            previo: '',
-            definitivo: '18:57',
-            complementos: '',
-            reproceso: '',
-            regeneracion: ''
-          },
-          {
-            nombre: 'Matriz Alfa Reparto',
-            operativo: '',
-            previo: '',
-            definitivo: '16:09',
-            complementos: '',
-            reproceso: '',
-            regeneracion: ''
-          },
-          {
-            nombre: 'Matriz Delta',
-            operativo: '',
-            previo: '',
-            definitivo: '19:45',
-            complementos: '',
-            reproceso: '',
-            regeneracion: ''
-          },
-          {
-            nombre: 'Matriz Omega de Acciones',
-            operativo: '',
-            previo: '',
-            definitivo: '18:32',
-            complementos: '',
-            reproceso: '',
-            regeneracion: ''
-          }
-        ]
+    data(){
+      return{
+        cierreAleatorio: '', // antes era '13:57'
+        inicio: '',
+        fin: '',
+        procesos: [],
+        codigos: { mexico: 'MX', peru: 'PE', colombia: 'CO', centroamerica: 'CR' },
+        lugar: null
       }
-    }
+    },
+    watch: {
+      '$route.params.nombre': {
+        immediate: true,
+        handler(newVal) {
+          this.lugar = this.codigos[newVal]; // Actualiza si cambia la ruta
+          this.fetchHorarios(newVal);
+        },
+      },
+    },
+    methods:{
+      async fetchHorarios(pais) {
+        try {
+          const countryCode = this.codigos[pais] || 'MX'
+          const response = await fetch(process.env.VUE_APP_API_HORARIOS_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ txtCountry: countryCode })
+          });
+
+          const result = await response.json();
+          if (response.ok && result.StatusCode === 200) {
+            const data = result.Data?.[0] || {};
+            const horarios = data.HorariosLiberacion || [];
+            const horarioImpugnacion = data.HorarioImpugnacion || {};
+
+            this.cierreAleatorio = horarios[0]?.CierreAleatorio || 'No disponible';
+            this.inicio = horarioImpugnacion.HoraInicio || '00:00';
+            this.fin = horarioImpugnacion.HoraFin || '00:00';
+
+            // Mapear los datos a lo que espera tu tabla
+            this.procesos = horarios.map(item => ({
+              nombre: item.Producto,
+              operativo: item.Operativo,
+              previo: item.Previo,
+              definitivo: item.Definitivo,
+              complementos: item.Complementos,
+              reproceso: item.Reproceso,
+              regeneracion: item.Regeneracion
+            }));
+          } else {
+            console.error('Error en la respuesta:', result.Message);
+          }
+        } catch (error) {
+          console.error('Error al obtener los horarios:', error);
+        }
+      }
+
+    },
+    mounted() {
+      // Llama a la función cuando el componente se monta
+      this.fetchHorarios(this.lugar);
+    },
   }
   </script>
   
@@ -155,11 +120,11 @@
   }
 
   .contenedor-tabla p{
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
 
   .opcion-menu{
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
     cursor: pointer;
     font-size: 1.2em;
@@ -185,7 +150,7 @@
     width: 100%; /* Ocupa todo el ancho disponible */
     border-collapse: collapse; /* Elimina el espacio entre bordes */
     background-color: white; /* Fondo blanco para toda la tabla */
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     border-radius: 10px;
     overflow: hidden;
   }
