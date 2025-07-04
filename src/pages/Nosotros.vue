@@ -131,7 +131,7 @@ section{
 }
 
 .text-valores{
-  width: 80%;
+  width: 90%;
   display: flex;
   margin-bottom: 3em;
   justify-content: space-between;
@@ -143,11 +143,15 @@ section{
     align-items: center;
   }
 
+  .container-image img{
+    width: 100%;
+  }
+
 .text_valores_imagenes{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
+  width: 40%;
 }
 
 
@@ -238,7 +242,7 @@ section{
       width: 100%;
     }
     .reverse{
-      flex-direction: column;
+      flex-direction: row;
     }
 
   }
@@ -292,6 +296,7 @@ section{
     .text-valores{
       width: 90%;
     }
+
   }
 
   @media (max-width: 768px) {

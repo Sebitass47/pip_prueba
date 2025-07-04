@@ -126,17 +126,18 @@
   }
 
   .menu-filiales{
-    width: 75%;
+    width: 85%;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     margin-top: 2rem;
-    width: 100%;
     gap: 3em;
     z-index: 3;
     /* margin-top: 3em; */
   }
 
   .card{
+    width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -174,7 +175,7 @@
 
 .text-card{
   margin-bottom: 1em;
-  min-width: 1300px;
+  width: 800px;
 }
 
 @media (max-width: 1200px) {
@@ -202,6 +203,7 @@
   .text-card{
     margin-bottom: 1em;
     min-width: 100px;
+    width: 600px;
   }
 
 }
