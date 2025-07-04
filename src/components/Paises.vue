@@ -1,7 +1,7 @@
 <template>
     <article class="article-paises" :style="{ backgroundImage: `url(${require('@/assets/img/filiales/background.jpg')})` }">
         <div class="text-nosotros">
-            <h1 class="title-articles blue">UN GRAN GRUPO</h1>
+            <!-- <h1 class="title-articles blue">UN GRAN GRUPO</h1> -->
             <h1  class="title-article-2">SOMOS <span class="blue">PIP LATAM</span></h1>
             <p>Un gran grupo con presencia en los siguientes países:</p>
             <div class="valores-container">

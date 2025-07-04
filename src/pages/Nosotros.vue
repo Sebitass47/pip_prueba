@@ -51,10 +51,10 @@
       </div>
     </article>
     <article class="expertos-valores">
-      <h1 class="title-articles blue">NUETRA HISTORIA</h1>
+      <h1 class="title-articles blue">NUESTRA HISTORIA</h1>
       <h1 class="title-article-2">BUSCANDO LA <span class="blue">PRÓXIMA FRONTERA</span></h1>
       <p class="transparent">Nuestros logros son el resultado de la dedicación, el trabajo en equipo y la innovación constante.</p>
-      <p>Somos una empresa mexicana con más de 25 años de experiencia en la proveeduría de precios, y que nace para satisfacer la necesidad del mercado financiero de contar con valuaciones justas, precisas y confiables, consolidándonos como líderes en el sector. Como la primera empresa privada autorizada como proveedor de precios en México, hemos marcado la diferencia a través de nuestro compromiso con la calidad y la transparencia. Nuestra visión nos ha llevado a expandirnosa mercados clave en Latinoamérica, incluyendo Perú, Colombia, Costa Rica, Panamá y Honduras, fortaleciendo nuestro impacto regional.</p>
+      <p>Somos una empresa mexicana con más de 25 años de experiencia en la proveeduría de precios, y que nace para satisfacer la necesidad del mercado financiero de contar con valuaciones justas, precisas y confiables, consolidándonos como líderes en el sector. Como la primera empresa privada autorizada como proveedor de precios en México, hemos marcado la diferencia a través de nuestro compromiso con la calidad y la transparencia. Nuestra visión nos ha llevado a expandirnos a mercados clave en Latinoamérica, incluyendo Perú, Colombia, Costa Rica, Panamá y Honduras, fortaleciendo nuestro impacto regional.</p>
      <CronologiaCencorComponent/>
     </article>
     <AlianzasComponent/>
@@ -116,7 +116,7 @@ section{
 }
 
 .text-nosotros{
-  width: 40%;
+  width: 80%;
 }
 
 .valores-container{
@@ -131,20 +131,21 @@ section{
 }
 
 .text-valores{
-  width: 90%;
+  width: 80%;
   display: flex;
   margin-bottom: 3em;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .container-image{
-    width: 50%;
+    width: 35%;
     display: flex;
     align-items: center;
   }
 
   .container-image img{
     width: 100%;
+    border-radius: 1em;
   }
 
 .text_valores_imagenes{
@@ -222,7 +223,6 @@ section{
 
   .text-nosotros{
     width: 100%;
-    margin-left: 3em;
   }
 
   .text-valores h1{
@@ -277,6 +277,8 @@ section{
 
     .text-valores{
       margin-left: 0;
+      width: 90%;
+      justify-content: space-between;
     }
 
     .text-valores h1{
@@ -293,9 +295,6 @@ section{
       margin-top: -5em ;
     }
 
-    .text-valores{
-      width: 90%;
-    }
 
   }
 

@@ -1,6 +1,8 @@
 <template>
+  <TickerHorarios/>
+  <CentroNotificaciones/>
     <section>
-      <article class="article-filiales">
+      <!-- <article class="article-filiales">
         <div class="background-filiales">
           <img src="@/assets/img/filiales/background.jpg" alt="Imagen de fondo" class="background-image">
         </div>
@@ -10,7 +12,6 @@
           Panamá y Colombia.
         </p>
         <div class="menu-filiales">
-          <span class="opcion-menu tabla-horarios" v-intersect><TablaHorarios/></span>
           <span class="opcion-menu" v-intersect>
             <p>
               <i class="bi bi-folder-plus"></i><br/>MANUALES
@@ -22,7 +23,7 @@
             </p>
           </span>
         </div>
-      </article>
+      </article> -->
       <article class="indicadores">
         <h1>INDICADORES </h1>
         <div class="botones-indicadores-container" v-if="filiales[lugar]">
@@ -59,7 +60,10 @@
         </table>
       </div>
       </article>
-      <article class="info-adicional">
+      <article class='documentos'>
+        <DocumentosFilial/>
+      </article>
+      <!-- <article class="info-adicional">
         <img src="@/assets/img/filiales/info-adicional.jpg" alt="Monedas" class="info-image">
         <div class="info-text">
           <h1 class="blue">PIP INFORMA</h1>
@@ -72,15 +76,17 @@
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo excepturi cumque consequuntur numquam cupiditate qui provident. Recusandae deserunt saepe, modi excepturi eos incidunt quibusdam eveniet. Quis repellat error cupiditate. Tenetur!</p>
         </div>
         </div>
-      </article>
+      </article> -->
     </section>
   </template>
   
   <script>
-  import TablaHorarios from '@/components/TablaHorarios.vue'
+  import TickerHorarios from '@/components/TickerHorarios.vue'
+  import CentroNotificaciones from '@/components/CentroNotificaciones.vue'
+  import DocumentosFilial from '@/components/DocumentosFilial.vue'
   export default {
     name: 'FilialPage',
-    components: { TablaHorarios },
+    components: { TickerHorarios, CentroNotificaciones, DocumentosFilial },
     data() {
       return {
         lugar: this.$route.params.nombre,
@@ -92,36 +98,36 @@
         filiales: {
           mexico: {
             botones: [
-              { texto: "Tasa Interés", tipo: 3 },
-              { texto: "Tasa Referencia", tipo: 7 },
-              { texto: "Tipo Cambio", tipo: 1 },
-              { texto: "Índices", tipo: 2 }
+              { texto: "Tasa Interés", tipo: 'Tasa_Interes' },
+              { texto: "Tasa Referencia", tipo: 'Tasa_Referencia' },
+              { texto: "Tipo Cambio", tipo: 'Tipo_Cambio' },
+              { texto: "Índices", tipo: 'Indices' }
             ],
-            valor_default: 3
+            valor_default: 'Tasa_Interes'
           },
           colombia: {
             botones: [
-              { texto: "Tasa Interés", tipo: 3 },
-              { texto: "Tipo Cambio", tipo: 1 },
-              { texto: "Índices", tipo: 2 }
+              { texto: "Tasa Interés", tipo: 'Tasa_Interes' },
+              { texto: "Tipo Cambio", tipo: 'Tipo_Cambio' },
+              { texto: "Índices", tipo: 'Indices' }
             ],
-            valor_default: 3
+            valor_default: 'Tasa_Interes'
           },
           centroamerica: {
             botones: [
-              { texto: "Tasa Interés", tipo: 3 },
-              { texto: "Tipo Cambio", tipo: 1 }
+              { texto: "Tasa Interés", tipo: 'Tasa_Interes' },
+              { texto: "Tipo Cambio", tipo: 'Tipo_Cambio' }
             ],
-            valor_default: 3
+            valor_default: 'Tasa_Interes'
           },
           peru: {
             botones: [
-              { texto: "Tasas Pasivas MN", tipo: 15 },
-              { texto: "Tasas Pasivas ME", tipo: 16 },
-              { texto: "T.C Compra", tipo: 13 },
-              { texto: "T.C Venta", tipo: 14 },
+              { texto: "Tasas Pasivas MN", tipo: 'Tasa_Pasiva_MN' },
+              { texto: "Tasas Pasivas ME", tipo: 'Tasa_Pasiva_ME' },
+              { texto: "T.C Compra", tipo: 'Tipo_Cambio_Compra' },
+              { texto: "T.C Venta", tipo: 'Tipo_Cambio_Venta' },
             ],
-            valor_default: 15
+            valor_default: 'Tasa_Pasiva_MN'
           }
         },
         filtroActual: null,
@@ -160,13 +166,13 @@
         }
 
         try {
+          console.log(tipo)
           const response = await fetch(process.env.VUE_APP_API_INDICADORES_URL, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-              intCategory: tipo, // ahora tipo ya es el número correcto
+            body: JSON.stringify({ // ahora tipo ya es el número correcto
               txtCountry: countryCode
             })
           });
@@ -174,7 +180,7 @@
           const json = await response.json();
 
           if (json.StatusCode === 200) {
-            this.datos = json.Data || [];
+            this.datos = json.Data[tipo] || []; console.log(json.Data)
           } else {
             console.error("Error en la API:", json.Message || "Sin mensaje");
             this.datos = [];
@@ -258,6 +264,11 @@
     padding: 0.5em 0 0 0 !important;
   }
 
+  .documentos{
+    margin-top: 10%;
+    margin-bottom: 2em;
+  }
+
   .opcion-menu{
     display: flex;
     justify-content: center;
@@ -289,13 +300,13 @@
   }
 
   .indicadores{
-    margin-top: 3em;
+    margin-top: 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: white;
+    background-color: black;
     width: 80%;
-    color: black;
+    color: white;
     border-radius: 10px;
   }
 
@@ -310,8 +321,8 @@
   .boton-indicadores {
     padding: 10px 15px;
     margin: 5px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
+    border: 1px solid #000000;
+    background-color: #ffffff;
     cursor: pointer;
     border-radius: 10px;
     font-family: 'Montserrat', sans-serif;
@@ -338,23 +349,24 @@
   .custom-table {
     width: 100%; /* Ocupa todo el ancho disponible */
     border-collapse: collapse; /* Elimina el espacio entre bordes */
-    background-color: white; /* Fondo blanco para toda la tabla */
+    background-color: transparent; /* Fondo blanco para toda la tabla */
     font-family: 'Montserrat', sans-serif;
     border-radius: 10px;
     overflow: hidden;
 }
 
+tr:hover {
+  background-color: rgba(0, 158, 216, 0.3); /* azulito semitransparente */
+}
+
+
   .custom-table thead {
-    background-color: #f5f6fa; /* Fondo gris claro para el encabezado */
+    background-color: transparent; /* Fondo gris claro para el encabezado */
   }
 
   .custom-table th, .custom-table td {
     text-align: left; /* Alineación del texto */
     padding: 8px; /* Espaciado interno */
-  }
-
-  .custom-table tbody tr {
-    border-bottom: 1px solid #ccc; /* Línea entre las filas */
   }
 
   .custom-table tbody tr:last-child {
@@ -474,6 +486,7 @@
   }
 
   .indicadores{
+    margin-top: 7em;
     width: 100%;
   }
 

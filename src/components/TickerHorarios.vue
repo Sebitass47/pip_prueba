@@ -1,54 +1,72 @@
 <template>
-  <div v-if="mostrar" class="modal-overlay" @click.self="$emit('cerrar')">
-    <div class="modal-content">
-      <div class="contenedor-tabla">
-        <div class="header">
-          <span class="opcion-menu">HORARIOS DE LIBERACIÓN: {{ lugar }}</span>
-          <div class="leyenda">
-            <p><strong>CIERRE ALEATORIO:</strong> {{ cierreAleatorio }}</p>
-            <span class="contenedor-horarios">
-              <p class="inicio">🟩 Inicia: {{ inicio }}</p>
-              <p class="fin">🟥 Finaliza: {{ fin }}</p>
-            </span>
+  <div>
+    <!-- Carrusel -->
+    <div class="ticker-wrapper" @click="modalAbierto = true">
+      <div class="ticker">
+        <div class="ticker-item" v-for="(item, index) in procesos" :key="index">
+          <strong>{{ item.nombre }}</strong> - {{ item.definitivo }}
+        </div>
+        <!-- Duplicamos para loop infinito visual -->
+        <div class="ticker-item" v-for="(item, index) in procesos" :key="'dup-' + index">
+          <strong>{{ item.nombre }}</strong> - {{ item.definitivo }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal con la tabla -->
+    <div v-if="modalAbierto" class="modal-overlay" @click.self="modalAbierto = false">
+      <div class="modal-content">
+        <div class="contenedor-tabla">
+          <div class="header">
+            <span class="opcion-menu">HORARIOS DE LIBERACIÓN: {{ lugar }}</span>
+            <div class="leyenda">
+              <p><strong>CIERRE ALEATORIO:</strong> {{ cierreAleatorio }}</p>
+              <span class="contenedor-horarios">
+                <p class="inicio">🟩 Inicia: {{ inicio }}</p>
+                <p class="fin">🟥 Finaliza: {{ fin }}</p>
+              </span>
+            </div>
           </div>
+          <div class="table-container scroll">
+            <table class="tabla-horarios">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Operativo</th>
+                  <th>Previo</th>
+                  <th>Definitivo</th>
+                  <th>Complementos</th>
+                  <th>Reproceso</th>
+                  <th>Regeneración</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in procesos" :key="index">
+                  <td>{{ item.nombre }}</td>
+                  <td>{{ item.operativo }}</td>
+                  <td>{{ item.previo }}</td>
+                  <td class="definitivo">{{ item.definitivo }}</td>
+                  <td>{{ item.complementos }}</td>
+                  <td>{{ item.reproceso }}</td>
+                  <td>{{ item.regeneracion }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button class="button-blue cerrar-btn" @click="modalAbierto = false">Cerrar</button>
         </div>
-        <div class="table-container scroll">
-          <table class="tabla-horarios">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Operativo</th>
-                <th>Previo</th>
-                <th>Definitivo</th>
-                <th>Complementos</th>
-                <th>Reproceso</th>
-                <th>Regeneración</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(item, index) in procesos" :key="index">
-                <td>{{ item.nombre }}</td>
-                <td>{{ item.operativo }}</td>
-                <td>{{ item.previo }}</td>
-                <td class="definitivo">{{ item.definitivo }}</td>
-                <td>{{ item.complementos }}</td>
-                <td>{{ item.reproceso }}</td>
-                <td>{{ item.regeneracion }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <button class="cerrar-btn" @click="$emit('cerrar')">Cerrar</button>
       </div>
     </div>
   </div>
 </template>
-  
-  <script>
-  export default {
-    name: 'TablaHorarios',
-    data(){
+
+
+<script>
+export default {
+  name: 'TickerHorarios',
+  data(){
       return{
+        modalAbierto: false,
         cierreAleatorio: '', // antes era '13:57'
         inicio: '',
         fin: '',
@@ -81,6 +99,7 @@
           const result = await response.json();
           if (response.ok && result.StatusCode === 200) {
             const data = result.Data?.[0] || {};
+            console.log(data)
             const horarios = data.HorariosLiberacion || [];
             const horarioImpugnacion = data.HorarioImpugnacion || {};
 
@@ -111,14 +130,74 @@
       // Llama a la función cuando el componente se monta
       this.fetchHorarios(this.lugar);
     },
-  }
-  </script>
-  
-  <style scoped>
-  .contenedor-tabla {
-    
-    background-color: white;
-    color: black;
+}
+</script>
+
+<style scoped>
+.ticker-wrapper {
+  position: fixed;
+  top: 70.19px;
+  left: 0;
+  width: 100%;
+  z-index: 4; /* por si se lo traga el navbar o algo más */
+  background: rgba(255, 255, 255, 0.7);
+  color: black;
+  white-space: nowrap;
+  padding: 8px 0;
+}
+
+
+.ticker {
+  display: inline-flex;
+  animation: scroll 20s linear infinite;
+}
+
+.ticker-item {
+  flex: none;
+  padding: 0 2rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-wrapper:hover .ticker {
+  animation-play-state: paused;
+  cursor: pointer;
+}
+
+.modal-overlay {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.7);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: black;
+  color: black;
+  padding: 5px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.cerrar-btn {
+  margin: 2rem auto 0 auto;
+  display: block;
+
+}
+
+.contenedor-tabla {
+    background-color: transparent;
+    color: white;
     font-family: Arial, sans-serif;
     max-width: 100%;
     border-radius: 10px;
@@ -133,8 +212,6 @@
     text-align: center;
     cursor: pointer;
     font-size: 1.2em;
-    background-color: white;
-    color: black;
     font-weight: 700;
   }
 
@@ -154,29 +231,24 @@
   .tabla-horarios{
     width: 100%; /* Ocupa todo el ancho disponible */
     border-collapse: collapse; /* Elimina el espacio entre bordes */
-    background-color: white; /* Fondo blanco para toda la tabla */
+    background-color: transparent; /* Fondo blanco para toda la tabla */
     font-family: 'Montserrat', sans-serif;
     border-radius: 10px;
     overflow: hidden;
   }
 
-  .tabla-horarios thead {
-    background-color: #17406b; /* Fondo gris claro para el encabezado */
+  .tabla-horarios thead {/* Fondo gris claro para el encabezado */
     color: white;
   }
 
   .tabla-horarios th, .tabla-horarios td {
     text-align: left; /* Alineación del texto */
-    padding: 4px; /* Espaciado interno */
+    padding: 12px 1px; /* Espaciado interno */
     border-top: none;
     border-left: none;
     border-right: none;
   }
 
-  .tabla-horarios tbody tr {
-    
-    border-bottom: 1px solid #ccc;
-  }
 
   .tabla-horarios tbody tr:last-child {
     border-bottom: none; /* Elimina la línea final si no quieres */
@@ -223,10 +295,15 @@
   }
   
   th, td {
-    border: 1px solid #ccc;
-    padding: 6px 8px;
+    padding: 12px 8px;
     text-align: left;
   }
+
+tr:hover {
+  background-color: rgba(0, 158, 216, 0.4); /* azulito semitransparente */
+}
+
+
 
   .scroll::-webkit-scrollbar {
     width: 8px; /* Ancho del scrollbar */
@@ -250,8 +327,25 @@
   }
   
   .definitivo {
-    background-color: #dcd6f3;
+    background-color: #3795c0;
     text-align: center !important;
   }
-  </style>
-  
+
+
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .ticker-wrapper {
+  top: 60px;
+}
+}
+</style>

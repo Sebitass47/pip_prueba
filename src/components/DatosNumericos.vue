@@ -22,7 +22,7 @@
         datos: [
           { final: 150000, descripcion: 'Precios diarios de valuación' },
           { final: 5, descripcion: 'Paises en los que tenemos presencia' },
-          { final: 25, descripcion: 'Precios diarios de valuación' },
+          { final: 25, descripcion: 'Años de experiencia en el mercado financiero' },
         ],
         contadores: [0, 0, 0],
         yaAnimado: [false, false, false],

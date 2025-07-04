@@ -60,7 +60,6 @@
           <a class="latam-link" href="https://www.quantit.com" target="_blank" @click="closeModal">Quantit</a>
         </div>
         <button class="login-button" @click="openLoginModal">LOGIN</button>
-        <i class="bi bi-bell-fill bell"></i>
       </span>
     </div>
   </nav>
@@ -190,12 +189,6 @@ nav {
   width: 100%; /* Asegura que se extienda completamente */
   position: relative;
   top: 0;
-}
-
-.bell{
-  cursor: pointer;
-  font-size: 1.5em;
-  margin-top: 0.7em;
 }
 
 .router-link-active {

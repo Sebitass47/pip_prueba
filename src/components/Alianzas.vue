@@ -8,7 +8,7 @@
           <div class="menu-filiales">
               <div class="card delay-2s" v-intersect>
                 <div class="img-container">
-                  <img :src="require('@/assets/img/Nosotros/FTSE.png')" alt="Logo" class="logo-alianza-circular">
+                  <img :src="require('@/assets/img/FTSE.png')" alt="Logo" class="logo-alianza-circular">
                 </div>
                 <div  class="text-alianza-container">
                   <h1 class="title-card">FTSE Russell</h1>
@@ -32,7 +32,7 @@
               <hr class='barra-blanca'>
               <div class="card delay-2s" v-intersect>
                 <div class="img-container">
-                  <img :src="require('@/assets/img/Nosotros/numerix-logo.png')" alt="Logo" class="logo-alianza-cuadrado">
+                  <img :src="require('@/assets/img/numerix-logo.png')" alt="Logo" class="logo-alianza-cuadrado">
                 </div>
                 <div  class="text-alianza-container">
                   <h1 class="title-card">Numerix</h1>
@@ -52,7 +52,7 @@
               <hr class='barra-blanca'>
               <div class="card delay-2s" v-intersect>
                 <div class="img-container">
-                  <img :src="require('@/assets/img/Nosotros/logo-netgo.png')" alt="Logo" class="logo-alianza-cuadrado">
+                  <img :src="require('@/assets/img/logo-netgo.png')" alt="Logo" class="logo-alianza-cuadrado">
                 </div>
                 <div class="text-alianza-container">
                   <h1 class="title-card">NetGO</h1>
@@ -123,6 +123,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
   .menu-filiales{
@@ -202,6 +204,7 @@
 
   .text-card{
     margin-bottom: 1em;
+
     min-width: 100px;
     width: 600px;
   }
