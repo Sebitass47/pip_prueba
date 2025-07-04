@@ -12,19 +12,42 @@
     <DatosComponent/>
     <article class="article-nosotros margin-menus">
       <div class="text-valores">
-        <h1 class="title-articles blue">OBJETIVO</h1>
-        <h1 class="title-article-2">DESARROLLO Y  <span class="blue">TRANSPARENCIA</span></h1>
-        <p>Nuestro objetivo es contribuir al desarrollo y transparencia de los sistemas financieros Latinoamericanos, a través de la generación de precios, valuaciones, índices, herramientas de análisis, servicios de consultoría y capacitación de la más alta calidad en una manera consistente, transparente, confiable y oportuna.</p>
+          <div class="text_valores_imagenes animated slide-in-right">
+            <p class="title-articles blue">OBJETIVO</p>
+            <h1  class="title-article-2">DESARROLLO Y <span class="blue">TRANSPARENCIA</span></h1>
+            <p>Nuestro objetivo es contribuir al desarrollo y transparencia de los sistemas
+              financieros Latinoamericanos, a través de la generación de precios, valuaciones,
+              índices, herramientas de análisis, servicios de consultoría y capacitación de la más
+              alta calidad en una manera consistente, transparente, confiable y oportuna.</p>
+          </div>
+          <span class="container-image">
+            <img :src="require('@/assets/img/Nosotros/nosotros_1.jpg')" alt="Logo" class="img-right animated slide-in-left">
+          </span>
       </div>
-      <div class="vision-mision-container">
-        <div class="vision" v-intersect>
-          <h1>MISIÓN</h1>
-          <p>Contribuir al fortalecimiento de un sistema financiero más informado y transparente, ofreciendo soluciones integrales y herramientas de vanguardia que, bajo un estricto cumplimiento regulatorio, les permita a nuestros clientes tomar decisiones estratégicas y bien fundamentadas.</p>
+     <div class="text-valores reverse">
+        <span class="container-image">
+          <img :src="require('@/assets/img/Nosotros/nosotros_2.jpg')" alt="Logo" class="img-left animated slide-in-left">
+        </span>
+        <div class="text_valores_imagenes animated slide-in-right">
+          <h1  class="title-article-2"><span class="blue">MISIÓN</span></h1>
+          <p>Contribuir al fortalecimiento de un sistema financiero más informado y transparente,
+            ofreciendo soluciones integrales y herramientas de vanguardia que, bajo un estricto
+            cumplimiento regulatorio, les permita a nuestros clientes tomar decisiones
+            estratégicas y bien fundamentadas
+          </p>
         </div>
-        <div class="mision" v-intersect>
-          <h1>VISIÓN</h1>
-          <p>Convertirnos en el socio estratégico de nuestros clientes, fusionando talento y liderazgo para establecer nuevos estándares de calidad y atención, garantizando transparencia y valor en cada servicio que ofrecemos.</p>
+      </div>
+      <div class="text-valores">
+        <div class="text_valores_imagenes animated slide-in-right">
+          <h1  class="title-article-2"><span class="blue">VISIÓN</span></h1>
+          <p>Convertirnos en el socio estratégico de nuestros clientes, fusionando talento y
+            liderazgo para establecer nuevos estándares de calidad y atención, garantizando
+            transparencia y valor en cada servicio que ofrecemos.
+          </p>
         </div>
+        <span class="container-image">
+          <img :src="require('@/assets/img/Nosotros/nosotros_3.jpg')" alt="Logo" class="img-right animated slide-in-left">
+        </span>
       </div>
     </article>
     <article class="expertos-valores">
@@ -82,13 +105,13 @@ section{
   min-height: 50vh;
   display: flex;
   margin-top: 70px; 
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   padding: 20px;
 }
 
-.article-nosotros img, .cencor-circulo{
+.cencor-circulo{
   width: 45%;
 }
 
@@ -108,13 +131,25 @@ section{
 }
 
 .text-valores{
-  margin-left: 2em;
-  width: 45%;
+  width: 80%;
+  display: flex;
+  margin-bottom: 3em;
+  justify-content: space-between;
 }
 
-.text-valores p{
-  width: 95%;
+.container-image{
+    width: 50%;
+    display: flex;
+    align-items: center;
+  }
+
+.text_valores_imagenes{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
 }
+
 
 .vision-mision-container{
   width: 40%;
@@ -158,9 +193,20 @@ section{
 }
 
 @media (max-width: 1200px) {
-  .article-nosotros img {
-    width: 70%;
+  .container-image{
+    width: 50%;
   }
+
+  .container-image img{
+    width: 100%;
+  }
+
+  .text_valores_imagenes{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 45%;
+    }
 
   .cencor-circulo{
     width: 80%;
@@ -191,6 +237,9 @@ section{
     .timeline-container {
       width: 100%;
     }
+    .reverse{
+      flex-direction: column;
+    }
 
   }
 
@@ -205,7 +254,8 @@ section{
     }
 
     .margin-menus{
-        margin-top: 0 !important;
+        justify-content: center !important;
+        align-items: center !important;
       }
 
     .text-nosotros{
@@ -242,16 +292,6 @@ section{
     .text-valores{
       width: 90%;
     }
-
-    .vision, .mision {
-      max-width: 300px;
-      background-color: #151b4d;
-      border: #009ed8 1px solid;
-      margin: 1em;
-      padding: 0 1em 0.5em 1em;
-      border-radius: 8px;
-    }
-
   }
 
   @media (max-width: 768px) {
@@ -282,6 +322,26 @@ section{
     .timeline-container {
       width: 100%;
       padding: 0;
+    }
+
+    .text-valores {
+      flex-direction: column;
+    }
+
+    .text_valores_imagenes {
+      width: 100%;
+    }
+
+    .container-image {
+      width: 100%;
+    }
+
+    .container-image img{
+      width: 100%;
+    }
+
+    .reverse{
+      flex-direction: column-reverse; /* o column-reverse */
     }
   }
 </style>

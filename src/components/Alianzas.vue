@@ -4,28 +4,76 @@
           <img src="@/assets/img/filiales/info-adicional.jpg" alt="Imagen de fondo" class="background-image" >
         </div>
         <h1 class="title-article-2">ALIANZAS ESTRATÉGICAS</h1>
-        <div class="menu-filiales">
-            <div class="card delay-2s" v-intersect>
-                <h1 class="title-card">FTSE Russell</h1>
-                <p class="text-card">Alianza enfocada a proveer, distribuir y desarrollar índices renta fija en Latinoamérica. FTSE es un proveedor global líder de índices, análisis y soluciones de datos con capacidades de múltiples activos. Por más de 30 años los grandes fondos de pensiones, administradores de activos, proveedores de ETFs y bancos de inversión han elegido índices FTSE para usar los como referencia en el desempeño de sus inversiones.</p>
+        <div class="background-color">
+          <div class="menu-filiales">
+              <div class="card delay-2s" v-intersect>
                 <div class="img-container">
-                  <img :src="require('@/assets/img/Logo_Screen_Burgundy_FR.png')" alt="Logo" class="logo-alianza-circular">
+                  <img :src="require('@/assets/img/Nosotros/FTSE.png')" alt="Logo" class="logo-alianza-circular">
                 </div>
-            </div>
-            <div class="card delay-2s" v-intersect>
-                <h1 class="title-card">Numerix</h1>
-                <p class="text-card">Esta alianza se estableció en 2016 y comprende el desarrollo de nuevos productos que se apoyan en la gran diversidad y calidad de sus motores de cálculo. Numerix es una empresa líder mundial en la generación de herramientas de cálculo para activos financieros y analíticos de riesgos de mayor complejidad.</p>
+                <div  class="text-alianza-container">
+                  <h1 class="title-card">FTSE Russell</h1>
+                  <p class="text-card">Alianza enfocada a proveer, distribuir y
+                      desarrollar índices renta fija en
+                      Latinoamérica. FTSE es un proveedor
+                      global líder de índices, análisis y
+                      soluciones de datos con capacidades
+                      de múltiples activos. Por más de 30
+                      años los grandes fondos de pensiones,
+                      administradores de activos,
+                      proveedores de ETFs y bancos de
+                      inversión han elegido índices FTSE
+                      para usarlos como referencia en el
+                      desempeño de sus inversiones.
+                      <br><br>
+                      Link: <a href="www.lseg.com" target="_blank">www.lseg.com</a>
+                  </p>
+                </div>
+              </div>
+              <hr class='barra-blanca'>
+              <div class="card delay-2s" v-intersect>
                 <div class="img-container">
-                  <img :src="require('@/assets/img/numerix-logo.png')" alt="Logo" class="logo-alianza-cuadrado">
+                  <img :src="require('@/assets/img/Nosotros/numerix-logo.png')" alt="Logo" class="logo-alianza-cuadrado">
                 </div>
-            </div>
-            <div class="card delay-2s" v-intersect>
-                <h1 class="title-card">NetGO</h1>
-                <p class="text-card">La alianza se centra en ofrecer una plataforma financiera diseñada para empresas y corporativos, orientada a la gestión de sus derivados. La herramienta “Xymmetry” permite calcular el Mark to Market de portafolios de derivados como forwards de tipo de cambio, swaps y opciones en diferentes monedas y plazos. Además, proporciona un espacio para noticias relevantes del mercado financiero y cotizaciones en tiempo real de tipos de cambio, tasas forwards y swaps.</p>
+                <div  class="text-alianza-container">
+                  <h1 class="title-card">Numerix</h1>
+                  <p class="text-card">Esta alianza se estableció en 2016 y
+                    comprende el desarrollo de nuevos
+                    productos que se apoyan en la gran
+                    diversidad y calidad de sus motores de
+                    cálculo. Numerix es una empresa líder
+                    mundial en la generación de
+                    herramientas de cálculo para activos
+                    financieros y analíticos de riesgos de
+                    mayor complejidad. <br><br>
+                    Link: <a href="www.numerix.com" target="_blank">www.numerix.com</a>
+                  </p>
+                </div>
+              </div>
+              <hr class='barra-blanca'>
+              <div class="card delay-2s" v-intersect>
                 <div class="img-container">
-                  <img :src="require('@/assets/img/logo-netgo.png')" alt="Logo" class="logo-alianza-cuadrado">
+                  <img :src="require('@/assets/img/Nosotros/logo-netgo.png')" alt="Logo" class="logo-alianza-cuadrado">
                 </div>
-            </div>
+                <div class="text-alianza-container">
+                  <h1 class="title-card">NetGO</h1>
+                  <p class="text-card">La alianza se centra en ofrecer una
+                    plataforma financiera diseñada para
+                    empresas y corporativos, orientada a la
+                    gestión de sus derivados. La
+                    herramienta “Xymmetry” permite
+                    calcular el Mark to Market de
+                    portafolios de derivados como
+                    forwards de tipo de cambio, swaps y
+                    opciones en diferentes monedas y
+                    plazos. Además, proporciona un
+                    espacio para noticias relevantes del
+                    mercado financiero y cotizaciones en
+                    tiempo real de tipos de cambio, tasas
+                    forwards y swaps. <br><br>Link: <a href="xymmetry.com.mx" target="_blank">xymmetry.com.mx</a></p>
+                </div>
+              </div>
+              
+          </div>
         </div>
       </article>
   </template>
@@ -58,6 +106,8 @@
     top: 0;
     left: 0;
     width: 100%;
+    mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
     object-fit: cover; /* La imagen se adapta al tamaño del contenedor */
     z-index: -1; /* Asegúrate de que esté detrás del contenido */
   }
@@ -68,13 +118,19 @@
     width: 50%;
     z-index: 3;
   }
+  
+  .background-color{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 
   .menu-filiales{
-    display: grid;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
     margin-top: 2rem;
-    margin-left: 10rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    width: 80%;
+    width: 100%;
     gap: 3em;
     z-index: 3;
     /* margin-top: 3em; */
@@ -82,13 +138,18 @@
 
   .card{
   display: flex;
-  flex-direction: column;
-  justify-content: start;
-  padding: 1em ;
-  background-color: #21244d;
-  border-radius: 20px;  
-  border: 3px solid white;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
   text-align: left;
+}
+
+.barra-blanca{
+  border: none;
+  height: 1px;
+  background-color: white;
+  width:100%
 }
 
 .img-container{
@@ -96,7 +157,6 @@
   min-height: 150px;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .logo-alianza-cuadrado{
@@ -114,7 +174,7 @@
 
 .text-card{
   margin-bottom: 1em;
-  min-height: 250px;
+  min-width: 1300px;
 }
 
 @media (max-width: 1200px) {
@@ -135,26 +195,14 @@
     z-index: 3;
   }
 
-  .menu-filiales{
-    display: grid;
-    margin-top: 2rem;
-    margin-left: 5rem;
-    width: 90%;
-    gap: 3em;
-    z-index: 3;
-    /* margin-top: 3em; */
+  .text-alianza-container{
+    width: 80%;
   }
 
-  .card{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    padding: 1em ;
-    background-color: #21244d;
-    border-radius: 20px;  
-    border: 3px solid white;
-    text-align: left;
-    }
+  .text-card{
+    margin-bottom: 1em;
+    min-width: 100px;
+  }
 
 }
 
@@ -175,18 +223,10 @@
     z-index: 3;
     /* margin-top: 3em; */
   }
-
-  .card{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    padding: 1em ;
-    background-color: #21244d;
-    border-radius: 20px;  
-    border: 3px solid white;
-    text-align: left;
-    }
-
+  .background-color{
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 }
 
 @media (max-width: 768px) {
@@ -206,8 +246,28 @@
 
   .menu-filiales{
     margin-top: 2rem;
-    margin-left: 1rem;
+    margin-left: 0 !important;
+    width: 100%;
     /* margin-top: 3em; */
+  }
+
+  .background-color{
+    width: 100%;
+  }
+
+  .card{
+    width: 100%;
+    padding: 0;
+    flex-direction: column;
+  }
+
+  .text-card{
+    width: 100%;
+  }
+
+  .img-container{
+    justify-content: center;
+    margin-bottom: 2em;
   }
 
 }

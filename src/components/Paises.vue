@@ -3,7 +3,7 @@
         <div class="text-nosotros">
             <h1 class="title-articles blue">UN GRAN GRUPO</h1>
             <h1  class="title-article-2">SOMOS <span class="blue">PIP LATAM</span></h1>
-            <p>Nuestro grupo está conformado por las siguientes empresas:</p>
+            <p>Un gran grupo con presencia en los siguientes países:</p>
             <div class="valores-container">
                 <ul >
                     <li>México </li>
@@ -14,7 +14,6 @@
                 <ul >
                     <li>Panamá</li>
                     <li>Honduras</li>
-                    <li>Quantit</li>
                 </ul>
             </div>
         </div>

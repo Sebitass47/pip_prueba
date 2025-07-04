@@ -28,6 +28,7 @@
             <router-link :to="{ name: 'FilialPage', params: { nombre: 'colombia' } }" class="latam-link" @click="closeModal">Colombia</router-link>
             <router-link :to="{ name: 'FilialPage', params: { nombre: 'mexico' } }" class="latam-link" @click="closeModal">México</router-link>
             <router-link :to="{ name: 'FilialPage', params: { nombre: 'peru' } }" class="latam-link" @click="closeModal">Perú</router-link>
+            <a class="latam-link" href="https://www.quantit.com" target="_blank" @click="closeModal">Quantit</a>
           </div>
           <button class="login-button" @click="openLoginModal">LOGIN</button>
         </div>
@@ -56,8 +57,10 @@
           <router-link :to="{ name: 'FilialPage', params: { nombre: 'colombia' } }" class="latam-link" @click="closeMenu">Colombia</router-link>
           <router-link :to="{ name: 'FilialPage', params: { nombre: 'mexico' } }" class="latam-link" @click="closeMenu">México</router-link>
           <router-link :to="{ name: 'FilialPage', params: { nombre: 'peru' } }" class="latam-link" @click="closeMenu">Perú</router-link>
+          <a class="latam-link" href="https://www.quantit.com" target="_blank" @click="closeModal">Quantit</a>
         </div>
         <button class="login-button" @click="openLoginModal">LOGIN</button>
+        <i class="bi bi-bell-fill bell"></i>
       </span>
     </div>
   </nav>
@@ -187,6 +190,12 @@ nav {
   width: 100%; /* Asegura que se extienda completamente */
   position: relative;
   top: 0;
+}
+
+.bell{
+  cursor: pointer;
+  font-size: 1.5em;
+  margin-top: 0.7em;
 }
 
 .router-link-active {

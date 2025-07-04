@@ -31,14 +31,14 @@
         <p class="transparent">Valuaciones, índices, herramientas de análisis, servicios de consultoría y capacitación de la más alta calidad en una manera consistente, transparente, confiable y oportuna.</p>
         <p>Nos respaldan más de 25 años de experiencia en la proveeduría de precios, para satisfacer la necesidad del mercado financiero de contar con valuaciones justas, precisas y confiables, consolidándonos como líderes en el sector.</p>
       </div>
-      <div class="text-nosotros" v-intersect="iniciarAnimacion">
+      <!-- <div class="text-nosotros" v-intersect="iniciarAnimacion">
         <p>Clientes satisfechos</p>
         <span class="indice-carga" :class="{ animada: mostrar }">100%</span>
         <p>Efectividad de nuestro servicio</p>
         <span class="indice-carga" :class="{ animada: mostrar }">100%</span>
         <p>Implementación de la IA</p>
         <span class="indice-carga" :class="{ animada: mostrar }">100%</span>
-      </div>
+      </div> -->
     </article>
     <DatosComponent/>
     <ServicesComponent/>
