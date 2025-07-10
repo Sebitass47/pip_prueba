@@ -175,7 +175,7 @@ import CarruselServicios from '@/components/CarruselServicios.vue';
         if (tipo in this.datosCompletos){
           this.datos = this.datosCompletos[tipo]
           return
-        };
+        }
         try {
           console.log(tipo)
           const response = await fetch(process.env.VUE_APP_API_INDICADORES_URL, {
