@@ -202,6 +202,7 @@ nav {
   width: 100%;
   height: 60px;
   padding: 0 1em;
+  z-index: 3;
 }
 
 .hamburger {

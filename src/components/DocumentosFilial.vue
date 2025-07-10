@@ -1,21 +1,37 @@
 <template>
   <div class="contenedor-documentos">
     <div class="pestañas">
-      <div
-        v-for="(label, id) in pestañasFilial"
-        :key="id"
-        class="pestaña"
-        :class="{ activa: id === pestañaActiva }"
-        @click="cambiarPestaña(id)"
+      <template v-for="(label, id) in pestañasFilial" :key="id">
+        <!-- Si es mesa-de-servicio, renderizamos como link -->
+        <div
+          v-if="id === 'mesa-de-servicio'"
+          class="pestaña"
         >
-        {{ label }}
-    </div>
+        <a
+          :href="'https://cencor.atlassian.net/servicedesk/customer/portal/39'"
+          target="_blank"
+          rel="noopener"
+          class="mesa-servicio"
+          >
+          {{ label }}
+        </a>
+        </div>
 
+        <!-- Si no, renderizamos como pestaña normal -->
+        <div
+          v-else
+          class="pestaña"
+          :class="{ activa: id === pestañaActiva }"
+          @click="cambiarPestaña(id)"
+        >
+          {{ label }}
+        </div>
+      </template>
     </div>
 
     <div class="contenido-documentos">
       <h3>Documentos disponibles:</h3>
-      <ul v-if="documentos.length">
+      <ul class="lista-documentos" v-if="documentos.length">
         <li v-for="(doc, i) in documentos" :key="i">
           <a :href="baseURL + doc.txtURLView" target="_blank">
             📄 {{ doc.txtDescription }}
@@ -32,7 +48,6 @@ export default {
   name: "DocumentosFilial",
   data() {
     return {
-      baseURL: "https://devs.piplatam.com", // Base para concatenar con txtURLView
       pestañaActiva: null,
       documentos: [],
       codigos: { mexico: "MX", peru: "PE", colombia: "CO", centroamerica: "CR" },
@@ -94,12 +109,8 @@ export default {
             txtType: tipo
           })
         });
-        console.log(process.env.VUE_APP_API_DOCUMENTOS_URL)
-        console.log(this.pais, tipo)
         const result = await response.json();
-        console.log(result)
         if (response.ok && result.StatusCode === 200) {
-          console.log(result.Data)
           this.documentos = result.Data?.Products || [];
         } else {
           console.error("Error al obtener documentos:", result.Message);
@@ -125,6 +136,23 @@ export default {
   background: white;
   color: black;
   font-family: 'Montserrat', sans-serif;
+}
+
+.mesa-servicio{
+  text-decoration: none;
+}
+
+.mesa-servicio:visited{
+  color: inherit;
+}
+
+.lista-documentos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));/* default: una columna */
+  gap: 1em;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-left: 1em;
 }
 
 .pestañas {
@@ -176,5 +204,34 @@ export default {
 
 .contenido-documentos a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 678px) {
+  .lista-documentos {
+    grid-template-columns: 1fr;
+  }
+   .contenedor-documentos {
+    flex-direction: column; /* Apila verticalmente */
+  }
+
+  .pestañas {
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+  }
+
+  .lista-documentos {
+    grid-template-columns: 1fr; /* Una sola columna */
+    max-height: none; /* para que crezca verticalmente */
+    overflow-y: visible;
+  }
+
+  .contenido-documentos {
+    padding: 1rem;
+  }
+
+  .pestaña {
+    margin-bottom: 0.5rem;
+  }
 }
 </style>

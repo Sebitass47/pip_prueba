@@ -6,13 +6,44 @@
         <h1 class="title-article-2">ALIANZAS ESTRATÉGICAS</h1>
         <div class="background-color">
           <div class="menu-filiales">
-              <div class="card delay-2s" v-intersect>
-                <div class="img-container">
-                  <img :src="require('@/assets/img/FTSE.png')" alt="Logo" class="logo-alianza-circular">
+            <div
+              class="card delay-2s"
+              v-for="(alianza, index) in alianzas"
+              :key="index"
+              @mouseenter="hoveredIndex = index"
+              @mouseleave="hoveredIndex = null"
+            >
+              <div class="img-container">
+                <img :src="require(`@/assets/img/${alianza.logo}`)" :alt="alianza.nombre" :class="alianza.estiloLogo" />
+              </div>
+
+              <transition name="fade-slide">
+                <div v-if="hoveredIndex === index" class="text-alianza-container">
+                  <h1 class="title-card">{{ alianza.nombre }}</h1>
+                  <p class="text-card">
+                    {{ alianza.descripcion }}<br><br>
+                    Link: <a :href="alianza.link" target="_blank">{{ alianza.link }}</a>
+                  </p>
                 </div>
-                <div  class="text-alianza-container">
-                  <h1 class="title-card">FTSE Russell</h1>
-                  <p class="text-card">Alianza enfocada a proveer, distribuir y
+              </transition>
+            </div>
+          </div>
+        </div>
+      </article>
+  </template>
+  
+<script>
+  export default {
+    name: "AlianzasComponent",
+    data() {
+      return {
+        hoveredIndex: null,
+        alianzas: [
+          {
+            nombre: "FTSE Russell",
+            logo: "FTSE.png",
+            estiloLogo: "logo-alianza-circular",
+            descripcion: `Alianza enfocada a proveer, distribuir y
                       desarrollar índices renta fija en
                       Latinoamérica. FTSE es un proveedor
                       global líder de índices, análisis y
@@ -23,20 +54,14 @@
                       proveedores de ETFs y bancos de
                       inversión han elegido índices FTSE
                       para usarlos como referencia en el
-                      desempeño de sus inversiones.
-                      <br><br>
-                      Link: <a href="www.lseg.com" target="_blank">www.lseg.com</a>
-                  </p>
-                </div>
-              </div>
-              <hr class='barra-blanca'>
-              <div class="card delay-2s" v-intersect>
-                <div class="img-container">
-                  <img :src="require('@/assets/img/numerix-logo.png')" alt="Logo" class="logo-alianza-cuadrado">
-                </div>
-                <div  class="text-alianza-container">
-                  <h1 class="title-card">Numerix</h1>
-                  <p class="text-card">Esta alianza se estableció en 2016 y
+                      desempeño de sus inversiones.`,
+            link: "https://www.lseg.com",
+          },
+          {
+            nombre: "Numerix",
+            logo: "numerix-logo.png",
+            estiloLogo: "logo-alianza-cuadrado",
+            descripcion: `Esta alianza se estableció en 2016 y
                     comprende el desarrollo de nuevos
                     productos que se apoyan en la gran
                     diversidad y calidad de sus motores de
@@ -44,19 +69,14 @@
                     mundial en la generación de
                     herramientas de cálculo para activos
                     financieros y analíticos de riesgos de
-                    mayor complejidad. <br><br>
-                    Link: <a href="www.numerix.com" target="_blank">www.numerix.com</a>
-                  </p>
-                </div>
-              </div>
-              <hr class='barra-blanca'>
-              <div class="card delay-2s" v-intersect>
-                <div class="img-container">
-                  <img :src="require('@/assets/img/logo-netgo.png')" alt="Logo" class="logo-alianza-cuadrado">
-                </div>
-                <div class="text-alianza-container">
-                  <h1 class="title-card">NetGO</h1>
-                  <p class="text-card">La alianza se centra en ofrecer una
+                    mayor complejidad.`,
+            link: "https://www.numerix.com",
+          },
+          {
+            nombre: "NetGO",
+            logo: "logo-netgo.png",
+            estiloLogo: "logo-alianza-cuadrado",
+            descripcion: `La alianza se centra en ofrecer una
                     plataforma financiera diseñada para
                     empresas y corporativos, orientada a la
                     gestión de sus derivados. La
@@ -69,20 +89,15 @@
                     espacio para noticias relevantes del
                     mercado financiero y cotizaciones en
                     tiempo real de tipos de cambio, tasas
-                    forwards y swaps. <br><br>Link: <a href="xymmetry.com.mx" target="_blank">xymmetry.com.mx</a></p>
-                </div>
-              </div>
-              
-          </div>
-        </div>
-      </article>
-  </template>
-  
-  <script>
-  export default {
-    name: 'AlianzasComponent',
-  }
-  </script>
+                    forwards y swaps.`,
+            link: "https://xymmetry.com.mx",
+          },
+        ],
+      };
+    },
+  };
+</script>
+
   
   <style scoped>
   .article-filiales{
@@ -100,6 +115,34 @@
     overflow: hidden;
     z-index: 2;
   }
+
+  .fade-slide-enter-active,
+  .fade-slide-leave-active {
+    transition: all 0.3s ease;
+  }
+  .fade-slide-enter-from,
+  .fade-slide-leave-to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.img-container img {
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+.img-container img:hover {
+  animation: none;
+}
+
 
   .background-image {
     position: absolute;

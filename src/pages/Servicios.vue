@@ -1,14 +1,6 @@
 <template>
   <section>
-
-    <article class="article-nosotros">
-      <img :src="require('@/assets/img/Finanzas_Pip_Latam_Servicios_Quienes_Somos_Mexico_Valuaciones.jpg')" alt="Logo" class="animated slide-in-left">
-      <div class="text-nosotros animated slide-in-right">
-        <h1  class="title-article-2">LA <span class="blue">SOLUCIÓN</span> ESTÁ A TU <span class="blue">ALCANCE</span></h1>
-        <p class="transparent">Contamos con diferentes servicios que buscan satisfacer de manera precisa las inquietudes de nuestros clientes, acoplándonos a sus necesidades para lograr un resultado de manera positiva.</p>
-        <p>Cada cliente es diferente, por eso es que hemos diversificado nuestros servicios y/o productos de tal manera que podemos cubrir eficientemente cada situación que se nos presenta, con nuestras diferentes líneas de negocio:</p>
-      </div>
-    </article>
+    <CarruselServicios/>
     <ServicesComponent/>
     <FormComponent/>
   </section>
@@ -16,6 +8,7 @@
   
   <script>
   import ServicesComponent from '../components/Services.vue';
+  import CarruselServicios from '../components/CarruselServicios.vue';
   import FormComponent from '../components/Form.vue';
   export default {
     name: 'ServiciosPage',
@@ -26,7 +19,8 @@
     },
     components: {
       ServicesComponent,
-      FormComponent
+      FormComponent,
+      CarruselServicios
     },
   };
   </script>
@@ -40,8 +34,7 @@
     align-items: center;
   }
   .article-nosotros{
-    width: 90%;
-    min-height: 50vh;
+    width: 100%;
     display: flex;
     margin-top: 70px; 
     flex-direction: row;

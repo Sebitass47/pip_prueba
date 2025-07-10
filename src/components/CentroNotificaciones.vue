@@ -2,16 +2,26 @@
   <div>
     <!-- Campanita -->
     <div class="noti-button" @click="mostrarModal = true">
-      🔔
+      <i class="bi bi-bell-fill blue-bell"></i>
       <span v-if="notificaciones.length" class="punto-rojo"></span>
     </div>
 
     <!-- Modal -->
     <div v-if="mostrarModal" class="modal-overlay" @click.self="cerrarModal">
       <div class="modal-content">
-        <h1>PIP INFORMA</h1>
-        <h3>{{ notificaciones[indiceActual]?.txtTitulo }}</h3>
+        <img :src="logo" alt="Logo" class="logo" />
+        <h1 class='text-red'>PiP INFORMA</h1>
+        <h3 class="title-notification">{{ notificaciones[indiceActual]?.txtTitulo }}</h3>
         <div v-html="notificaciones[indiceActual]?.txtMessage"></div>
+
+        <a
+          v-if="notificaciones[indiceActual]?.documento"
+          :href="notificaciones[indiceActual].documento"
+          target="_blank"
+          class="btn-documento"
+        >
+          Ver documento
+        </a>
 
         <div class="nav-botones">
           <span @click="anterior" class="arrow" :disabled="indiceActual === 0">←</span>
@@ -29,6 +39,7 @@ export default {
   name: 'CentroNotificaciones',
   data() {
     return {
+      logo: require('@/assets/logo.svg'),
       mostrarModal: false,
       notificaciones: [],
       indiceActual: 0,
@@ -67,6 +78,7 @@ export default {
 
         if (response.ok && result.StatusCode === 200) {
           this.notificaciones = result.Data?.PiPInforma || [];
+          this.notificaciones[0]['documento'] = 'https://devs.piplatam.com/WidgetPIPChannel/GetFileViewer?txtCategory={0}&txtCountry={1}&txtType={2}'
           this.indiceActual = 0;
         } else {
           console.error('Error en la respuesta:', result.Message);
@@ -82,8 +94,8 @@ export default {
 <style scoped>
 .noti-button {
   position: fixed;
-  right: 20px;
-  top: 110px; /* Asumiendo que tu navbar y carrusel suman ~110px */
+  right: 8%;
+  top: 5px; /* Asumiendo que tu navbar y carrusel suman ~110px */
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -93,8 +105,7 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 4;
-  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  z-index: 6;
 }
 
 .arrow {
@@ -119,8 +130,29 @@ export default {
   border-radius: 50%;
 }
 
+.logo {
+  height: 2em;
+  width: auto;
+  display: block;
+  margin-left: 0;
+}
+
+.text-red{
+  color: #DA291C;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.title-notification{
+  font-weight: 500;
+}
+
+.blue-bell{
+  color: #00B0F0;
+}
+
 .modal-overlay {
-  z-index: 999;
+  z-index: 4;
   position: fixed;
   top: 0;
   left: 0;
@@ -147,8 +179,26 @@ export default {
 .nav-botones {
   display: flex;
   justify-content: space-between;
-  margin-top: 1em;
 }
+
+.btn-documento {
+  display: inline-block;
+  padding: 0.6em 1.2em;
+  margin-top: 1em;
+  border: 2px solid white;
+  background-color: transparent;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-documento:hover {
+  box-shadow: 0 6px 12px rgba(180, 180, 180, 0.35);
+  transform: translateY(-2px);
+}
+
 
 .cerrar {
   display: block;
@@ -159,5 +209,13 @@ export default {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .noti-button {
+    position: fixed;
+    right: 14%;
+    z-index: 5;
+  }
 }
 </style>

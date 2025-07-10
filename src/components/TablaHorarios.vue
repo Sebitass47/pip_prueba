@@ -116,7 +116,6 @@
   
   <style scoped>
   .contenedor-tabla {
-    
     background-color: white;
     color: black;
     font-family: Arial, sans-serif;

@@ -1,14 +1,7 @@
 <template>
   <section>
-    <article class="article-nosotros">
       <!-- <img :src="require('@/assets/img/about.png')" alt="Logo" class="animated slide-in-left"> -->
-      <div class="text-nosotros animated slide-in-right">
-        <h1 class="title-articles blue">NOSOTROS</h1>
-        <h1  class="title-article-2">PROVEEDOR Y SOCIO <span class="blue">ESTRATÉGICO</span></h1>
-        <p class="transparent">Somos un proveedor de precios aprobado y regulado por las principales comisiones en los mercados donde operamos. Desde nuestros inicios hemos sido líderes en el servicio de cálculo, determinación y proveeduría o suministro de precios actualizados para valuación de valores, documentos e instrumentos financieros.</p>
-        <p>Proveemos soluciones financieras completas, consistentes y oportunas con alta tecnología e ingeniería creativa e innovadora en materia de valuación de activos y pasivos, valuación de derivados, modelado, creación de índices, asesoría financiera y administración de riesgos.</p>
-      </div>
-    </article>
+      <PortadaNosotros/>
     <DatosComponent/>
     <article class="article-nosotros margin-menus">
       <div class="text-valores">
@@ -66,7 +59,7 @@
         <p class="transparent">A su vez formamos parte de un grupo más grande.</p>
       </div>
       <div class="cencor-circulo">
-        <TimelineCencorComponent/>
+        <img src="@/assets/svg/Nosotros/Empresas.svg" alt="2018" />
       </div>
     </article>
   </section>
@@ -75,8 +68,8 @@
 import DatosComponent from '../components/DatosNumericos.vue';
 import PaisesComponent from '../components/Paises.vue';
 import AlianzasComponent from '../components/Alianzas.vue';
-import TimelineCencorComponent from '../components/TimelineCencor.vue';
 import CronologiaCencorComponent from '../components/Cronologia.vue';
+import PortadaNosotros from '@/components/PortadaNosotros.vue';
 export default {
   
   name: 'NosotrosPage',
@@ -84,8 +77,8 @@ export default {
       DatosComponent,
       PaisesComponent,
       AlianzasComponent,
-      TimelineCencorComponent,
       CronologiaCencorComponent,
+      PortadaNosotros
     },
 };
 </script>
@@ -113,6 +106,8 @@ section{
 
 .cencor-circulo{
   width: 45%;
+  display: flex;
+  justify-content: center;
 }
 
 .text-nosotros{
@@ -307,6 +302,14 @@ section{
 
     .cencor{
       width: 90% !important;
+    }
+
+    .cencor-circulo{
+      width: 100%;
+    }
+
+    .cencor-circulo img{
+      width: 100%;
     }
 
 

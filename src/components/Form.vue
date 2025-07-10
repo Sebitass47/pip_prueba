@@ -78,7 +78,7 @@
  </script>
 <style scoped>
     .form-container{
-        width: 70%;
+        width: 90%;
     }
     .form-contact{
         padding: 20px;

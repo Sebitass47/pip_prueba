@@ -2,11 +2,10 @@
   <div>
     <!-- Carrusel -->
     <div class="ticker-wrapper" @click="modalAbierto = true">
-      <div class="ticker">
+      <div class="ticker" ref="ticker" :style="{ animationDuration: duracionAnimacion + 's' }">
         <div class="ticker-item" v-for="(item, index) in procesos" :key="index">
           <strong>{{ item.nombre }}</strong> - {{ item.definitivo }}
         </div>
-        <!-- Duplicamos para loop infinito visual -->
         <div class="ticker-item" v-for="(item, index) in procesos" :key="'dup-' + index">
           <strong>{{ item.nombre }}</strong> - {{ item.definitivo }}
         </div>
@@ -67,6 +66,7 @@ export default {
   data(){
       return{
         modalAbierto: false,
+        duracionAnimacion: 40,
         cierreAleatorio: '', // antes era '13:57'
         inicio: '',
         fin: '',
@@ -99,7 +99,6 @@ export default {
           const result = await response.json();
           if (response.ok && result.StatusCode === 200) {
             const data = result.Data?.[0] || {};
-            console.log(data)
             const horarios = data.HorariosLiberacion || [];
             const horarioImpugnacion = data.HorarioImpugnacion || {};
 
@@ -117,6 +116,7 @@ export default {
               reproceso: item.Reproceso,
               regeneracion: item.Regeneracion
             }));
+            this.duracionAnimacion = this.procesos.length * 3;
           } else {
             console.error('Error en la respuesta:', result.Message);
           }
@@ -135,17 +135,12 @@ export default {
 
 <style scoped>
 .ticker-wrapper {
-  position: fixed;
-  top: 70.19px;
-  left: 0;
-  width: 100%;
-  z-index: 4; /* por si se lo traga el navbar o algo más */
-  background: rgba(255, 255, 255, 0.7);
+  background: #919395;
   color: black;
   white-space: nowrap;
   padding: 8px 0;
+  width: 100% !important;
 }
-
 
 .ticker {
   display: inline-flex;
@@ -170,7 +165,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.8);
   width: 100%;
   height: 100%;
   display: flex;
@@ -184,7 +179,7 @@ export default {
   padding: 5px;
   border-radius: 10px;
   width: 100%;
-  max-width: 900px;
+  max-width: 1500px;
   max-height: 90vh;
   overflow-y: auto;
 }
@@ -224,7 +219,7 @@ export default {
     width: 100%;
     
     border-radius: 10px;
-    max-height: 220px;
+    max-height: 500px;
     overflow-y: auto;
   }
 
@@ -345,7 +340,7 @@ tr:hover {
 
 @media (max-width: 768px) {
   .ticker-wrapper {
-  top: 60px;
+  width: 100%;
 }
 }
 </style>

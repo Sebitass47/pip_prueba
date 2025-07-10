@@ -1,5 +1,4 @@
 <template>
-  <TickerHorarios/>
   <CentroNotificaciones/>
     <section>
       <!-- <article class="article-filiales">
@@ -24,6 +23,10 @@
           </span>
         </div>
       </article> -->
+      <CarruselServicios/>
+      <div style="width: 100%; overflow: hidden;">
+        <TickerHorarios/>
+      </div>
       <article class="indicadores">
         <h1>INDICADORES </h1>
         <div class="botones-indicadores-container" v-if="filiales[lugar]">
@@ -84,12 +87,15 @@
   import TickerHorarios from '@/components/TickerHorarios.vue'
   import CentroNotificaciones from '@/components/CentroNotificaciones.vue'
   import DocumentosFilial from '@/components/DocumentosFilial.vue'
+import CarruselServicios from '@/components/CarruselServicios.vue';
   export default {
     name: 'FilialPage',
-    components: { TickerHorarios, CentroNotificaciones, DocumentosFilial },
+    components: { TickerHorarios, CentroNotificaciones, DocumentosFilial, CarruselServicios
+     },
     data() {
       return {
         lugar: this.$route.params.nombre,
+        datosCompletos: [],
         datos: [],
         grafica: {
           titulo: "Cargando...",
@@ -131,7 +137,7 @@
           }
         },
         filtroActual: null,
-        chartKey: 0
+        chartKey: 0,
       };
     },
     watch: {
@@ -139,6 +145,7 @@
         immediate: true,
         handler(newVal) {
           this.lugar = newVal; // Actualiza si cambia la ruta
+          this.datosCompletos = []
           this.fetchLugarData(this.filiales[this.lugar]['valor_default']);
         },
       },
@@ -165,6 +172,10 @@
           return;
         }
 
+        if (tipo in this.datosCompletos){
+          this.datos = this.datosCompletos[tipo]
+          return
+        };
         try {
           console.log(tipo)
           const response = await fetch(process.env.VUE_APP_API_INDICADORES_URL, {
@@ -180,7 +191,9 @@
           const json = await response.json();
 
           if (json.StatusCode === 200) {
-            this.datos = json.Data[tipo] || []; console.log(json.Data)
+            this.datosCompletos = json.Data || []
+            this.datos = this.datosCompletos[tipo] || []; 
+            console.log(json.Data)
           } else {
             console.error("Error en la API:", json.Message || "Sin mensaje");
             this.datos = [];
@@ -265,7 +278,8 @@
   }
 
   .documentos{
-    margin-top: 10%;
+    width: 90%;
+    margin-top: 5%;
     margin-bottom: 2em;
   }
 
@@ -300,7 +314,7 @@
   }
 
   .indicadores{
-    margin-top: 10%;
+    margin-top: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -455,6 +469,12 @@ tr:hover {
 }
 
 @media (max-width: 780px) {
+    .documentos{
+    width: 98%;
+    margin-top: 10%;
+    margin-bottom: 2em;
+  }
+
   .article-filiales h1{
     width: 90%;
     margin-top: 2em;
