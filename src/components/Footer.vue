@@ -18,6 +18,7 @@
                   <img :src="mei" alt="Logo de Mei" class="logo mei-logo">
                   <img :src="biva" alt="Logo de Biva" class="logo biva-logo">
                   <img :src="cencor" alt="Logo de Cencor" class="logo cencor-logo">
+                  <img :src="quantit" alt="Logo de Quantit" class="logo enlace-logo">
                 </div>
             </div>
         </div>
@@ -44,6 +45,7 @@
         fb: require('@/assets/svg/FB_Logo.svg'),
         ig: require('@/assets/svg/IG_Logo.svg'),
         lkd: require('@/assets/svg/Linkedin_Logo.svg'),
+        quantit: require('@/assets/svg/Quantit_Logo.svg'),
       };
     }
   };
@@ -181,7 +183,7 @@
     }
 }
 
-@media (max-width: 780px) {
+@media (max-width: 820px) {
     .logos-empresas{
         flex-direction: column;
         align-items: center;
