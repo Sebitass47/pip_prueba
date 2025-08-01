@@ -3,22 +3,19 @@
         <div class="footer-one">
             <div class="footer-pip">
                 <img :src="pip" alt="Logo de PIP" class='logo-pip'>
-                <p class="footer-sections">SIGUENOS</p>
-                <div class="redes-footer">
-                  <a href="#" target="_blank" rel="noopener noreferrer">
+                <span class="redes-footer">
+                  <a href="https://pt.linkedin.com/company/pip-latam?trk=public_profile_experience-item_profile-section-card_subtitle-click" target="_blank" rel="noopener noreferrer">
                     <img :src="lkd" alt="Logo de Linkedin">
                   </a>
-
-                </div>
+                </span>
             </div>
             <div class="empresas">
-                <h1 class="footer-sections">EMPRESAS DEL GRUPO</h1>
                 <div class="logos-empresas">
-                  <img :src="enlace" alt="Logo de Enlace" class="logo enlace-logo">
                   <img :src="mei" alt="Logo de Mei" class="logo mei-logo">
-                  <img :src="biva" alt="Logo de Biva" class="logo biva-logo">
-                  <img :src="cencor" alt="Logo de Cencor" class="logo cencor-logo">
                   <img :src="quantit" alt="Logo de Quantit" class="logo enlace-logo">
+                  <img :src="biva" alt="Logo de Biva" class="logo biva-logo">
+                  <img :src="enlace" alt="Logo de Enlace" class="logo enlace-logo">
+                  <img :src="cencor" alt="Logo de Cencor" class="logo cencor-logo">
                 </div>
             </div>
         </div>
@@ -69,22 +66,34 @@
     width: 70%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 2em;
+    margin-bottom: 0.5e/m;
+}
+
+.footer-pip{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0;
 }
 
 .footer-sections{
     font-weight: 500;
     font-size: 1em;
     margin: 0 0 0.4em 0;
+    text-align: center;
   }
 
   .redes-footer{
     width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 1.2em;
+    margin-left: 1em;
   }
   
   .logo-pip{
-    margin-top: 2em;
-    width: 7em;
+    margin-top: 0.5em;
+    height: 35px;
   }
 
   .redes-footer img{
@@ -97,17 +106,16 @@
   }
 
   .empresas{
-    margin-top: 1em;
+    height: 50px;
   }
 
-  .logos-empresas{     
-    width: 100%;
+  .logos-empresas{
     display: flex;
     gap: 2em;
   }
 
   .logo {
-    height: 80px; /* o el tamaño que tú necesites */
+    height: 35px;
     object-fit: contain;
     display: block;
     margin: 0 auto;
@@ -119,7 +127,7 @@
   }
 
   .mei-logo {
-    padding-bottom: 15px;
+    padding-top: 10px;
   }
 
   .biva-logo {
@@ -170,6 +178,15 @@
         text-align: center;
     }
 
+    .empresas{
+      margin-top: 0;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 0;
+    }
+
     .footer-pip{
         margin-bottom: 1em;
     }
@@ -184,9 +201,19 @@
 }
 
 @media (max-width: 820px) {
-    .logos-empresas{
+  .footer-pip{
         flex-direction: column;
-        align-items: center;
+    }
+    .logos-empresas{
+      flex-wrap: wrap;
+        /* align-items: center; */
+    }
+
+    .redes-footer{
+      align-items: center;
+      justify-content: center;
+      margin-top: 5px;
+      margin-left: 0;
     }
 
     .footer-two{

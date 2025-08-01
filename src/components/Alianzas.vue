@@ -1,8 +1,5 @@
 <template>
     <article class="article-filiales">
-        <div class="background-filiales">
-          <img src="@/assets/img/filiales/info-adicional.jpg" alt="Imagen de fondo" class="background-image" >
-        </div>
         <h1 class="title-article-2">ALIANZAS ESTRATÉGICAS</h1>
         <div class="background-color">
           <div class="menu-filiales">
@@ -90,7 +87,7 @@
                     mercado financiero y cotizaciones en
                     tiempo real de tipos de cambio, tasas
                     forwards y swaps.`,
-            link: "https://xymmetry.com.mx",
+            link: "https://xymmetry.com",
           },
         ],
       };
@@ -106,14 +103,6 @@
     flex-direction: column;
     justify-content: center;
     margin-bottom: 3rem;
-  }
-
-  .background-filiales {
-    position: absolute;
-    width: 100% !important;
-    height: 100%;
-    overflow: hidden;
-    z-index: 2;
   }
 
   .fade-slide-enter-active,
@@ -156,7 +145,7 @@
   }
 
   .article-filiales > h1{
-    margin-top: 15em;
+    margin-top: 2em;
     margin-left: 10rem;
     width: 50%;
     z-index: 3;
@@ -167,14 +156,14 @@
     display: flex;
     justify-content: center;
     z-index: 2;
-    background-color: rgba(0, 0, 0, 0.5);
   }
 
   .menu-filiales{
     width: 85%;
+    min-height: 28em;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: space-between;
     margin-top: 2rem;
     gap: 3em;
     z-index: 3;
@@ -182,9 +171,9 @@
   }
 
   .card{
-    width: 100%;
+  width: 33%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1em;
@@ -203,6 +192,7 @@
   min-height: 150px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .logo-alianza-cuadrado{
@@ -220,8 +210,11 @@
 
 .text-card{
   margin-bottom: 1em;
-  width: 800px;
 }
+
+.text-alianza-container{
+    width: 100%;
+  }
 
 @media (max-width: 1200px) {
   .background-image {
@@ -235,28 +228,20 @@
   }
 
   .article-filiales > h1{
-    margin-top: 15em;
     margin-left: 5rem;
     width: 50%;
     z-index: 3;
   }
 
-  .text-alianza-container{
-    width: 80%;
-  }
-
   .text-card{
     margin-bottom: 1em;
-
-    min-width: 100px;
-    width: 600px;
+    min-width: 100%;
   }
 
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1000px) {
   .article-filiales > h1{
-    margin-top: 5em;
     margin-left: 3rem;
     width: 50%;
     z-index: 3;
@@ -269,41 +254,8 @@
     width: 90%;
     gap: 3em;
     z-index: 3;
-    /* margin-top: 3em; */
-  }
-  .background-color{
-    z-index: 2;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-}
 
-@media (max-width: 768px) {
-  .background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    object-fit: cover; /* La imagen se adapta al tamaño del contenedor */
-    z-index: -1; /* Asegúrate de que esté detrás del contenido */
-  }
-
-  .article-filiales > h1{
-    margin-top: 3em;
-    margin-left: 1rem;
-  }
-
-  .menu-filiales{
-    margin-top: 2rem;
-    margin-left: 0 !important;
-    width: 100%;
-    /* margin-top: 3em; */
-  }
-
-  .background-color{
-    width: 100%;
-  }
-
-  .card{
+    .card{
     width: 100%;
     padding: 0;
     flex-direction: column;
@@ -315,7 +267,37 @@
 
   .img-container{
     justify-content: center;
+    align-items: center;
+    width: 100%;
     margin-bottom: 2em;
+  }
+
+  .img-container > img{
+    width: 40%;
+  }
+
+  .text-alianza-container{
+    width: 90%;
+  }
+    /* margin-top: 3em; */
+  }
+}
+
+@media (max-width: 768px) {
+
+  .article-filiales > h1{
+    margin-left: 1rem;
+  }
+
+  .menu-filiales{
+    margin-top: 2rem;
+    margin-left: 0 !important;
+    width: 100%;
+    /* margin-top: 3em; */
+  }
+
+  .img-container > img{
+    width: 60%;
   }
 
 }

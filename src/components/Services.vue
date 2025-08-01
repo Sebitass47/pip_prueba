@@ -2,13 +2,13 @@
   <article class="contenedor-documentos">
     <div class="pestañas">
       <div
-        v-for="(label, id) in pestañasPorFilial"
+        v-for="id in pestañasPorFilial"
         :key="id"
         class="pestaña"
         :class="{ activa: id === pestañaActiva }"
         @click="cambiarPestaña(id)"
         >
-        {{ label }}
+        {{ id }}
     </div>
 
     </div>
@@ -16,8 +16,8 @@
    <div class="contenido-documentos">
       <div class="grid-info" v-if="infoMostrar.length">
         <div class="tarjeta-info" v-for="(item, i) in infoMostrar" :key="i">
-          <h3 class="titulo-info">{{ item.titulo }}</h3>
-          <p class="texto-info">{{ item.texto }}</p>
+          <h3 class="titulo-info">{{ item.txtService }}</h3>
+          <p class="texto-info">{{ item.txtDescription }}</p>
         </div>
       </div>
       <p v-else>Seleccione un tipo de servicio.</p>
@@ -31,64 +31,48 @@ export default {
   name: 'ServicesComponent',
   data() {
     return {
-      pestañaActiva: 'regulados',
+      pestañaActiva: null,
       infoMostrar: [],
-      infoCompleta: {
-        'regulados': [
-        {
-          'titulo': 'Vectores Oficiales', 
-          'texto': 'Servicio de cálculo, determinación y proveeduría o suministro de precios actualizados para valuación de valores, documentos e instrumentos financieros. La licencia contiene el cierre oficial para los siguientes mercados nacionales: Gubernamental, Corporativo, Bancario, Derivados Listados (MexDer), Accionario y Fondos.' 
-        },
-        {
-          'titulo': 'Curvas Oficiales',
-          'texto': 'Paquete básico con curvas de descuento y valuación sobre tasas de interés, tipos de cambio y derivados (sin colateral) para mercados locales e internacionales.'
-        },
-        {'titulo': 'Matrices de Riesgo',
-          'texto': 'Servicio que provee escenarios móviles y fijos sobre instrumentos de renta fija y variable para el cálculo de VaR histórico.'
-        }
-      ],
-      'soluciones': [
-        {
-          'titulo': 'Portfolio Manager',
-          'texto': 'Herramienta para la gestión de activos que incluye la administración de inventarios, definición de límites operativos, generación de escenarios “What If”, cálculo de rendimientos, error de seguimiento y valor en riesgo histórico (VaR).'
-        },
-        {
-          'titulo': 'Curvas con Colateral',
-          'texto': 'Servicio de generación de curvas sobre las principales tasas de referencia (TIIE de Fondeo, SOFR, ESTR, TONAR, SONIA, entre otras) considerando el colateral asociado a la operación valuada.'
-        },
-        {
-          'titulo': 'Deterioro Financiero',
-          'texto': 'Servicio que provee la tasa de probabilidad de incumplimiento y la tasa de severidad de la pérdida, conforme a lo establecido en el Boletín C-16 de las Normas de Información Financiera (NIF).'
-        },
-        {
-          'titulo': 'Vector NIF VR',
-          'texto': 'Servicio que reporta el nivel del instrumento (Nivel 1, 2 o 3), conforme a lo establecido en el Boletín B-17 de las Normas de Información Financiera (NIF) en materia de determinación del valor razonable.'
-        }
-      ],
-      'personalizados': [
-        {
-          'titulo': 'Completo/Medio/Simple',
-          'texto': 'Servicios o productos que se generan a solicitud del cliente. La complejidad del proyecto dependerá de si la información requerida ya existe en la base de datos de PiP, si es necesario desarrollar nuevos componentes, y/o si se requiere la contratación de licencias o insumos adicionales.'
-        }
-      ]
-
-
-      },
-      pestañasPorFilial: {
-            "regulados": "Regulados",
-            "soluciones": "Soluciones",
-            "personalizados": "Personalizados"
-        },
+      infoCompleta: {},
     };
   },
+  computed: {
+    pestañasPorFilial() {
+      return Object.keys  (this.infoCompleta);
+    }
+  },
+  watch: {
+    '$route.params.nombre': {
+      immediate: true,
+      handler() {
+        this.obtenerServicios();
+      }
+    }
+  },
   methods: {
+    async obtenerServicios() {
+      try {
+        const response = await fetch(process.env.VUE_APP_API_SERVICIOS_URL, {
+          method: "GET"
+        });
+
+        const result = await response.json();
+        if (response.ok && result.StatusCode === 200) {
+          this.infoCompleta = result.Data || {};
+          const primera = Object.keys(this.infoCompleta)[0];
+          this.pestañaActiva = primera;
+          this.infoMostrar = this.infoCompleta[this.pestañaActiva]
+        } else {
+          console.error("Error al obtener pestañas:", result.Message);
+        }
+      } catch (error) {
+        console.error("Error al llamar al API:", error);
+      }
+    },
     cambiarPestaña(tab) {
       this.pestañaActiva = tab;
       this.infoMostrar = this.infoCompleta[tab];
     }
-  },
-  mounted() {
-      this.cambiarPestaña(this.pestañaActiva);
   }
 };
 </script>
@@ -101,15 +85,15 @@ export default {
   margin: 3em 0;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0,0,0,0.15);
-  background: white;
+  background: #141B4D;
   color: black;
   font-family: 'Montserrat', sans-serif;
 }
 
 .pestañas {
   flex: 1;
-  border-right: 1px solid #ccc;
-  background: #f8f8f8;
+  border-right: 1px solid #DA291C;
+  background: #141B4D;
   padding: 1rem;
 }
 
@@ -119,7 +103,7 @@ export default {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
-  color: #0075b2;
+  color: white;
   transition: background 0.2s;
 }
 
@@ -128,9 +112,9 @@ export default {
 }
 
 .pestaña.activa {
-  background-color: #fff;
+  border-right: 3px solid #DA291C;
   font-weight: 700;
-  color: #009ed8;
+  color: #DA291C;
 }
 
 .contenido-documentos {
@@ -148,10 +132,10 @@ export default {
 }
 
 .tarjeta-info {
-  background-color: white;
+  background-color: #141b4d;
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
   min-width: 280px;
   max-width: 100%;
 }
@@ -163,7 +147,7 @@ export default {
 }
 
 .texto-info {
-  color: #000;
+  color: white;
   font-size: 0.95rem;
   line-height: 1.4;
 }

@@ -57,10 +57,9 @@ Chart.register(LineController, LineElement, PointElement, LinearScale, Title, Ca
   
 <style scoped>
   .chart-container {
-    background-color: rgb(6, 11, 40);
     padding: 10px; 
     border-radius: 10px;
-    border: 0.5px solid #ccc; 
+    /* border: 0.5px solid #ccc;  */
   }
   canvas {
     max-width: 100%;

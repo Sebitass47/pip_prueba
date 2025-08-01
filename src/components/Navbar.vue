@@ -134,7 +134,7 @@ nav {
 }
 
 .navbar-blue {
-  background-color: #151b4d;
+  background-color: #141B4D;
   transition: background-color 0.3s ease;
 }
 

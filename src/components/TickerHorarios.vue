@@ -12,19 +12,37 @@
       </div>
     </div>
 
+    <div v-if="horariosImpugnacionActivos.length" class="relojes-container">
+      <div
+        v-for="(reloj, index) in horariosImpugnacionActivos"
+        :key="index"
+        class="reloj-container"
+      >
+        <div class="reloj-header">
+          <span class="reloj-nombre">{{ reloj.nombre }}</span>
+          <span
+            class="status-dot"
+            :class="{ activo: reloj.Display, inactivo: !reloj.Display }"
+          ></span>
+        </div>
+
+        <TemporizadorComponent
+          v-if="estaActivo(reloj.HoraInicio, reloj.HoraFin)"
+          :horaFin="reloj.HoraFin"
+        />
+        <p v-else class="mensaje-inactivo">
+          El horario de impugnación no está activo.
+        </p>
+      </div>
+    </div>
+
+
     <!-- Modal con la tabla -->
     <div v-if="modalAbierto" class="modal-overlay" @click.self="modalAbierto = false">
       <div class="modal-content">
         <div class="contenedor-tabla">
           <div class="header">
             <span class="opcion-menu">HORARIOS DE LIBERACIÓN: {{ lugar }}</span>
-            <div class="leyenda">
-              <p><strong>CIERRE ALEATORIO:</strong> {{ cierreAleatorio }}</p>
-              <span class="contenedor-horarios">
-                <p class="inicio">🟩 Inicia: {{ inicio }}</p>
-                <p class="fin">🟥 Finaliza: {{ fin }}</p>
-              </span>
-            </div>
           </div>
           <div class="table-container scroll">
             <table class="tabla-horarios">
@@ -61,15 +79,15 @@
 
 
 <script>
+import TemporizadorComponent from '@/components/Temporizador.vue'
 export default {
   name: 'TickerHorarios',
+  components: { TemporizadorComponent },
   data(){
       return{
         modalAbierto: false,
         duracionAnimacion: 40,
-        cierreAleatorio: '', // antes era '13:57'
-        inicio: '',
-        fin: '',
+        horarioImpugnacion: {},
         procesos: [],
         codigos: { mexico: 'MX', peru: 'PE', colombia: 'CO', centroamerica: 'CR' },
         lugar: null
@@ -79,14 +97,31 @@ export default {
       '$route.params.nombre': {
         immediate: true,
         handler(newVal) {
-          this.lugar = this.codigos[newVal]; // Actualiza si cambia la ruta
+          this.lugar = this.codigos[newVal];
           this.fetchHorarios(newVal);
         },
       },
     },
+    computed: {
+      horariosImpugnacionActivos() {
+        const horario = this.horarioImpugnacion
+        // Si NO hay llaves intermedias (es decir, Display está a este nivel), lo ignoramos
+        const tieneNiveles = Object.values(horario).some(v => typeof v === 'object' && v !== null);
+
+        if (!tieneNiveles) return [];
+
+        return Object.entries(horario)
+          .map(([nombre, val]) => ({
+            nombre,
+            ...val,
+          }));
+      }
+    },
     methods:{
       async fetchHorarios(pais) {
         try {
+          this.horarioImpugnacion = {}
+          this.procesos = []
           const countryCode = this.codigos[pais] || 'MX'
           const response = await fetch(process.env.VUE_APP_API_HORARIOS_URL, {
             method: 'POST',
@@ -98,15 +133,10 @@ export default {
 
           const result = await response.json();
           if (response.ok && result.StatusCode === 200) {
-            const data = result.Data?.[0] || {};
+            const data = result.Data || {};
             const horarios = data.HorariosLiberacion || [];
             const horarioImpugnacion = data.HorarioImpugnacion || {};
-
-            this.cierreAleatorio = horarios[0]?.CierreAleatorio || 'No disponible';
-            this.inicio = horarioImpugnacion.HoraInicio || '00:00';
-            this.fin = horarioImpugnacion.HoraFin || '00:00';
-
-            // Mapear los datos a lo que espera tu tabla
+            this.horarioImpugnacion = horarioImpugnacion
             this.procesos = horarios.map(item => ({
               nombre: item.Producto,
               operativo: item.Operativo,
@@ -118,18 +148,28 @@ export default {
             }));
             this.duracionAnimacion = this.procesos.length * 3;
           } else {
+            this.procesos = []
             console.error('Error en la respuesta:', result.Message);
           }
         } catch (error) {
+          this.procesos = []
           console.error('Error al obtener los horarios:', error);
         }
+      },
+      estaActivo(horaInicio, horaFin) {
+        const ahora = new Date();
+        const [hIni, mIni] = horaInicio.split(':').map(Number);
+        const [hFin, mFin] = horaFin.split(':').map(Number);
+
+        const inicio = new Date();
+        inicio.setHours(hIni, mIni, 0, 0);
+
+        const fin = new Date();
+        fin.setHours(hFin, mFin, 0, 0);
+        return ahora >= inicio && ahora <= fin;
       }
 
-    },
-    mounted() {
-      // Llama a la función cuando el componente se monta
-      this.fetchHorarios(this.lugar);
-    },
+    }
 }
 </script>
 
@@ -145,6 +185,38 @@ export default {
 .ticker {
   display: inline-flex;
   animation: scroll 20s linear infinite;
+}
+
+.relojes-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.reloj-container {
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.reloj-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.status-dot.activo {
+  background-color: green;
+}
+
+.status-dot.inactivo {
+  background-color: red;
 }
 
 .ticker-item {
@@ -340,7 +412,12 @@ tr:hover {
 
 @media (max-width: 768px) {
   .ticker-wrapper {
-  width: 100%;
-}
+    width: 100%;
+  }
+
+  .relojes-container{
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>

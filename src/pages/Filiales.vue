@@ -1,85 +1,66 @@
 <template>
   <CentroNotificaciones/>
     <section>
-      <!-- <article class="article-filiales">
-        <div class="background-filiales">
-          <img src="@/assets/img/filiales/background.jpg" alt="Imagen de fondo" class="background-image">
-        </div>
-        <h1 class="title-article-2 animated slide-in-left">SOLUCIONES FINANCIEROS CON <span class="blue">ALTA TECNOLOGÍA</span></h1>
-        <p class="animated slide-in-left"> Somos la empresa autorizada para el cumplimiento de las obligaciones locales de
-          valuación por las entidades regulatorias financieras de México, Costa Rica, Perú,
-          Panamá y Colombia.
-        </p>
-        <div class="menu-filiales">
-          <span class="opcion-menu" v-intersect>
-            <p>
-              <i class="bi bi-folder-plus"></i><br/>MANUALES
-            </p>
-          </span>
-          <span class="opcion-menu" v-intersect>
-            <p>
-              <i class="bi bi-bank2"></i><br/>GOBIERNO<br/>CORPORATIVO
-            </p>
-          </span>
-        </div>
-      </article> -->
       <CarruselServicios/>
       <div style="width: 100%; overflow: hidden;">
         <TickerHorarios/>
       </div>
-      <article class="indicadores">
-        <h1>INDICADORES </h1>
-        <div class="botones-indicadores-container" v-if="filiales[lugar]">
-        <button
-          v-for="(boton, index) in filiales[lugar].botones"
-          :key="index"
-          @click="fetchLugarData(boton.tipo)"
-           :class="['boton-indicadores', { activo: boton.tipo === filtroActual }]"
-        >
-          {{ boton.texto }}
-        </button>
-      </div>
-        <div class="table-container scroll">
-          <table class="custom-table">
-            <thead>
-              <tr>
-                <th>Descripción</th>
-                <th>Actual</th>
-              <th>Anterior</th>
-              <th>Variación</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, index) in datos" :key="index">
-              <td>{{ item.txtBenchmark }}</td>
-              <td>{{ item.dblValue }}</td>
-              <td>{{ item.dblChange }}</td>
-              <td>
-                <i :style="{ color: item.dblPerChange < 0 ? 'red' : 'green' }" :class="item.dblPerChange < 0 ? 'bi bi-caret-down-fill' : 'bi bi-caret-up-fill'"></i>
-                 {{ item.dblPerChange }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <article class="article-indicadores">
+        <div class="grafica-container">
+          <LineaChart :grafica="graficaInfo" :key="graficaKey"/>
+        </div>
+        <div class="indicadores">
+          <h1>INDICADORES </h1>
+          <div class="botones-indicadores-container" v-if="filiales[lugar]">
+          <button
+            v-for="(boton, index) in filiales[lugar].botones"
+            :key="index"
+            @click="fetchLugarData(boton.tipo)"
+            :class="['boton-indicadores', { activo: boton.tipo === filtroActual }]"
+          >
+            {{ boton.texto }}
+          </button>
+        </div>
+          <div class="table-container scroll">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Descripción</th>
+                  <th>Actual</th>
+                  <th>Anterior</th>
+                  <th style='color: #da291c;'>Variación</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in datos" :key="index" @click="cargarGrafica(item)" style="cursor: pointer;">
+                <td>{{ item.dteDate }}</td>
+                <td>{{ item.txtBenchmark }}</td>
+                <td>{{ item.dblValue }}</td>
+                <td>{{ item.dblChange }}</td>
+                <td>
+                  <i
+                  :style="{
+                    color: item.dblPerChange < 0 ? 'red' : item.dblPerChange > 0 ? 'green' : '#00b0f0'
+                  }"
+                  :class="item.dblPerChange < 0
+                    ? 'bi bi-caret-down-fill'
+                    : item.dblPerChange > 0
+                    ? 'bi bi-caret-up-fill'
+                    : 'bi bi-dash'"
+                ></i>
+                {{ item.dblPerChange }}
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </article>
       <article class='documentos'>
         <DocumentosFilial/>
       </article>
-      <!-- <article class="info-adicional">
-        <img src="@/assets/img/filiales/info-adicional.jpg" alt="Monedas" class="info-image">
-        <div class="info-text">
-          <h1 class="blue">PIP INFORMA</h1>
-          <div class="informa-container scroll">
-
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo excepturi cumque consequuntur numquam cupiditate qui provident. Recusandae deserunt saepe, modi excepturi eos incidunt quibusdam eveniet. Quis repellat error cupiditate. Tenetur!</p>
-            <hr>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo excepturi cumque consequuntur numquam cupiditate qui provident. Recusandae deserunt saepe, modi excepturi eos incidunt quibusdam eveniet. Quis repellat error cupiditate. Tenetur!</p>
-          <hr>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo excepturi cumque consequuntur numquam cupiditate qui provident. Recusandae deserunt saepe, modi excepturi eos incidunt quibusdam eveniet. Quis repellat error cupiditate. Tenetur!</p>
-        </div>
-        </div>
-      </article> -->
     </section>
   </template>
   
@@ -87,13 +68,18 @@
   import TickerHorarios from '@/components/TickerHorarios.vue'
   import CentroNotificaciones from '@/components/CentroNotificaciones.vue'
   import DocumentosFilial from '@/components/DocumentosFilial.vue'
-import CarruselServicios from '@/components/CarruselServicios.vue';
+  import CarruselServicios from '@/components/CarruselServicios.vue';
+  import LineaChart from "@/components/LineaChart.vue"; 
   export default {
     name: 'FilialPage',
-    components: { TickerHorarios, CentroNotificaciones, DocumentosFilial, CarruselServicios
+    components: { TickerHorarios, CentroNotificaciones, DocumentosFilial, CarruselServicios, LineaChart
      },
     data() {
       return {
+        graficaInfo: {
+            titulo: "Seleccione una opción para mostrar la gráfica",
+            datos: []
+          },
         lugar: this.$route.params.nombre,
         datosCompletos: [],
         datos: [],
@@ -144,8 +130,11 @@ import CarruselServicios from '@/components/CarruselServicios.vue';
       '$route.params.nombre': {
         immediate: true,
         handler(newVal) {
-          this.lugar = newVal; // Actualiza si cambia la ruta
-          this.datosCompletos = []
+          this.lugar = newVal;
+          this.graficaIngo = {
+            titulo: "Seleccione una opción para mostrar la gráfica",
+            datos: []
+          }
           this.fetchLugarData(this.filiales[this.lugar]['valor_default']);
         },
       },
@@ -153,6 +142,10 @@ import CarruselServicios from '@/components/CarruselServicios.vue';
     methods: {
       async fetchLugarData(tipo) {
         this.datos = [];
+        this.graficaInfo = {
+            titulo: "Seleccione una opción para mostrar la gráfica",
+            datos: []
+          }
         this.filtroActual = tipo;
 
         // Obtener país desde la ruta, convertir a código de país (ej. mexico -> MX)
@@ -177,7 +170,6 @@ import CarruselServicios from '@/components/CarruselServicios.vue';
           return
         }
         try {
-          console.log(tipo)
           const response = await fetch(process.env.VUE_APP_API_INDICADORES_URL, {
             method: "POST",
             headers: {
@@ -192,8 +184,7 @@ import CarruselServicios from '@/components/CarruselServicios.vue';
 
           if (json.StatusCode === 200) {
             this.datosCompletos = json.Data || []
-            this.datos = this.datosCompletos[tipo] || []; 
-            console.log(json.Data)
+            this.datos = this.datosCompletos[tipo] || [];
           } else {
             console.error("Error en la API:", json.Message || "Sin mensaje");
             this.datos = [];
@@ -202,7 +193,38 @@ import CarruselServicios from '@/components/CarruselServicios.vue';
           console.error("Error al hacer fetch:", error);
           this.datos = [];
         }
+      },
+      async cargarGrafica(item) {
+      const payload = {
+        txtCategory: item.intCategory,
+        txtType: item.txtIRC,
+        txtPlazo: item.txtPlazo,
+      };
+
+      try {
+        const response = await fetch(process.env.VUE_APP_API_GRAFICA_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await response.json();
+        // Transforma los datos al formato que tu gráfica espera
+        const graficaDatos = result.Data.map((punto) => ({
+          plazo: punto.txtDate, // o el nombre que quieras mostrar
+          valor: punto.dblValue,
+        }));
+        this.graficaInfo = {
+          'titulo': item.txtBenchmark, 
+          'datos': graficaDatos
+        }
+        this.graficaKey++;
+      } catch (err) {
+        console.error("Error al cargar gráfica:", err);
       }
+    },
 
     },
     mounted() {
@@ -313,13 +335,23 @@ import CarruselServicios from '@/components/CarruselServicios.vue';
     width: 100%;
   }
 
-  .indicadores{
+  .article-indicadores{
+    width: 80%;
+    display: flex;
     margin-top: 5%;
+  }
+
+  .grafica-container{
+    width: 40%;
+    margin-right: 10px;
+  }
+
+  .indicadores{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: black;
-    width: 80%;
+    background-color: #141B4D;
+    width: 60%;
     color: white;
     border-radius: 10px;
   }
@@ -375,6 +407,7 @@ tr:hover {
 
 
   .custom-table thead {
+    color: #00aeef;
     background-color: transparent; /* Fondo gris claro para el encabezado */
   }
 
@@ -394,10 +427,6 @@ tr:hover {
     gap: 5em;
     align-items: center;
     margin-top: 2em;
-  }
-
-  .grafica-container{
-    height: 300px;
   }
 
 
@@ -446,6 +475,18 @@ tr:hover {
   }
 
   @media (max-width: 1180px) {
+    .article-indicadores{
+    width: 80%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-top: 5%;
+  }
+
+  .grafica-container{
+    width: 90%;
+  }
+  
   .article-filiales h1{
     margin-top: 3em;
     margin-left: 5rem;
@@ -495,6 +536,11 @@ tr:hover {
     margin-bottom: 0em;
   }
 
+  .article-indicadores{
+    width: 95%;
+    margin-top: -3em;
+  }
+
   .opcion-menu{
     width: 90%;
     padding: 0;
@@ -530,7 +576,7 @@ tr:hover {
   }
 
   .grafica-container{
-    height: 250px;
+    width: 100%;
   }
   }
   </style>

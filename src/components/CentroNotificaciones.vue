@@ -1,10 +1,13 @@
 <template>
   <div>
     <!-- Campanita -->
-    <div class="noti-button" @click="mostrarModal = true">
+   <div class="noti-button" @click="mostrarModal = true">
       <i class="bi bi-bell-fill blue-bell"></i>
-      <span v-if="notificaciones.length" class="punto-rojo"></span>
+      <span v-if="notificaciones.length" class="badge-noti">
+        {{ notificaciones.length }}
+      </span>
     </div>
+
 
     <!-- Modal -->
     <div v-if="mostrarModal" class="modal-overlay" @click.self="cerrarModal">
@@ -68,20 +71,19 @@ export default {
     },
     async fetchNotificaciones(paisCodigo) {
       try {
+        this.notificaciones = []
+        this.indiceActual = 0;
         const response = await fetch(process.env.VUE_APP_API_NOTIFICACIONES_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ txtCountry: paisCodigo })
+          body: JSON.stringify({ txtCountry: paisCodigo, txtChannel: 'PiP_Informa' })
         });
 
         const result = await response.json();
-
         if (response.ok && result.StatusCode === 200) {
-          this.notificaciones = result.Data?.PiPInforma || [];
-          this.notificaciones[0]['documento'] = 'https://devs.piplatam.com/WidgetPIPChannel/GetFileViewer?txtCategory={0}&txtCountry={1}&txtType={2}'
-          this.indiceActual = 0;
+          this.notificaciones = result?.Data || [];
         } else {
-          console.error('Error en la respuesta:', result.Message);
+          console.error('Error en la respuesta:', result);
         }
       } catch (err) {
         console.error('Error al obtener notificaciones:', err);
@@ -120,15 +122,18 @@ export default {
   color: white;
 }
 
-.punto-rojo {
+.badge-noti {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 10px;
-  height: 10px;
+  top: 0;
+  right: 0;
   background-color: red;
-  border-radius: 50%;
+  color: white;
+  border-radius: 999px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: bold;
 }
+
 
 .logo {
   height: 2em;

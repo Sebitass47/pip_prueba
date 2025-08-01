@@ -1,30 +1,27 @@
 <template>
   <div class="contenedor-documentos">
     <div class="pestañas">
-      <template v-for="(label, id) in pestañasFilial" :key="id">
-        <!-- Si es mesa-de-servicio, renderizamos como link -->
+      <template v-for="[id, info] in pestañasFilial" :key="id">
         <div
-          v-if="id === 'mesa-de-servicio'"
+          v-if="!Array.isArray(info) && info.blnPreView"
           class="pestaña"
         >
-        <a
-          :href="'https://cencor.atlassian.net/servicedesk/customer/portal/39'"
-          target="_blank"
-          rel="noopener"
-          class="mesa-servicio"
-          >
-          {{ label }}
-        </a>
+          <a
+            :href="info.txtLink"
+            target="_blank"
+            rel="noopener"
+            class="mesa-servicio"
+            >
+            {{ id }}
+          </a>
         </div>
-
-        <!-- Si no, renderizamos como pestaña normal -->
         <div
           v-else
           class="pestaña"
           :class="{ activa: id === pestañaActiva }"
           @click="cambiarPestaña(id)"
         >
-          {{ label }}
+          {{ id }}
         </div>
       </template>
     </div>
@@ -33,12 +30,13 @@
       <h3>Documentos disponibles:</h3>
       <ul class="lista-documentos" v-if="documentos.length">
         <li v-for="(doc, i) in documentos" :key="i">
-          <a :href="baseURL + doc.txtURLView" target="_blank">
-            📄 {{ doc.txtDescription }}
+          <a :href="doc.txtLink" target="_blank">
+            📄 {{ doc.txtLabel }}
           </a>
         </li>
       </ul>
       <p v-else>No hay documentos disponibles para esta sección.</p>
+
     </div>
   </div>
 </template>
@@ -49,79 +47,66 @@ export default {
   data() {
     return {
       pestañaActiva: null,
-      documentos: [],
       codigos: { mexico: "MX", peru: "PE", colombia: "CO", centroamerica: "CR" },
-      pestañasPorFilial: {
-        MX: {
-            "mesa-de-servicio": "Mesa de Servicio",
-            "notas-estructuradas": "Notas Estructuradas",
-            "i-pip": "i-PiP",
-            "documentos": "Documentos"
-        },
-        CR: {
-            "mesa-de-servicio": "Mesa de Servicio",
-            "manuales": "Manuales",
-            "gobierno-corporativo": "Gobierno Corporativo"
-        },
-        PE: {
-            "mesa-de-servicio": "Mesa de Servicio",
-            "manuales": "Manuales",
-            "gobierno-corporativo": "Gobierno Corporativo"
-        },
-        CO: {
-            "mesa-de-servicio": "Mesa de Servicio",
-            "manuales": "Manuales",
-            "gobierno-corporativo": "Gobierno Corporativo",
-            "estados-financieros": "Estados Financieros"
-        }
-    },
-
-      pais: null
+      pestañas: {},
+      pais: null,
+      documentos: []
     };
   },
   computed: {
     pestañasFilial() {
-      return this.pestañasPorFilial[this.pais] || [];
+      return Object.entries(this.pestañas);
     }
   },
   watch: {
     '$route.params.nombre': {
       immediate: true,
       handler(nuevo) {
-        this.pais = this.codigos[nuevo] || "MX";
-        this.pestañaActiva = this.pestañasFilial[0];
-        this.obtenerDocumentos(this.pestañaActiva);
+        const codigos = { mexico: "MX", peru: "PE", colombia: "CO", centroamerica: "CR" };
+        this.pais = codigos[nuevo] || "MX";
+        this.obtenerPestaniasDesdeAPI();
       }
     }
   },
   methods: {
-    async obtenerDocumentos(tipo) {
-      this.documentos = []; // Limpiar mientras carga
+    async obtenerPestaniasDesdeAPI() {
       try {
         const response = await fetch(process.env.VUE_APP_API_DOCUMENTOS_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            txtCategory: null,
-            txtCountry: this.pais,
-            txtType: tipo
-          })
+          body: JSON.stringify({ txtCountry: this.pais })
         });
+
         const result = await response.json();
         if (response.ok && result.StatusCode === 200) {
-          this.documentos = result.Data?.Products || [];
+          this.pestañas = result.Data || {};
+          const primera = Object.keys(this.pestañas)[0];
+          this.pestañaActiva = primera;
+          this.obtenerDocumentos(primera);
         } else {
-          console.error("Error al obtener documentos:", result.Message);
+          console.error("Error al obtener pestañas:", result.Message);
         }
       } catch (error) {
-        console.error("Error en el fetch:", error);
+        console.error("Error al llamar al API:", error);
       }
     },
+
     cambiarPestaña(tab) {
       this.pestañaActiva = tab;
       this.obtenerDocumentos(tab);
+    },
+
+    obtenerDocumentos(tab) {
+      const contenido = this.pestañas[tab];
+      if (contenido.length == 1) {
+        this.documentos = []; // Link externo, no hay docs
+      } else if (Array.isArray(contenido)) {
+        this.documentos = contenido;
+      } else {
+        this.documentos = [];
+      }
     }
   }
 };
@@ -133,8 +118,8 @@ export default {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0,0,0,0.15);
-  background: white;
-  color: black;
+  background: #141B4D;
+  color: white;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -157,8 +142,8 @@ export default {
 
 .pestañas {
   flex: 1;
-  border-right: 1px solid #ccc;
-  background: #f8f8f8;
+  border-right: 1px solid #DA291C;
+  background: #141B4D;
   padding: 1rem;
 }
 
@@ -168,7 +153,7 @@ export default {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
-  color: #0075b2;
+  color: white;
   transition: background 0.2s;
 }
 
@@ -177,12 +162,13 @@ export default {
 }
 
 .pestaña.activa {
-  background-color: #fff;
+  border-right: 3px solid #DA291C;
   font-weight: 700;
-  color: #009ed8;
+  color: #DA291C;
 }
 
 .contenido-documentos {
+  color: white;
   flex: 3;
   padding: 1.5rem;
 }
@@ -197,7 +183,7 @@ export default {
 }
 
 .contenido-documentos a {
-  color: #21244d;
+  color: white;
   text-decoration: none;
   font-weight: 500;
 }

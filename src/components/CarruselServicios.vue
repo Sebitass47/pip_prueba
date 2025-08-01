@@ -2,12 +2,21 @@
   <article class="carrusel-servicios">
     <div
       class="slide"
-      :style="{ backgroundImage: 'url(' + imagenActual + ')' }"
+      :style="{ backgroundImage: 'url(' + servicioActual.Banner + ')' }"
     >
       <div class="overlay"></div>
       <div class="contenido">
-        <h2>{{ servicioActual.titulo }}</h2>
-        <p>{{ servicioActual.descripcion }}</p>
+        <h2>{{ servicioActual.Country }}</h2>
+        <p>{{ servicioActual.Description }}</p>
+        <a
+          v-if="servicioActual.Document"
+          :href="servicioActual.Document"
+          target="_blank"
+          class="ver-mas"
+        >
+          Ver más
+        </a>
+
       </div>
 
       <button class="flecha izquierda" @click="anterior" :disabled="indice === 0">
@@ -42,10 +51,6 @@ export default {
   computed: {
     servicioActual() {
       return this.servicios[this.indice] || {}
-    },
-    imagenActual() {
-      if (this.servicios.length === 0) return ''
-      return this.imagenes[this.indice % this.imagenes.length]
     }
   },
   methods: {
@@ -58,43 +63,28 @@ export default {
       }
 
       const ciudadRuta = this.$route.params?.nombre?.toLowerCase() || null
-      const ciudad = mapaPaises[ciudadRuta] || null
-      console.log(ciudad)
-      // Simulación de respuesta del API
-      const dataAPI = [
-        {
-          titulo: 'FACTORES DE DECISIÓN',
-          descripcion: 'Contamos con diferentes servicios que buscan satisfacer de manera precisa las inquietudes de nuestros clientes, acoplándonos a sus necesidades para lograr un resultado de manera positiva.'
-        },
-        {
-          titulo: 'ATENCIÓN PERSONALIZADA',
-          descripcion: 'Nos enfocamos en conocer a profundidad a nuestros clientes para brindar soluciones adaptadas a sus requerimientos específicos.'
-        },
-        {
-          titulo: 'INNOVACIÓN CONSTANTE',
-          descripcion: 'Implementamos tecnologías y procesos de vanguardia para mantenernos como líderes del sector.'
-        },
-        {
-          titulo: 'SERVICIO 24/7',
-          descripcion: 'Acompañamos a nuestros clientes en todo momento con un servicio permanente.'
-        },
-         {
-          titulo: 'ATENCIÓN PERSONALIZADA',
-          descripcion: 'Nos enfocamos en conocer a profundidad a nuestros clientes para brindar soluciones adaptadas a sus requerimientos específicos.'
-        },
-        {
-          titulo: 'INNOVACIÓN CONSTANTE',
-          descripcion: 'Implementamos tecnologías y procesos de vanguardia para mantenernos como líderes del sector.'
-        },
-        {
-          titulo: 'SERVICIO 24/7',
-          descripcion: 'Acompañamos a nuestros clientes en todo momento con un servicio permanente.'
-        },
+      const ciudad = mapaPaises[ciudadRuta] || ''
+      try{
+        const response = await fetch(process.env.VUE_APP_API_BANNERS_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ txtCountry: ciudad })
+        });
+        const result = await response.json()
         
-      ]
-
-      this.servicios = dataAPI
-      this.indice = 0
+        if (response.ok && result.StatusCode === 200){
+          const dataAPI = result.Data || [];
+          this.servicios = dataAPI
+          this.indice = 0
+        } else {
+          this.servicios = []
+          console.error('Error en la respuesta:', result.Message);
+        }
+      } catch (error) {
+        console.error('Error al obtener los banners:', error);
+      }
     },
     siguiente() {
       if (this.indice < this.servicios.length - 1) this.indice++
@@ -154,6 +144,27 @@ export default {
   border-radius: 10px;
 }
 
+.ver-mas {
+  margin-top: 1em;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.ver-mas:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: white;
+  color: #fff;
+}
+
+
 h2 {
   font-size: 2rem;
   font-weight: 800;
@@ -207,8 +218,12 @@ p {
 
   p {
     font-size: 0.95rem;
+  }
+
+  .ver-mas{
     margin-bottom: 3em;
   }
+
 .flecha {
     top: auto;
     bottom: 1rem;

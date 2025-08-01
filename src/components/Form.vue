@@ -1,6 +1,6 @@
 <template>
     <article class="form-container">
-        <form class="form-contact animated slide-in-right" >
+        <form class="form-contact animated slide-in-right"  @submit.prevent="enviarFormulario">
             <div class="form-design-container">
                 <div class="izquierda-form-container">
                     <h1>PODEMOS AYUDARTE</h1>
@@ -9,8 +9,8 @@
                         <label for="last_name" class="lastname">Apellidos</label>
                     </div>
                     <div class="name-lastname">
-                        <input type="text" id="name" required />
-                        <input type="text" id="last_name" class="lastname" required />
+                        <input type="text" id="name" v-model="form.FirstName" required />
+                        <input type="text" id="last_name" v-model="form.SecondName" class="lastname" required />
                     </div>
                     <div class="name-lastname">
                         <p class="text-help">Introduce tu nombre</p>
@@ -21,8 +21,8 @@
                         <label for="cargo" class="lastname">Cargo</label>
                     </div>
                     <div class="name-lastname">
-                        <input type="text" id="compania" required />
-                        <input type="text" id="cargo" class="lastname" required />
+                        <input type="text" id="compania" v-model="form.Company" required />
+                        <input type="text" id="cargo" class="lastname" v-model="form.Position" required />
                     </div>
                     <div class="name-lastname">
                         <p class="text-help">Nombre de la compañia o empresa</p>
@@ -33,8 +33,8 @@
                         <label for="filial" class="lastname">Filial</label>
                     </div>
                     <div class="name-lastname">
-                        <input type="text" id="email" required />
-                        <select id="filial" required class="input lastname">
+                        <input type="text" id="email" v-model="form.Email" required />
+                        <select id="filial" required v-model="form.Filial" class="input lastname">
                             <option value="México" selected>México</option>
                             <option value="Perú">Perú</option>
                             <option value="Colombia">Colombia</option>
@@ -51,8 +51,8 @@
                         <label for="ciudad" class="lastname">Ciudad</label>
                     </div>
                     <div class="name-lastname">
-                        <input type="text" id="pais" required />
-                        <input type="text" id="ciudad" class="lastname" required />
+                        <input type="text" id="pais" v-model="form.Country" required />
+                        <input type="text" id="ciudad" v-model="form.City" class="lastname" required />
                     </div>
                     <div class="name-lastname">
                         <p class="text-help">País desde el cual nos escribres</p>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="derecha-form-container">
                     <label for="comentario">Mensaje</label>
-                    <textarea></textarea>
+                    <textarea v-model="form.Message"></textarea>
                     <p class="text-help">¿Cómo podemos ayudarte?</p>
                 </div>
             </div>
@@ -69,11 +69,73 @@
                 <button class="button-blue">Enviar</button>
             </div>
         </form>
+        <div v-if="mostrarModal" class="modal-mensaje" :class="{'modal-error': errorAlEnviar}">
+            <p>{{ mensajeModal }}</p>
+        </div>
+
     </article>
 </template>
  <script>
   export default {
     name: 'FormPage',
+    data() {
+        return {
+            form: {
+                FirstName: "",
+                SecondName: "",
+                Company: "",
+                Position: "",
+                Email: "",
+                Filial: "",
+                Country: "",
+                City: "",
+                Message: "",
+                type: 's'
+            },
+            mostrarModal: false,
+            mensajeModal: "",
+            errorAlEnviar: false
+        };
+    },
+    methods: {
+        async enviarFormulario() {
+            try {
+                const response = await fetch(process.env.VUE_APP_API_FORM_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.form),
+                });
+
+                if (!response.ok) throw new Error('Error al enviar el formulario');
+
+                await response.json();
+
+                this.mostrarModal = true;
+                this.mensajeModal = '¡Formulario enviado con éxito!';
+                this.errorAlEnviar = false;
+
+                // Limpiar campos
+                Object.keys(this.form).forEach(key => {
+                if (key !== 'Type') this.form[key] = "";
+                });
+
+            } catch (error) {
+                console.error('Hubo un error al enviar el formulario:', error);
+                this.mostrarModal = true;
+                this.mensajeModal = 'Hubo un error al enviar el formulario.';
+                this.errorAlEnviar = true;
+            } finally {
+                setTimeout(() => {
+                this.mostrarModal = false;
+                }, 5000);
+            }
+        }
+
+
+    }
+
   };
  </script>
 <style scoped>
@@ -104,6 +166,7 @@
     }
 
     label{
+        width: 6em;
         margin-right: auto;
     }
 
@@ -148,6 +211,33 @@
     a {
         text-decoration: none !important;
     }
+
+    .modal-mensaje {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #28a745;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        font-weight: bold;
+        z-index: 1000;
+        animation: fadeInOut 5s ease-in-out forwards;
+    }
+
+    .modal-error {
+        background-color: #dc3545;
+    }
+
+    @keyframes fadeInOut {
+        0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+        10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        90% { opacity: 1; }
+        100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    }
+
 
 
     @media (max-width: 1600px) {

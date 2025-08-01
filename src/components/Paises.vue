@@ -1,71 +1,139 @@
 <template>
-    <article class="article-paises" :style="{ backgroundImage: `url(${require('@/assets/img/filiales/background.jpg')})` }">
-        <div class="text-nosotros">
-            <!-- <h1 class="title-articles blue">UN GRAN GRUPO</h1> -->
-            <h1  class="title-article-2">SOMOS <span class="blue">PIP LATAM</span></h1>
-            <p>Un gran grupo con presencia en los siguientes países:</p>
-            <div class="valores-container">
-                <ul >
-                    <li>México </li>
-                    <li>Perú</li>
-                    <li>Colombia</li>
-                    <li>Costa Rica</li>
-                </ul>
-                <ul >
-                    <li>Panamá</li>
-                    <li>Honduras</li>
-                </ul>
-            </div>
+  <section class="paises-section">
+    <video
+      class="video-fondo"
+      src="@/assets/videos/mapa_pip.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+    ></video>
+
+    <div class="info-panel">
+      <div class="contenido">
+        <h1><span class="somos">SOMOS</span> <span class="blue">PIP LATAM</span></h1>
+        <p>Un gran grupo con presencia en los siguientes países:</p>
+        <div class="paises">
+          <ul>
+            <li>México</li>
+            <li>Perú</li>
+            <li>Colombia</li>
+        </ul>
+        <ul>
+              <li>Costa Rica</li>
+            <li>Panamá</li>
+            <li>Honduras</li>
+          </ul>
         </div>
-    </article>
+      </div>
+    </div>
+  </section>
 </template>
 
+
 <script>
-    export default{
-        name: 'PaisesComponent',
-    }
+export default {
+  name: 'PaisesComponent',
+}
 </script>
+
 <style scoped>
-    .article-paises{
-        width: 100%;
-        display: flex;
-        flex-direction: row-reverse;
-    }
+.paises-section {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+  height: 80vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #0a0a1a;
+}
 
-    .valores-container{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin: 1em 0;
-    }
+.video-fondo {
+  width: 60%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    .valores-container ul{
-        width: 50%;
-    }
+.info-panel {
+  width: 40%;
+  background: rgba(10, 10, 25, 0.85);
+  color: white;
+  display: flex;
+  align-items: flex-end;
+  padding: 2em;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.4);
+}
 
-    .text-nosotros{
-        width: 40%;
-        padding: 3em;
-        height: 100%;
-        background-color: rgba(0,0,0,0.5);
-    }
+.contenido {
+  width: 100%;
+}
 
-    @media (max-width: 860px) {
-    .valores-container ul{
-      width: 40%;
-    }
+.somos {
+  font-weight: 300;
+  letter-spacing: 2px;
+}
 
-    @media (max-width: 768px) {
-        .valores-container ul{
-            width: 100%;
-        }
+.blue {
+  color: #00aaff;
+  font-weight: 700;
+}
 
-        .text-nosotros{
-            width: 100%;
-            padding: 3em;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }   
-    }
+h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5em;
+}
+
+p {
+  margin-bottom: 1em;
+  font-size: 1.3rem;
+  color: #cfcfcf;
+}
+
+.paises {
+  display: flex;
+  justify-content: start;
+  gap: 2em;
+  font-size: 1.1rem;
+}
+
+.paises ul {
+    width: 45%;
+    letter-spacing: 1px;
+  list-style: none;
+  padding: 0;
+}
+
+.paises li::before {
+  content: '• ';
+  color: #00aaff;
+}
+
+
+@media (max-width: 768px) {
+  .paises-section {
+    width: 100%;
+    flex-direction: column;
+    margin-bottom: 10em;
+  }
+
+  .video-fondo,
+  .info-panel {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+
+  .info-panel {
+    align-items: center;
+    text-align: center;
+  }
+
+  .paises {
+    
+    align-items: center;
+  }
+
+
 }
 </style>
