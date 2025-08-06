@@ -18,8 +18,8 @@
         <div v-html="notificaciones[indiceActual]?.txtMessage"></div>
 
         <a
-          v-if="notificaciones[indiceActual]?.documento"
-          :href="notificaciones[indiceActual].documento"
+          v-if="notificaciones[indiceActual]?.blnDocument"
+          :href="formatearURL(notificaciones[indiceActual].txtURLFile)"
           target="_blank"
           class="btn-documento"
         >
@@ -68,6 +68,12 @@ export default {
     },
     anterior() {
       if (this.indiceActual > 0) this.indiceActual--;
+    },
+     formatearURL(url) {
+      if (!url.startsWith("http")) {
+        return "https://" + url;
+      }
+      return url;
     },
     async fetchNotificaciones(paisCodigo) {
       try {
