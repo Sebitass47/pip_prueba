@@ -1,13 +1,9 @@
 <template>
   <section class="paises-section">
-    <video
+    <img
       class="video-fondo"
-      src="@/assets/videos/mapa_pip.mp4"
-      autoplay
-      muted
-      loop
-      playsinline
-    ></video>
+      src="@/assets/img/Nosotros/Mapa_Pip_Latam.jpg"
+    >
 
     <div class="info-panel">
       <div class="contenido">
@@ -39,30 +35,23 @@ export default {
 
 <style scoped>
 .paises-section {
-  position: relative;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   flex-direction: row;
-  height: 80vh;
-  width: 100%;
+  width: 80%;
+  max-height: 600px !important;
   overflow: hidden;
-  background-color: #0a0a1a;
+  margin-bottom: 2em;
 }
 
 .video-fondo {
-  width: 60%;
-  height: 100%;
-  object-fit: cover;
+  width: 40%;
 }
 
 .info-panel {
-  width: 40%;
-  background: rgba(10, 10, 25, 0.85);
   color: white;
   display: flex;
-  align-items: flex-end;
   padding: 2em;
-  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.4);
 }
 
 .contenido {

@@ -86,7 +86,6 @@ export default {
 <style scoped>
 section{
   background-color: #01031a;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -7,6 +7,16 @@
       </div>
       <article class="article-indicadores">
         <div class="grafica-container">
+          <div class="botones-rango">
+            <button
+              v-for="rango in ['1W', '1M', '3M']"
+              :key="rango"
+              :class="['boton-indicadores', { activo: rangoSeleccionado === rango }]"
+              @click="rangoSeleccionado = rango; filtrarPorRango(rango);"
+            >
+              {{ rango }}
+            </button>
+          </div>
           <LineaChart :grafica="graficaInfo" :key="graficaKey"/>
         </div>
         <div class="indicadores">
@@ -82,6 +92,7 @@
           },
         lugar: this.$route.params.nombre,
         datosCompletos: [],
+        datosGrafica: [],
         datos: [],
         grafica: {
           titulo: "Cargando...",
@@ -124,6 +135,7 @@
         },
         filtroActual: null,
         chartKey: 0,
+        rangoSeleccionado: '1W',
       };
     },
     watch: {
@@ -211,21 +223,40 @@
         });
 
         const result = await response.json();
-        // Transforma los datos al formato que tu gráfica espera
-        const graficaDatos = result.Data.map((punto) => ({
-          plazo: punto.txtDate, // o el nombre que quieras mostrar
+        const datos = result.Data.map((punto) => ({
+          plazo: punto.txtDate,
           valor: punto.dblValue,
+          
         }));
+
+        this.datosGrafica = datos;
         this.graficaInfo = {
-          'titulo': item.txtBenchmark, 
-          'datos': graficaDatos
-        }
-        this.graficaKey++;
+          titulo: item.txtBenchmark,
+          datos: [],
+        };
+        this.filtrarPorRango(this.rangoSeleccionado)
+
       } catch (err) {
         console.error("Error al cargar gráfica:", err);
       }
-    },
+      },
+      filtrarPorRango(rango) {
+        const ahora = new Date();
+        let fechaLimite = new Date();
 
+        if (rango === '1W') {
+          fechaLimite.setDate(ahora.getDate() - 7);
+        } else if (rango === '1M') {
+          fechaLimite.setMonth(ahora.getMonth() - 1);
+        } else if (rango === '3M') {
+          fechaLimite.setMonth(ahora.getMonth() - 3);
+        }
+        this.graficaInfo.datos = this.datosGrafica.filter((p) => {
+          const fechaPunto = new Date(p.plazo.replace(/-/g, "/")); // por si acaso
+          return fechaPunto >= fechaLimite;
+        });
+        this.graficaKey++;
+      },
     },
     mounted() {
       // Llama a la función cuando el componente se monta
@@ -338,7 +369,18 @@
   .article-indicadores{
     width: 80%;
     display: flex;
-    margin-top: 5%;
+    margin-top: 3em;
+  }
+
+  .botones-rango {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+
+  .botones-rango button.activo {
+    background-color: #00aeef;
+    color: white;
   }
 
   .grafica-container{
@@ -379,9 +421,8 @@
   }
 
   .activo {
-    background-color: #007bff; /* Color de fondo para el botón activo */
-    color: white;
-    border-color: #0056b3; /* Cambia también el color del borde */
+    background-color: #00aeef; /* Color de fondo para el botón activo */
+    color: white; /* Cambia también el color del borde */
   }
 
   .table-container{
@@ -408,7 +449,10 @@ tr:hover {
 
   .custom-table thead {
     color: #00aeef;
-    background-color: transparent; /* Fondo gris claro para el encabezado */
+    background-color: #141b4d;
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 
   .custom-table th, .custom-table td {
@@ -480,7 +524,7 @@ tr:hover {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-    margin-top: 5%;
+    margin-top: 5em;
   }
 
   .grafica-container{

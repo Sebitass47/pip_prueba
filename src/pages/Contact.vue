@@ -119,7 +119,7 @@ export default {
         Country: "",
         City: "",
         Message: "",
-        type: 'c'
+        Type: 'c'
     },
     mostrarModal: false,
     mensajeModal: "",

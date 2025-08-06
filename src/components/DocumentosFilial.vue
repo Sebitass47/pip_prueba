@@ -124,6 +124,7 @@ export default {
 }
 
 .mesa-servicio{
+  color: white;
   text-decoration: none;
 }
 

@@ -22,7 +22,7 @@
           <span class="reloj-nombre">{{ reloj.nombre }}</span>
           <span
             class="status-dot"
-            :class="{ activo: reloj.Display, inactivo: !reloj.Display }"
+            :class="{ activo: estaActivo(reloj.HoraInicio, reloj.HoraFin) }"
           ></span>
         </div>
 
@@ -30,9 +30,17 @@
           v-if="estaActivo(reloj.HoraInicio, reloj.HoraFin)"
           :horaFin="reloj.HoraFin"
         />
-        <p v-else class="mensaje-inactivo">
-          El horario de impugnación no está activo.
-        </p>
+        <div v-else class="mensaje-inactivo">
+          El horario de impugnación ha concluido.
+          <div class="horarios-inactivos">
+            <p>
+              Inicia: {{ reloj.HoraInicio }}
+            </p>
+            <p>
+              Finaliza: {{ reloj.HoraFin }}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -43,6 +51,17 @@
         <div class="contenedor-tabla">
           <div class="header">
             <span class="opcion-menu">HORARIOS DE LIBERACIÓN: {{ lugar }}</span>
+            <div class="botones-paises">
+              <p 
+                class = 'ver-mas'
+                :class="{activo: pais === paisActual}"
+                v-for="pais in paisesDisponibles"
+                :key="pais"
+                @click="asignarProcesosDePais(pais)"
+              >
+                {{ pais }}
+              </p>
+            </div>
           </div>
           <div class="table-container scroll">
             <table class="tabla-horarios">
@@ -64,7 +83,7 @@
                   <td>{{ item.previo }}</td>
                   <td class="definitivo">{{ item.definitivo }}</td>
                   <td>{{ item.complementos }}</td>
-                  <td>{{ item.reproceso }}</td>
+                  <td style="color:red">{{ item.reproceso }}</td>
                   <td>{{ item.regeneracion }}</td>
                 </tr>
               </tbody>
@@ -88,9 +107,12 @@ export default {
         modalAbierto: false,
         duracionAnimacion: 40,
         horarioImpugnacion: {},
+        paisActual: null,
         procesos: [],
         codigos: { mexico: 'MX', peru: 'PE', colombia: 'CO', centroamerica: 'CR' },
-        lugar: null
+        lugar: null,
+        horariosPorPais: {},       // ← Guardamos todos los países con sus horarios
+        paisesDisponibles: []
       }
     },
     watch: {
@@ -134,27 +156,46 @@ export default {
           const result = await response.json();
           if (response.ok && result.StatusCode === 200) {
             const data = result.Data || {};
-            const horarios = data.HorariosLiberacion || [];
-            const horarioImpugnacion = data.HorarioImpugnacion || {};
-            this.horarioImpugnacion = horarioImpugnacion
-            this.procesos = horarios.map(item => ({
-              nombre: item.Producto,
-              operativo: item.Operativo,
-              previo: item.Previo,
-              definitivo: item.Definitivo,
-              complementos: item.Complementos,
-              reproceso: item.Reproceso,
-              regeneracion: item.Regeneracion
-            }));
-            this.duracionAnimacion = this.procesos.length * 3;
+            const primerPais = Object.keys(data)[0];
+            // Guardamos HorarioImpugnacion solo del primer país
+            this.horarioImpugnacion = data[primerPais]?.HorarioImpugnacion || {};
+
+            // Guardamos todos los horarios por país
+            this.horariosPorPais = {};
+            this.paisesDisponibles = [];
+            for (const [pais, valores] of Object.entries(data)) {
+              this.paisesDisponibles.push(pais);
+              this.horariosPorPais[pais] = valores.HorariosLiberacion || [];
+            }
+
+            // Inicializamos procesos con el primer país
+            this.asignarProcesosDePais(primerPais);
           } else {
             this.procesos = []
+            this.horariosPorPais = {}
+            this.paisesDisponibles = []
             console.error('Error en la respuesta:', result.Message);
           }
         } catch (error) {
           this.procesos = []
+          this.horariosPorPais = {}
+          this.paisesDisponibles = []
           console.error('Error al obtener los horarios:', error);
         }
+      },
+      asignarProcesosDePais(pais) {
+        const horarios = this.horariosPorPais[pais] || [];
+        this.paisActual = pais;
+        this.procesos = horarios.map(item => ({
+          nombre: item.Producto,
+          operativo: item.Operativo,
+          previo: item.Previo,
+          definitivo: item.Definitivo,
+          complementos: item.Complementos,
+          reproceso: item.Reproceso,
+          regeneracion: item.Regeneracion
+        }));
+        this.duracionAnimacion = this.procesos.length * 3;
       },
       estaActivo(horaInicio, horaFin) {
         const ahora = new Date();
@@ -195,7 +236,6 @@ export default {
 .reloj-container {
   padding: 1rem;
   border-radius: 10px;
-  margin-bottom: 1rem;
 }
 
 .reloj-header {
@@ -209,14 +249,11 @@ export default {
   width: 12px;
   height: 12px;
   border-radius: 50%;
+  background-color: red;
 }
 
 .status-dot.activo {
   background-color: green;
-}
-
-.status-dot.inactivo {
-  background-color: red;
 }
 
 .ticker-item {
@@ -262,6 +299,33 @@ export default {
 
 }
 
+.ver-mas {
+  margin-top: 1em;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.activo {
+  background-color: #00aeef;
+  border: none !important
+}
+
+.horarios-inactivos{
+  width: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
 .contenedor-tabla {
     background-color: transparent;
     color: white;
@@ -305,7 +369,11 @@ export default {
   }
 
   .tabla-horarios thead {/* Fondo gris claro para el encabezado */
-    color: white;
+    color: #00aeef;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: black;
   }
 
   .tabla-horarios th, .tabla-horarios td {

@@ -124,21 +124,24 @@
   /* Ajustes individuales */
   .enlace-logo {
     padding-top: 20px;
+    padding-left: 10px;
   }
 
   .mei-logo {
     padding-top: 10px;
+    width: 120px !important;
   }
 
   .biva-logo {
     padding-top: 17px;
+    padding-left: 5px;
     transform: scale(0.9); 
     /* transform: translateY(4px); */
   }
 
   .cencor-logo {
     padding-top: 10px;
-    padding-left: 15px;
+    padding-left: 30px;
     transform: scale(1.3); 
   }
 

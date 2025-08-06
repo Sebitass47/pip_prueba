@@ -90,7 +90,7 @@
                 Country: "",
                 City: "",
                 Message: "",
-                type: 's'
+                Type: 's'
             },
             mostrarModal: false,
             mensajeModal: "",

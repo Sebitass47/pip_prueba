@@ -41,8 +41,17 @@ Chart.register(LineController, LineElement, PointElement, LinearScale, Title, Ca
                 options: {
                 responsive: true,
                 plugins: {
-                    legend: { display: true },
-                    title: { display: true, text: this.grafica.titulo },
+                    legend: { display: false },
+                    title: {
+                      display: true,
+                      text: this.grafica.titulo,
+                      color: '#00aeef',
+                      font: {
+                        size: 16,
+                        weight: 'bold',
+                        family: 'Montserrat',
+                      },
+                    },
                 },
                 scales: {
                     x: { type: "category" },
