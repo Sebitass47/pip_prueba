@@ -1,6 +1,6 @@
 <template>
   <div class="temporizador">
-    Tiempo restante: {{ tiempoRestante }}
+    Tiempo restante para impugnar: {{ tiempoRestante }}
   </div>
 </template>
 

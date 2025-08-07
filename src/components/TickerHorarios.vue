@@ -43,6 +43,7 @@
         </div>
       </div>
     </div>
+    <span class="opcion-menu" style="margin-left: 1em;">Cierre aleatorio: {{ cierreAleatorio }}</span>
 
 
     <!-- Modal con la tabla -->
@@ -50,7 +51,7 @@
       <div class="modal-content">
         <div class="contenedor-tabla">
           <div class="header">
-            <span class="opcion-menu">HORARIOS DE LIBERACIÓN: {{ lugar }}</span>
+            <span class="opcion-menu">HORARIOS DE LIBERACIÓN: {{ fechaHorario }}</span>
             <div class="botones-paises">
               <p 
                 class = 'ver-mas'
@@ -107,6 +108,8 @@ export default {
         modalAbierto: false,
         duracionAnimacion: 40,
         horarioImpugnacion: {},
+        cierreAleatorio: null,
+        fechaHorario: null,
         paisActual: null,
         procesos: [],
         codigos: { mexico: 'MX', peru: 'PE', colombia: 'CO', centroamerica: 'CR' },
@@ -185,6 +188,8 @@ export default {
       },
       asignarProcesosDePais(pais) {
         const horarios = this.horariosPorPais[pais] || [];
+        this.cierreAleatorio = horarios[0].CierreAleatorio;
+        this.fechaHorario = horarios[0].Fecha;
         this.paisActual = pais;
         this.procesos = horarios.map(item => ({
           nombre: item.Producto,
