@@ -31,21 +31,25 @@
             {{ boton.texto }}
           </button>
         </div>
-          <div class="table-container scroll">
-            <table class="custom-table">
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Descripción</th>
-                  <th>Actual</th>
-                  <th>Anterior</th>
-                  <th style='color: #da291c;'>Variación</th>
-                </tr>
+        <div class="header-container">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th class="descripcion">Descripción</th>
+                <th>Actual</th>
+                <th>Anterior</th>
+                <th style='color: #da291c;'>Variación</th>
+              </tr>
             </thead>
+          </table>
+        </div>
+        <div class="table-container scroll">
+          <table  class="custom-table">
             <tbody>
               <tr v-for="(item, index) in datos" :key="index" @click="cargarGrafica(item)" style="cursor: pointer;">
                 <td>{{ item.dteDate }}</td>
-                <td>{{ item.txtBenchmark }}</td>
+                <td class="descripcion">{{ item.txtBenchmark }}</td>
                 <td>{{ item.dblValue }}</td>
                 <td>{{ item.dblChange }}</td>
                 <td>
@@ -427,7 +431,6 @@
 
   .table-container{
     width: 100%;
-    margin-top: 1em;
     border-radius: 10px;
     max-height: 220px;
     overflow-y: auto;
@@ -440,28 +443,38 @@
     font-family: 'Montserrat', sans-serif;
     border-radius: 10px;
     overflow: hidden;
-}
+  }
+
+  .header-container{
+    width: 100%;
+    overflow: hidden;
+  }
 
 tr:hover {
   background-color: rgba(0, 158, 216, 0.3); /* azulito semitransparente */
 }
 
 
-  .custom-table thead {
+  .custom-table thead th {
+    position: sticky;
+    top: 0 ;
+    z-index: 2;
     color: #00aeef;
     background-color: #141b4d;
-    position: sticky;
-    top: 0;
-    z-index: 2;
   }
 
   .custom-table th, .custom-table td {
     text-align: left; /* Alineación del texto */
     padding: 8px; /* Espaciado interno */
+    width: 15%
   }
 
   .custom-table tbody tr:last-child {
     border-bottom: none; /* Elimina la línea final si no quieres */
+  }
+
+  .descripcion{
+    width: 40% !important;
   }
 
   .info-adicional{

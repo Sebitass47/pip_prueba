@@ -1,10 +1,5 @@
 <template>
   <section class="paises-section">
-    <img
-      class="video-fondo"
-      src="@/assets/img/Nosotros/Mapa_Pip_Latam.jpg"
-    >
-
     <div class="info-panel">
       <div class="contenido">
         <h1><span class="somos">SOMOS</span> <span class="blue">PIP LATAM</span></h1>
@@ -23,6 +18,10 @@
         </div>
       </div>
     </div>
+    <img
+      class="imagen-continente"
+      src="@/assets/svg/Nosotros/mapa_Pip.svg"
+    >
   </section>
 </template>
 
@@ -44,8 +43,8 @@ export default {
   margin-bottom: 2em;
 }
 
-.video-fondo {
-  width: 40%;
+.imagen-continente {
+  width: 50%;
 }
 
 .info-panel {
@@ -103,19 +102,17 @@ p {
   .paises-section {
     width: 100%;
     flex-direction: column;
-    margin-bottom: 10em;
   }
 
-  .video-fondo,
-  .info-panel {
-    width: 100%;
-    height: 100%;
+  .imagen-continente{
+    width: 95%;
     padding: 0;
   }
 
   .info-panel {
     align-items: center;
     text-align: center;
+    padding: 1em;
   }
 
   .paises {

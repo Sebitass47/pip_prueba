@@ -210,6 +210,7 @@ p {
     max-width: 90%;
     margin: 0 auto;
     padding: 1.5rem;
+    margin-bottom: 3em;
   }
 
   h2 {
@@ -218,10 +219,6 @@ p {
 
   p {
     font-size: 0.95rem;
-  }
-
-  .ver-mas{
-    margin-bottom: 3em;
   }
 
 .flecha {

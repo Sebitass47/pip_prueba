@@ -304,6 +304,12 @@ export default {
 
 }
 
+.botones-paises{
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
 .ver-mas {
   margin-top: 1em;
   display: inline-block;
@@ -360,7 +366,7 @@ export default {
     width: 100%;
     
     border-radius: 10px;
-    max-height: 500px;
+    max-height: 70vh;
     overflow-y: auto;
   }
 
@@ -484,6 +490,11 @@ tr:hover {
 
 
 @media (max-width: 768px) {
+
+  .header{
+    flex-direction: column;
+  }
+
   .ticker-wrapper {
     width: 100%;
   }
