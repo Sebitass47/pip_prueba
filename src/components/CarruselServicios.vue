@@ -242,4 +242,10 @@ p {
     justify-content: flex-end;
   }
 }
+
+@supports (-webkit-touch-callout: none) {
+  .slide {
+    background-attachment: scroll;
+  }
+}
 </style>

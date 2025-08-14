@@ -97,4 +97,11 @@ p {
     font-size: 0.9rem;
   }
 }
+
+
+@supports (-webkit-touch-callout: none) {
+  .portada-nosotros {
+    background-attachment: scroll;
+  }
+}
 </style>
