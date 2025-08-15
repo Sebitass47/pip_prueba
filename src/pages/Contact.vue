@@ -280,7 +280,7 @@ export default {
     .text-help{
         font-size: 0.7em;
         color: rgba(255, 255, 255, 0.6);
-        margin: 0.4em 0 3em 0;
+        margin: 0.4em 0 0.5em 0;
     }
 
     a {
@@ -289,12 +289,14 @@ export default {
 
 
     @media (max-width: 1600px) {
+
         .article-contact {
             width: 40%;
             margin-top: 2.8em;
         }
         
         .article-form{
+            margin-top: 5em;
             margin-left: 2em;
             width: 35%;
         }

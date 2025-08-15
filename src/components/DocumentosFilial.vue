@@ -82,7 +82,9 @@ export default {
         const result = await response.json();
         if (response.ok && result.StatusCode === 200) {
           this.pestañas = result.Data || {};
-          const primera = Object.keys(this.pestañas)[0];
+          const primera = Object.keys(this.pestañas).find(
+            key => Array.isArray(this.pestañas[key])
+          );
           this.pestañaActiva = primera;
           this.obtenerDocumentos(primera);
         } else {

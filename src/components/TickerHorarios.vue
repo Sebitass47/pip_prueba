@@ -112,7 +112,7 @@ export default {
         fechaHorario: null,
         paisActual: null,
         procesos: [],
-        codigos: { mexico: 'MX', peru: 'PE', colombia: 'CO', centroamerica: 'CR' },
+        codigos: { mexico: 'MX', peru: 'PE', colombia: 'CO', centroamerica: 'CA' },
         lugar: null,
         horariosPorPais: {},       // ← Guardamos todos los países con sus horarios
         paisesDisponibles: []

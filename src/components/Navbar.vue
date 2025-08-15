@@ -93,7 +93,7 @@ export default {
     },
     handleScroll() {
       // Aquí defines el punto en el que deja de ser transparente
-      this.isTransparent = window.scrollY < 200; // ajusta este valor según el tamaño del video
+      this.isTransparent = window.scrollY < 50; // ajusta este valor según el tamaño del video
     },
     closeMenu() {
       this.latamMenuOpen = false;

@@ -123,7 +123,7 @@
 
   /* Ajustes individuales */
   .enlace-logo {
-    padding-top: 20px;
+    padding-top: 12px;
     padding-left: 10px;
   }
 
