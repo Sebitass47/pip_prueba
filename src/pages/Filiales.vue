@@ -157,6 +157,7 @@
     },
     methods: {
       async fetchLugarData(tipo) {
+        this.datosCompletos = []
         this.datos = [];
         this.graficaInfo = {
             titulo: "Seleccione una opción para mostrar la gráfica",
@@ -241,7 +242,6 @@
         this.filtrarPorRango(this.rangoSeleccionado)
 
       } catch (err) {
-        console.error("Error al cargar gráfica:", err);
       }
       },
       filtrarPorRango(rango) {
@@ -432,7 +432,7 @@
   .table-container{
     width: 100%;
     border-radius: 10px;
-    max-height: 220px;
+    max-height: 250px;
     overflow-y: auto;
   }
 

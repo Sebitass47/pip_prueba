@@ -91,9 +91,9 @@ export default {
         },
         'Costa Rica': {
           nombre: 'PiP Costa Rica',
-          direccion: null,
-          correo: 'dvarela@piplatam.cr',
-          telefono: '+50622047005'
+          direccion: 'Complejo Empresarial Fórum 1, Edificio A, Planta Baja. San José Costa Rica. A.P. 57-6155',
+          correo: 'comercialca@piplatam.cr',
+          telefono: '+506 (2204 72 34)'
         },
         'Panama': {
           nombre: 'PiP Panamá',
