@@ -56,7 +56,21 @@ export default {
       immediate: true,
       handler(newVal) {
         this.lugar = this.codigos[newVal] || 'MX';
+        const hoy = new Date().toISOString().slice(0,10);
         this.fetchNotificaciones(this.lugar);
+        const data = localStorage.getItem(this.lugar);
+        if (data) {
+          const parsed = JSON.parse(data);
+          if (parsed.fecha === hoy) {
+            this.vistas = new Set(parsed.vistas);
+            this.indiceActual = parsed.indiceActual || 0;
+          } else {
+            // Si no es de hoy, reiniciamos
+            this.vistas = new Set();
+            this.indiceActual = 0;
+            localStorage.removeItem(this.lugar);
+          }
+        }
       }
     }
   },
@@ -75,6 +89,12 @@ export default {
     },
     marcarVista(indice) {
       this.vistas.add(indice);
+      const hoy = new Date().toISOString().slice(0,10);
+      localStorage.setItem(this.lugar, JSON.stringify({
+        vistas: Array.from(this.vistas),
+        indiceActual: this.indiceActual + 1,
+        fecha: hoy
+      }));
     },
     siguiente() {
       if (this.indiceActual < this.notificaciones.length - 1) {
@@ -109,7 +129,7 @@ export default {
         if (response.ok && result.StatusCode === 200) {
           this.notificaciones = result?.Data || [];
         } else {
-          console.error('Error en la respuesta:', result);
+          // No hay notificaciones que enviar
         }
       } catch (err) {
         console.error('Error al obtener notificaciones:', err);
