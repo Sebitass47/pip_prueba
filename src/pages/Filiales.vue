@@ -242,6 +242,7 @@
         this.filtrarPorRango(this.rangoSeleccionado)
 
       } catch (err) {
+        // no hay notificaciones pero no hay error
       }
       },
       filtrarPorRango(rango) {
