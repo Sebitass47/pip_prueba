@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <span class="opcion-menu" style="margin-left: 1em;">Cierre aleatorio: {{ cierreAleatorio }}</span>
+    <span class="opcion-menu" style="margin-left: 1em; font-size: 16px;">Cierre aleatorio: {{ cierreAleatorio }}</span>
 
 
     <!-- Modal con la tabla -->

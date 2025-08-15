@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- Campanita -->
-   <div class="noti-button" @click="mostrarModal = true">
+   <div class="noti-button" @click="abrirModal">
       <i class="bi bi-bell-fill blue-bell"></i>
-      <span v-if="notificaciones.length" class="badge-noti">
-        {{ notificaciones.length }}
+      <span v-if="pendientes" class="badge-noti">
+        {{ pendientes }}
       </span>
     </div>
 
@@ -47,7 +47,8 @@ export default {
       notificaciones: [],
       indiceActual: 0,
       codigos: { mexico: 'MX', peru: 'PE', colombia: 'CO', centroamerica: 'CR' },
-      lugar: null
+      lugar: null,
+      vistas: new Set()
     };
   },
   watch: {
@@ -59,15 +60,33 @@ export default {
       }
     }
   },
+  computed: {
+    pendientes() {
+      return this.notificaciones.length - this.vistas.size;
+    }
+  },
   methods: {
+    abrirModal(indice) {
+      this.mostrarModal = true;
+      this.marcarVista(indice);
+    },
     cerrarModal() {
       this.mostrarModal = false;
     },
+    marcarVista(indice) {
+      this.vistas.add(indice);
+    },
     siguiente() {
-      if (this.indiceActual < this.notificaciones.length - 1) this.indiceActual++;
+      if (this.indiceActual < this.notificaciones.length - 1) {
+        this.indiceActual++
+        this.marcarVista(this.indiceActual)
+      }
     },
     anterior() {
-      if (this.indiceActual > 0) this.indiceActual--;
+      if (this.indiceActual > 0) {
+        this.indiceActual--
+        this.marcarVista(this.indiceActual)
+      }
     },
      formatearURL(url) {
       if (!url.startsWith("http")) {
@@ -78,6 +97,7 @@ export default {
     async fetchNotificaciones(paisCodigo) {
       try {
         this.notificaciones = []
+        this.vistas = new Set()
         this.indiceActual = 0;
         const response = await fetch(process.env.VUE_APP_API_NOTIFICACIONES_URL, {
           method: 'POST',
